@@ -1,2 +1,2 @@
-# phylogenetics-2022
-Phylogenetics course Summer semester 2022
+# phylogenetics-2025
+Phylogenetics course Summer semester 2025
