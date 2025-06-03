@@ -32,8 +32,8 @@ dt <- data.frame(schedule = c("1", "2",
                            "10.06", "17.06", 
                            "24.06", "01.07"),
                  topics = c("Phylodynamics I", "**No class**",
-                            "Morphological models and model adequacy (LM)", "Phylogenetic comparative methods (ED)", "**No class**", "Phylodynamics II",
-                            "Project work/tbd", "Project work/tbd",
+                            "Morphological models and model adequacy (LM)", "Phylogenetic comparative methods (ED)", "**No class**", "Exercise review",
+                            "Phylodynamics II", "Project work/tbd",
                             "Project work/tbd", "Project work/tbd"
                             ))
 
@@ -79,6 +79,26 @@ urls <- c("slides/07-morphological-models.pdf","https://revbayes.github.io/tutor
 
 dt <- data.frame(schedule = c("Slides", "Exercise"),
                  topics = c("Morphological models", "Model adequacy using RevBayes"))
+
+dt$schedule[1] <- paste0("[", dt$schedule[1], "](", urls[1], ")")
+dt$schedule[2] <- paste0("[", dt$schedule[2], "](", urls[2], ")")
+
+kbl(dt) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
+
+\
+
+## Week 5 materials
+
+```{r, echo = FALSE}
+library(kableExtra)
+
+urls <- c("https://revbayes.github.io/tutorials/divrate/simple","https://revbayes.github.io/tutorials/pps_morpho/")
+
+dt <- data.frame(schedule = c("Exercise", "Exercise"),
+                 topics = c("Diversification rate estimation using RevBayes", "Model adequacy using RevBayes"))
 
 dt$schedule[1] <- paste0("[", dt$schedule[1], "](", urls[1], ")")
 dt$schedule[2] <- paste0("[", dt$schedule[2], "](", urls[2], ")")
