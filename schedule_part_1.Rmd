@@ -99,7 +99,7 @@ kbl(dt) %>%
 
 **Reading**
 
-* Reading [Bayesian Inference of Phylogeny and Its Impact on Evolutionary Biology](https://www.science.org/doi/epdf/10.1126/science.1065889)
+* [Bayesian Inference of Phylogeny and Its Impact on Evolutionary Biology](https://www.science.org/doi/epdf/10.1126/science.1065889)
 
 \ 
 
@@ -128,6 +128,11 @@ kbl(dt) %>%
   kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
 
 ```
+
+**Reading**
+
+* [Bayesian molecular dating: opening up the black box](https://onlinelibrary.wiley.com/doi/abs/10.1111/brv.12390)
+* [Understanding the tripartite approach to Bayesian divergence time estimation](https://ecoevorxiv.org/repository/view/4372/)
 
 \
 \

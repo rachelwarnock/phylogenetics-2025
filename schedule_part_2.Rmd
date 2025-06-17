@@ -33,8 +33,8 @@ dt <- data.frame(schedule = c("1", "2",
                            "24.06", "01.07"),
                  topics = c("Phylodynamics I", "**No class**",
                             "Morphological models and model adequacy (LM)", "Phylogenetic comparative methods (ED)", "**No class**", "Exercise review",
-                            "Phylodynamics II", "Project work/tbd",
-                            "Project work/tbd", "Project work/tbd"
+                            "**No class** (office hours 06.06 & 13.06)", "Intro to BEAST2",
+                            "Phylodynamics II", "Project work/tbd"
                             ))
 
 names(dt)[1] <- ""
@@ -70,7 +70,7 @@ kbl(dt) %>%
 
 \
 
-## Week 2 materials
+## Week 3 materials
 
 ```{r, echo = FALSE}
 library(kableExtra)
@@ -100,6 +100,25 @@ urls <- c("https://revbayes.github.io/tutorials/divrate/simple","https://revbaye
 dt <- data.frame(schedule = c("Exercise", "Exercise"),
                  topics = c("Diversification rate estimation using RevBayes", "Model adequacy using RevBayes"))
 
+dt$schedule[1] <- paste0("[", dt$schedule[1], "](", urls[1], ")")
+dt$schedule[2] <- paste0("[", dt$schedule[2], "](", urls[2], ")")
+
+kbl(dt) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
+
+\
+
+## Week 8 materials
+
+```{r, echo = FALSE}
+library(kableExtra)
+
+urls <- c("slides/08-BEAST2.pdf","https://taming-the-beast.org/tutorials/Introduction-to-BEAST2/")
+
+dt <- data.frame(schedule = c("Slides", "Exercise"),
+                 topics = c("Intro to BEAST2", "Node dating using BEAST2"))
 dt$schedule[1] <- paste0("[", dt$schedule[1], "](", urls[1], ")")
 dt$schedule[2] <- paste0("[", dt$schedule[2], "](", urls[2], ")")
 
