@@ -129,6 +129,23 @@ kbl(dt) %>%
 
 \
 
+## Week 9 materials
+
+```{r, echo = FALSE}
+library(kableExtra)
+
+urls <- c("slides/08-BEAST2.pdf","exercise-BDMMP.html")
+
+dt <- data.frame(schedule = c("Slides", "Exercise"),
+                 topics = c("Phylodynamics II", "BDMM-Prime"))
+dt$schedule[1] <- paste0("[", dt$schedule[1], "](", urls[1], ")")
+dt$schedule[2] <- paste0("[", dt$schedule[2], "](", urls[2], ")")
+
+kbl(dt) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
+
 # Homework
 
 During breaks in the schedule we'd like you to watch the following 4 video lectures by [**Paul Lewis**](https://plewis.github.io/) and answer a set of questions we have prepared. Paul Lewis has made numerous important contributions to the field of statistical phylogenetics, as well as producing excellent tools and materials for learning about phylogenetic theory.
