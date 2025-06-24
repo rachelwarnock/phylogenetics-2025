@@ -88,7 +88,7 @@ Note that the Site Model is *unlinked* across partitions, while the Clock and Tr
 
 Navigate to the Tip Dates panel and select 'Use tip dates'. Here we can extract information about the age of our samples from the tip labels. For our analysis, the time units are in millions of years, so we'll leave 'year' selected in the first drop down menu. From the second drop down menu change 'Since some time in the past' to 'Before the present'. 
 
-Next select 'Auto-configure'. Leave 'use everything' selected and from the drop down menu select 'after last', leaving the delimintor as "_". This will extract age information from the end of your taxon labels. 
+Next select 'Auto-configure'. Leave 'use everything' selected and from the drop down menu select 'after last', leaving the delimiter as "_". This will extract age information from the end of your taxon labels. 
 
 ```{r, echo=FALSE, out.width="70%",  out.extra='style="padding:5px"'}
 knitr::include_graphics("BDMMP/03_Tip_Dates.png")
@@ -126,7 +126,7 @@ Here we will set up all the tree model and all the prior parameters associated w
 
 Let's start with clock model parameters, 'ucldMean' and 'ucldStdev', which you should already see listed here.
 
-For the mean on the overall clock rate we will use a normal prior, following the original study, with a mean of 0.001 and a variance of 0.01. Note that rates cannot be negative so the distibution is truncated at zero. Finally, select the 'initial' value option next to the distribiton and change 'Value' to 0.001. This ensures our analysis starts in a reasonable part of the parameter space. Click 'OK'.
+For the mean on the overall clock rate we will use a normal prior, following the original study, with a mean of 0.001 and a variance of 0.01. Note that rates cannot be negative so the distribution is truncated at zero. Finally, select the 'initial' value option next to the distribution and change 'Value' to 0.001. This ensures our analysis starts in a reasonable part of the parameter space. Click 'OK'.
 
 ```{r, echo=FALSE, out.width="80%",  out.extra='style="padding:5px"'}
 knitr::include_graphics("BDMMP/06a_Clock_priors.png")
@@ -157,7 +157,7 @@ For macroevolution we can choose from two options:
 - The "Canonical Parameterization", which is parameterises the model using the birth, death, and sampling rates
 - The "Fossilized Birth Death Parameterization" which is parameterized using diversifcation rate, turnover rate, and Sampling Proportion
 
-The relationship between these parameters is shown in Table 1. Both are useful in macroevolution and your choice might depend on which parameters are of most interest to you or what prior information you have avaialble. Note that after your analysis is complete, you can always go from one set of parameters to the other via the transformations shown in the table.
+The relationship between these parameters is shown in Table 1. Both are useful in macroevolution and your choice might depend on which parameters are of most interest to you or what prior information you have available. Note that after your analysis is complete, you can always go from one set of parameters to the other via the transformations shown in the table.
 
 In this tutorial we'll use the "Canonical Parameterization", which you can select from the drop down menu next to Parameterization. This option can be applied to a wide range of scenarios in both epidemiology and macroevolution. 
 
@@ -270,4 +270,5 @@ Finally, click 'Run'. You can then open the consensus tree in FigTree or IcyTree
 > Can you spot any differences with the [published topology](https://www.nature.com/articles/s41559-019-1047-3)
 
 
+In this analysis we treated the fossil ages as fixed - this is not good practice and the tree topology we infer without accounting for fossil age uncertainty is actually a bit weird. For example, the analysis does not recover Reptilia or Synapsida as monophyletic. The more conventionally accepted topology is recovered once we take this into account. An xml file is provided for the same analysis including age uncertainty. This analysis takes longer to run, so the pre-cooked output for this analysis has also been [provided](BDMM-precooked.zip). 
 
