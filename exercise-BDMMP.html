@@ -327,16 +327,18 @@ should look like this:</li>
 <p><img src="BDMMP/01-BDMMP-URL.png" width="70%" style="padding:5px" /></p>
 <ol start="4" style="list-style-type: decimal">
 <li>Click ‘OK’. The BDMM-Prime package should now appear in your list of
-installed packages.</li>
-<li>To ensure you have the latest version installed, you can select the
-BDMM-Prime package and click ‘Install/Upgrade’ at the bottom of the
-window.</li>
+installed packages. [Could be clearer when to click ok vs. close.]</li>
+<li>Select the BDMM-Prime package and click ‘Install/Upgrade’ at the
+bottom of the window. This ensures you have the latest version
+installed.</li>
 </ol>
 <p><img src="BDMMP/01b-BDMMP-install.png" width="80%" style="padding:5px" /></p>
-<p>If you haven’t done so already, you will also need to install the MM
-package for models of morphological evolution to complete this
-tutorial.</p>
-<p>Restart BEAUTi to set up an analysis using BDMM-Prime.</p>
+<p>If you haven’t done so already, you will also need to <strong>install
+the MM package</strong> for models of morphological evolution to
+complete this tutorial. This package also appears on the same list in
+the Package Manager.</p>
+<p><strong>Restart BEAUTi to set up an analysis using
+BDMM-Prime.</strong></p>
 </div>
 <div id="the-partitions-panel" class="section level2">
 <h2>The Partitions panel</h2>
@@ -431,11 +433,13 @@ so we need to be careful to select parameter combinations that make
 sense for our dataset.</p>
 <p>There are three options for parameterising the birth-death model
 using BDMM-Prime.</p>
-<p>For macroevolution we can choose from two options: - The “Canonical
-Parameterization”, which is parameterises the model using the birth,
-death, and sampling rates - The “Fossilized Birth Death
-Parameterization” which is parameterized using diversifcation rate,
-turnover rate, and Sampling Proportion</p>
+<p>For macroevolution we can choose from two options:</p>
+<ul>
+<li>The “Canonical Parameterization”, which is parameterises the model
+using the birth, death, and sampling rates</li>
+<li>The “Fossilized Birth Death Parameterization” which is parameterized
+using diversifcation rate, turnover rate, and Sampling Proportion</li>
+</ul>
 <p>The relationship between these parameters is shown in Table 1. Both
 are useful in macroevolution and your choice might depend on which
 parameters are of most interest to you or what prior information you
@@ -456,7 +460,7 @@ to 0.1 - these are the starting values for these parameters. Click on
 each value to edit it and press enter. Notice that ‘Estimate values’ is
 checked for all three of these parameters, which means these parameters
 will be estimated and not fixed during inference.</p>
-<p><img src="BDMMP/07b_tree-priors.png" width="80%" style="padding:5px" /></p>
+<p><img src="BDMMP/07_tree-priors.png" width="80%" style="padding:5px" /></p>
 <p>Scroll down to the next set of parameters of interest. Rho Sampling
 is the probability of sampling a lineage at a given time. In
 macroevolution this is usually associated with the extant sampling
@@ -532,7 +536,8 @@ appear next to this constraint.</p>
 <p>Finally, navigate to the MCMC panel. For now, we’ll leave the MCMC
 settings as the defaults.</p>
 <p><img src="BDMMP/08_MCMC.png" width="80%" style="padding:5px" /></p>
-<p>Go to File &gt; Save as to save your xml input file.</p>
+<p>Go to File &gt; Save as to save your xml input file. Call it
+something like ‘amniotes_constant_rates_FBD.xml’ or something.</p>
 </div>
 <div id="running-beast" class="section level2">
 <h2>Running BEAST</h2>
@@ -542,10 +547,28 @@ right working directory. Select your xml file and click Run.</p>
 </div>
 <div id="examining-the-output" class="section level2">
 <h2>Examining the output</h2>
-<p>We’ll go over this together!</p>
-<p>Examine your output using Tracer and TreeAnnotator, using the
-previous <a
-href="https://taming-the-beast.org/tutorials/Introduction-to-BEAST2/">guidelines</a>.</p>
+<p>First open the .log file in Tracer and explore the output. It should
+look something like this.</p>
+<p><img src="BDMMP/tracer.png" width="70%" style="padding:5px" /></p>
+<blockquote>
+<p>Has your analysis converged?</p>
+</blockquote>
+<p>Next let’s generate a consensus tree. Open the TreeAnnotator
+application. For the ‘Target tree type’ we’ll stick with the default
+‘Maximum clade credibility tree’. For the ‘Node Heights’ select ‘Median
+heights’ from the drop down menu.</p>
+<p>For the Input Tree File: Choose file… navigate to your working
+directory and select the .trees file. For the Output File: Choose file…
+enter the name of your consensus tree file, something like
+‘amniotes.con.tre’.</p>
+<p><img src="BDMMP/treeann.png" width="50%" style="padding:5px" /></p>
+<p>Finally, click ‘Run’. You can then open the consensus tree in FigTree
+or IcyTree.</p>
+<blockquote>
+<p>Can you spot any differences with the <a
+href="https://www.nature.com/articles/s41559-019-1047-3">published
+topology</a></p>
+</blockquote>
 </div>
 </div>
 
