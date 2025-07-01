@@ -18,7 +18,7 @@ This tutorial assumes that you have already gained some experience using BEAST2.
 
 ## Background
 
-BDMM-Prime is a package written for flexible phylodynamic inference. It combines the functionality of multiple other packages, including the BDSKY and SA packages, and can be applied to a wide range of scenarios in epidemiology and macroevolution. Due to the flexibility and the large variety of ways in which model parameters can be combined using BDMM-Prime, there's more options to consider when setting up your analysis.
+BDMM-Prime is a package written for flexible phylodynamic inference. It combines the functionality of multiple other packages, including the BDMM, BDSKY and SA packages, and can be applied to a wide range of scenarios in epidemiology and macroevolution. Due to the flexibility and the large variety of ways in which model parameters can be combined using BDMM-Prime, there's more options to consider when setting up your analysis.
 
 ```{r hidden_notes, eval=FALSE, echo=FALSE}
 ## In addition to standard phylodynamic inference, i.e., inferring time trees and rates associated with the underlying phylodynamic model, BDMM-Prime can output a file that allows you to infer population size trajectories.
@@ -26,15 +26,16 @@ BDMM-Prime is a package written for flexible phylodynamic inference. It combines
 ## In this tutorial, we'll explore whether there is evidence that rates of diversification or sampling vary across these three regions.
 ##For alternative options see... XXX
 ##[Note to other editors: based on my experience trying to help others use BDMM-Prime this part is quite overwhelming people the most and often leads to errors in their set up]
+## bit weird... For example, the analysis does not recover Reptilia or Synapsida as monophyletic. The more conventionally accepted topology is recovered once we take this into account. 
 ```
 
-This tutorial walks through an example of how the package can be applied in macroevolution. 
+This tutorial walks you through an example of how the package can be applied in macroevolution. 
 
 ## The data
 
 In this tutorial we'll use a published dataset of [aminotes](https://en.wikipedia.org/wiki/Amniote) that has been used previously to explore the early evolution of this group. 
 
-The data comprises 294 characters for 70 fossils, as well as their age and locality information, spanning ~70 myr from the late Carboniferous to the mid Triassic. The specimens can be categorised into three broad geographic areas associated with the supercontinent [Pangea](https://en.wikipedia.org/wiki/Pangaea). These correspond approximately to what would be known today as Eurasia, North America, and South Africa.
+The data comprises 294 characters for 70 fossils, as well as their age and locality information, spanning ~70 myr from the late Carboniferous to the mid Triassic. The specimens can be categorised into three broad geographic areas associated with the north, middle, and south of the supercontinent [Pangea](https://en.wikipedia.org/wiki/Pangaea). These correspond approximately to what would be known today as Eurasia, North America, and South Africa.
 
 ## Installing the BDMM-Prime package
 
@@ -43,26 +44,26 @@ The first thing we need to do is install the BDMM-Prime package. This package is
 1. Open BEAUTi and go to File > Manage Packages. 
 2. Select 'Package repositories' at the bottom of this window. This will open the 'Package Repository Manager'. 
 3. At the bottom click 'Add URL' and enter the following address: https://tgvaughan.github.io/BDMM-Prime/package.xml 
-It should look like this:
+After you click 'OK' your window  should look like this:
 
 ```{r, echo=FALSE, out.width="70%",  out.extra='style="padding:5px"'}
 knitr::include_graphics("BDMMP/01-BDMMP-URL.png")
 ```
 
-4. Click 'OK'. The BDMM-Prime package should now appear in your list of installed packages. [Could be clearer when to click ok vs. close.]
-5. Select the BDMM-Prime package and click 'Install/Upgrade' at the bottom of the window. This ensures you have the latest version installed.
+4. Click 'Close'. The BDMM-Prime package should now appear in your list of installed packages.
+5. Select the BDMM-Prime package and click 'Install/Upgrade' at the bottom of the window. This should bring up a message that confirms that the package has been successfully installed.
 
 ```{r, echo=FALSE, out.width="80%",  out.extra='style="padding:5px"'}
 knitr::include_graphics("BDMMP/01b-BDMMP-install.png")
 ```
 
-If you haven't done so already, you will also need to **install the MM package** for models of morphological evolution to complete this tutorial. This package also appears on the same list in the Package Manager.
+5. If you haven't done so already, **you will also need to install the MM package** for models of morphological evolution to complete this tutorial. This package should already appear on the same list in the Package Manager. You just need to click 'Install/Upgrade'.
 
 **Restart BEAUTi to set up an analysis using BDMM-Prime.**
 
 ## The Partitions panel
 
-Download the [nexus file](data/amniotes.nex) associated with this tutorial. To input your data into BEAUTi, download the nexus file and either drag and drop the file into the Partitions panel and select 'Add Morphological Data' or go to File > 'Add Morphological Data'.
+Download the [nexus file](data/amniotes.nex) associated with this tutorial. To input your data into BEAUTi, download the nexus file and either drag and drop the file into the Partitions panel and select 'Add Morphological Data' and then 'OK' or go to File > 'Add Morphological Data'.
 
 ```{r, echo=FALSE, out.width="40%",  out.extra='style="padding:5px"'}
 knitr::include_graphics("BDMMP/02a-BDMMP-Partitions.png")
@@ -94,7 +95,7 @@ Next select 'Auto-configure'. Leave 'use everything' selected and from the drop 
 knitr::include_graphics("BDMMP/03_Tip_Dates.png")
 ```
 
-Note that although our samples span an interval in the past, internally BEAST rescales the tree such the youngest sample in the tree is at t = 0. The rescaled values are shown under the column Age/Height. 
+Note that although our samples span an interval in the past, internally BEAST rescales the tree such that the youngest sample in the tree is at t = 0. The rescaled values are shown under the column Age/Height. 
 
 To make sure everything is set up correctly, if you scroll down, the youngest fossil, 'Candelaria_barbouri_NAm_239.5', should have a "0.0" next to it under the Age/Height column.
 
@@ -120,7 +121,7 @@ knitr::include_graphics("BDMMP/05_Clock_model.png")
 
 ## The Priors panel
 
-Here we will set up all the tree model and all the prior parameters associated with our analysis.
+Here we will set up the tree model and all the prior parameters associated with our analysis.
 
 ### Clock model parameters
 
@@ -133,43 +134,50 @@ knitr::include_graphics("BDMMP/06a_Clock_priors.png")
 ```
 
 ```{r, echo=FALSE, out.width="80%",  out.extra='style="padding:5px"'}
-knitr::include_graphics("BDMMP/06c_Clock_priors.png")
+knitr::include_graphics("BDMMP/06b_Clock_priors.png")
 ```
 
 For the standard deviation of the distribution of clock rates, we'll use an exponential prior with a mean of 0.1. 
 
 ```{r, echo=FALSE, out.width="80%",  out.extra='style="padding:5px"'}
-knitr::include_graphics("BDMMP/06b_Clock_priors.png")
+knitr::include_graphics("BDMMP/06c_Clock_priors.png")
 ```
 
-These prior choices match our expectations about rates of morphological evolution estimated in previous analyses of vertebrates, i.e., the rates tend to be relatively low. 
+These prior choices match our expectations about rates of morphological evolution estimated in previous analyses of vertebrates, i.e., the rates tend to be relatively low, with some degree of variation across branches. 
 
 ### BDMM-Prime
 
 Next let's set up the phylodynamic model. Select 'BDMMPrime' from drop down menu at the top of the Priors panel. 
 
-There are a lot of options for combining parameters using BDMM-Prime, so we need to be careful to select parameter combinations that make sense for our dataset.
- 
-There are three options for parameterising the birth-death model using BDMM-Prime. 
-
-For macroevolution we can choose from two options:
+There are a lot of options for combining parameters using BDMM-Prime, so we need to be careful to select parameter combinations that make sense for our dataset. There are three options for parameterising the birth-death model using BDMM-Prime. For macroevolution we can choose from two options:
 
 - The "Canonical Parameterization", which is parameterises the model using the birth, death, and sampling rates
-- The "Fossilized Birth Death Parameterization" which is parameterized using diversifcation rate, turnover rate, and Sampling Proportion
+- The "Fossilized Birth Death Parameterization", which is parameterized using diversifcation rate, turnover rate, and Sampling Proportion
+
+| Parameter    | Transformation |
+| :-------- | :-------: |
+| Speciation ($\lambda$)  | $\lambda = d / (1 - v)$    |
+| Extinction ($\mu$)  | $\mu = (vd)(1-v)$    |
+| Sampling ($\psi$)  | $\psi = (s/ (1-s))((vd)/(1-v)) $    |
+| Net diversification ($d$)  | $d = \lambda - \mu$    |
+| Turnover ($v$) | $v = \mu/\lambda$     |
+| Sampling proportion ($s$) | $s = \psi/(\mu + \psi)$     |
+
+: Table 1 Model parametrizations
 
 The relationship between these parameters is shown in Table 1. Both are useful in macroevolution and your choice might depend on which parameters are of most interest to you or what prior information you have available. Note that after your analysis is complete, you can always go from one set of parameters to the other via the transformations shown in the table.
 
-In this tutorial we'll use the "Canonical Parameterization", which you can select from the drop down menu next to Parameterization. This option can be applied to a wide range of scenarios in both epidemiology and macroevolution. 
+In this tutorial we'll use the "Canonical Parameterization", which you can select from the drop down menu next to 'Parameterization'. This option can be applied to a wide range of scenarios in both epidemiology and macroevolution. 
 
-Later we will assign taxa to types based on their geographic provinance but for the first analysis in this tutorial we'll assume that birth, death, and sampling are all constant through time and across our tree. Thus we'll leave "Number of change times" for each of these parameters as 0 (but see below). The only change we'll make is to change the value listed next to Birth Rate and Death Rate in Epoch 1 from 1.0 to 0.1 - these are the starting values for these parameters. Click on each value to edit it and press enter. Notice that 'Estimate values' is checked for all three of these parameters, which means these parameters will be estimated and not fixed during inference.  
+Later we will assign taxa to types based on their geographic provinance but for the first analysis in this tutorial we'll assume that birth, death, and sampling are all constant through time and across our tree. Thus we'll leave "Number of change times" for each of these parameters as 0 (but see below). The only change we'll make is to the value listed next to 'Birth Rate' and 'Death Rate' in Epoch 1, from 1.0 to 0.1 - these are the starting values for these parameters. Click on each value to edit it and press enter. Notice that 'Estimate values' is checked for all three of these parameters, which means these parameters will be estimated and not fixed during inference.  
 
 ```{r, echo=FALSE, out.width="80%",  out.extra='style="padding:5px"'}
-knitr::include_graphics("BDMMP/07_tree-priors.png")
+knitr::include_graphics("BDMMP/07a_tree-priors.png")
 ```
 
-Scroll down to the next set of parameters of interest. Rho Sampling is the probability of sampling a lineage at a given time. In macroevolution this is usually associated with the extant sampling probability at t = 0. In our case study, we have no sampling beyond the period of interest, i.e., the youngest sample included in our dataset is from the Triassic. There are many amniotes that persisted beyond this interval until the present but these are not included in our dataset. This means we have no rho-sampled taxa and it makes sense to leave Rho = 0.0.
+Scroll down to the next set of parameters of interest. 'Rho Sampling' is the probability of sampling a lineage at a given time. In macroevolution this is usually associated with the extant sampling probability at t = 0. In our case study, we have no sampling beyond the period of interest, i.e., the youngest sample included in our dataset is from the Triassic. There are many amniotes that persisted beyond this interval until the present but these are not included in our dataset. This means we have no rho-sampled taxa and it makes sense to leave Rho = 0.0.
 
-The next parameter of note is the Removal Prob - this is the probability that a lineage is removed from the population upon sampling and makes more sense in an epidemiological context. We need to change this to 0.0. Select the valued listed next to Epoch 1 and change it to 0.0.
+The next parameter of note is the 'Removal Prob' - this is the probability that a lineage is removed from the population upon sampling and makes more sense in an epidemiological context. We need to change this to 0.0. Select the value listed next to Epoch 1 and change it to 0.0.
 
 ```{r, echo=FALSE, out.width="80%",  out.extra='style="padding:5px"'}
 knitr::include_graphics("BDMMP/07b_tree-priors.png")
@@ -179,7 +187,7 @@ For now you can leave everything else under this tab as it is. If you close this
 
 For the birth, death, and sampling rate parameters we'll use an exponential prior with a mean = 0.1. This matches values that are typically estimated for these parameters in paleobiology.
 
-From the drop down menu next to birthRateCanonical select 'Exponential' and expand this selection. Change the mean of this distribution to 0.1.
+From the drop down menu next to 'birthRateCanonical' select 'Exponential' and expand this selection. Change the mean of this distribution to 0.1.
 
 ```{r, echo=FALSE, out.width="80%",  out.extra='style="padding:5px"'}
 knitr::include_graphics("BDMMP/07c_tree-priors.png")
@@ -196,7 +204,7 @@ knitr::include_graphics("BDMMP/07e_tree-priors.png")
 ```
 
 For the origin time parameter, we'll also use an exponential distribution following the original study, with an offset = 318.1 Ma and a mean = 327.5 Ma.
-However, recall that BEAST scales the tree such the youngest sample is always zero, so these values need to be defined relative to t = 0. Select 'Exponential' from the drop down menu next to originBDMMPrime and expand this selection. Change the offset to 81.1, which is 318.1 minus the youngest time of our sampling interval = 237, and change the mean to 10.0. Finally, select the 'initial' value box and change 'Value' to 100.0. Click 'OK'.
+However, recall that BEAST scales the tree such the youngest sample is always zero, so these values need to be defined relative to t = 0. Select 'Exponential' from the drop down menu next to 'originBDMMPrime' and expand this selection. Change the offset to 81.1, which is 318.1 minus the youngest age of our sampling interval = 237, and change the mean to 10.0. Finally, select the 'initial' value box and change 'Value' to 100.0. Click 'OK'.
 
 ```{r, echo=FALSE, out.width="80%",  out.extra='style="padding:5px"'}
 knitr::include_graphics("BDMMP/07f_tree-priors.png")
@@ -208,38 +216,40 @@ knitr::include_graphics("BDMMP/07g_tree-priors.png")
 
 ### Adding taxonomic constraints
 
-We're going to use two taxonomic constraints for this analysis. Srcoll down to the bottom of the Priors panel and click '+Add Prior'. From the drop down menu select MRCA prior. Click 'OK'. This will open a box where you can define groups of taxa. 
+We're going to use two taxonomic constraints for this analysis. Srcoll down to the bottom of the Priors panel and click '+Add Prior'. From the drop down menu select 'MRCA prior'. Click 'OK'. This will open a box where you can define groups of taxa. 
 
 For the first constraint, type 'ingroup1' into the box next to 'Taxon set label'. From the list of taxa on the left click on any taxa and use select all (e.g., cmd + A) to highlight all of them. Scroll down to 'Gephyrostegus bohemicus' and deselect this taxon using cmd + shift. Click the '>>' button. Now all taxa except Gephyrostegus should appear on the right. Alternatively, you can select all of them, move them to the right and simply move Gephyrostegus back to the left using the '<<' button. 
 
 ```{r, echo=FALSE, out.width="50%",  out.extra='style="padding:5px"'}
-knitr::include_graphics("BDMMP/07a_tcons.png")
+knitr::include_graphics("BDMMP/08a_tcons.png")
 ```
 
-Click OK and then select the checkbox that says 'monophyletic' that appear next to this constraint.
+Click OK and then select the checkbox that says 'monophyletic' that appears next to this constraint.
 
-To add the next constraint, click '+Add Prior'. From the drop down menu select MRCA prior. Click 'OK'. 
+To add the next constraint, click '+Add Prior'. From the drop down menu select 'MRCA prior'. Click 'OK'. 
 
-For the first constraint, type 'ingroup2' into the box next to 'Taxon set label'. This next constraint will include all taxa excluding 'Gephyrostegus bohemicus' and 'Seymouria_spp'.
+For the second constraint, type 'ingroup2' into the box next to 'Taxon set label'. This next constraint will include all taxa excluding 'Gephyrostegus bohemicus' and 'Seymouria_spp'.
 
 ```{r, echo=FALSE, out.width="50%",  out.extra='style="padding:5px"'}
-knitr::include_graphics("BDMMP/07b_tcons.png")
+knitr::include_graphics("BDMMP/08b_tcons.png")
 ```
-Click OK and then select the checkbox that says 'monophyletic' that appear next to this constraint.
+Click 'OK' and then select the checkbox that says 'monophyletic' that appears next to this constraint.
 
 ```{r, echo=FALSE, out.width="80%",  out.extra='style="padding:5px"'}
-knitr::include_graphics("BDMMP/07c_tcons.png")
+knitr::include_graphics("BDMMP/08c_tcons.png")
 ```
 
 ## The MCMC panel
 
-Finally, navigate to the MCMC panel. For now, we'll leave the MCMC settings as the defaults. 
+Navigate to the MCMC panel. For now, we'll leave all the MCMC settings as the defaults. 
 
 ```{r, echo=FALSE, out.width="80%",  out.extra='style="padding:5px"'}
-knitr::include_graphics("BDMMP/08_MCMC.png")
+knitr::include_graphics("BDMMP/09_MCMC.png")
 ```
 
-Go to File > Save as to save your xml input file. Call it something like 'amniotes_constant_rates_FBD.xml' or something.
+Go to 'File > Save as' to save your xml input file. Call it something like 'amniotes_constant_rates_FBD.xml' or anything you like.
+
+**Do not close BEAUti!**
 
 ## Running BEAST
 
@@ -259,16 +269,87 @@ knitr::include_graphics("BDMMP/tracer.png")
 
 Next let's generate a consensus tree. Open the TreeAnnotator application. For the 'Target tree type' we'll stick with the default 'Maximum clade credibility tree'. For the 'Node Heights' select 'Median heights' from the drop down menu.
 
-For the Input Tree File: Choose file... navigate to your working directory and select the .trees file. For the Output File: Choose file... enter the name of your consensus tree file, something like 'amniotes.con.tre'.
+For the 'Input Tree File: Choose file...' navigate to the right working directory and select the .trees file. For the 'Output File: Choose file...' enter the name of your consensus tree file, which will be output by TreeAnnotator. Call it something like 'amniotes_constant_rates_FBD.con.tre'.
 
 ```{r, echo=FALSE, out.width="50%",  out.extra='style="padding:5px"'}
 knitr::include_graphics("BDMMP/treeann.png")
 ```
 
-Finally, click 'Run'. You can then open the consensus tree in FigTree or IcyTree.
+Finally, click 'Run'. Once the process is complete you can open the consensus tree in FigTree or IcyTree.
 
-> Can you spot any differences with the [published topology](https://www.nature.com/articles/s41559-019-1047-3)
+> Can you spot any differences with the [published topology]?(https://www.nature.com/articles/s41559-019-1047-3)
 
+In this analysis we treated the fossil ages as fixed - this is not good practice and the tree topology we infer without accounting for fossil age uncertainty is a bit different. An xml file is provided for the same analysis including age uncertainty. This analysis takes longer to run, so the pre-cooked output for this analysis has also been [provided](BDMM-precooked.zip). 
 
-In this analysis we treated the fossil ages as fixed - this is not good practice and the tree topology we infer without accounting for fossil age uncertainty is actually a bit weird. For example, the analysis does not recover Reptilia or Synapsida as monophyletic. The more conventionally accepted topology is recovered once we take this into account. An xml file is provided for the same analysis including age uncertainty. This analysis takes longer to run, so the pre-cooked output for this analysis has also been [provided](BDMM-precooked.zip). 
+## The multi-type birth-death process (part 2)
+
+Return to the Priors panel in BEAUti. Next we're going to add information to the analysis about geographic area. Expand the tree model selection and scroll down to Type Trait Set. Click Auto-configure. Select 'split on character' and from the drop down menu next to 'and take group(s):' select 3. 
+
+```{r, echo=FALSE, out.width="50%",  out.extra='style="padding:5px"'}
+knitr::include_graphics("BDMMP/10a_types.png")
+```
+
+Click 'OK'. You should now be able to see the geographic area associated with each fossil in the 'Type' column. 
+
+```{r, echo=FALSE, out.width="80%",  out.extra='style="padding:5px"'}
+knitr::include_graphics("BDMMP/10b_types.png")
+```
+
+Scroll up and you should see some additional options have been added for the tree model. In particular, options will have been added for the 'Migration Rate' and 'Birth Rate Among Demes' parameters. The migration rate can be interpreted as the rate of change between types (in our case, geographic areas). We'll estimate this parameter and leave the settings as they are here. The birth rate among demes can be interpreted as the rate of "spontaneous" change between types - in epidemiology this might be used together with types that are associated with specific mutations. This parameter doesn't really have an analogous meaning in our macroevolutionary context, so we'll simply fix this parameter to zero.
+
+```{r, echo=FALSE, out.width="80%",  out.extra='style="padding:5px"'}
+knitr::include_graphics("BDMMP/10c_types.png")
+```
+
+Next scroll down and assign an exponential prior to the migration rate parameter.
+
+```{r, echo=FALSE, out.width="80%",  out.extra='style="padding:5px"'}
+knitr::include_graphics("BDMMP/10d_types.png")
+```
+
+In this analysis we want to allow sampling to vary across geographic areas. To do this scroll back up to the tree model options. You'll see that next to each parameter is a checked box called 'Scalar values' - this indicates that a single rate applies to all types. If you uncheck this box a separate rate will be applied to each type - in our case, each geographic region.
+
+```{r, echo=FALSE, out.width="80%",  out.extra='style="padding:5px"'}
+knitr::include_graphics("BDMMP/10e_types.png")
+```
+
+Navigate to the MCMC panel and change the 'Chain Length' to 1,000,000 (just delete one of the zeros).
+
+```{r, echo=FALSE, out.width="80%",  out.extra='style="padding:5px"'}
+knitr::include_graphics("BDMMP/11a_MCMC.png")
+```
+
+We're also going to switch off the 'typedTree' and 'nodeTypedTree' loggers - find these options and uncheck 'Enable Logger'.
+
+```{r, echo=FALSE, out.width="80%",  out.extra='style="padding:5px"'}
+knitr::include_graphics("BDMMP/11b_MCMC.png")
+```
+
+I recommend creating a new folder for this analysis. Go to 'File > Save as' to save your xml input file. Call it something like 'amniotes_multi_type_FBD.xml'. 
+
+**Do not close BEAUti!**
+
+## Running BEAST
+
+As above, run your analysis open the BEAST application and navigate to the right working directory. Select your xml file and click Run. 
+
+This analysis should take ~15 minutes to run. Ideally this analysis would run for much longer, e.g., 10,000,000+ generations, but this takes about 8 hours!! 
+
+## The skyline birth-death process (part 3)
+
+Return to the Priors panel in BEAUti. Next we're going to allow migration rate to vary across times Locate the options associated with 'Migration Rate'. Change 'Number of change times:' to 2. Select 'Relative to process length' and click 'Distribute evenly' - this means that the time between the origin of the process and the end will always be divided into 3 equal parts. You can select 'Display epoch visualisation' to make sure things are set up correctly.
+
+```{r, echo=FALSE, out.width="80%",  out.extra='style="padding:5px"'}
+knitr::include_graphics("BDMMP/12_skyline.png")
+```
+
+I recommend creating a new folder for this analysis. Go to 'File > Save as' to save your xml input file. Call it something like 'amniotes_multi_type_skyline_FBD.xml'. 
+
+## Running BEAST
+
+As above, run your analysis open the BEAST application and navigate to the right working directory. Select your xml file and click Run. 
+
+This analysis should take ~15 minutes to run. Ideally this analysis would run for much longer, e.g., 10,000,000+ generations, but this takes about 8 hours!! 
+
+> Compare the Trace files obtained using different parameter combinations. What conclusions can you draw?
 
