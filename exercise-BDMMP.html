@@ -292,24 +292,26 @@ It combines the functionality of multiple other packages, including the
 BDMM, BDSKY and SA packages, and can be applied to a wide range of
 scenarios in epidemiology and macroevolution. Due to the flexibility and
 the large variety of ways in which model parameters can be combined
-using BDMM-Prime, there’s more options to consider when setting up your
+using BDMM-Prime there’s more options to consider when setting up your
 analysis.</p>
-<p>This tutorial walks you through an example of how the package can be
-applied in macroevolution.</p>
+<p>This tutorial walks you through some examples of how the package can
+be applied in macroevolution. For an example in epidemiology see the <a
+href="https://tgvaughan.github.io/BDMM-Prime/#id-1-Introduction">BDMM-Prime
+package website</a>.</p>
 </div>
 <div id="the-data" class="section level2">
 <h2>The data</h2>
-<p>In this tutorial we’ll use a published dataset of <a
+<p>We’ll use a published dataset of <a
 href="https://en.wikipedia.org/wiki/Amniote">aminotes</a> that has been
 used previously to explore the early evolution of this group.</p>
 <p>The data comprises 294 characters for 70 fossils, as well as their
 age and locality information, spanning ~70 myr from the late
 Carboniferous to the mid Triassic. The specimens can be categorised into
-three broad geographic areas associated with the north, middle, and
-south of the supercontinent <a
-href="https://en.wikipedia.org/wiki/Pangaea">Pangea</a>. These
-correspond approximately to what would be known today as Eurasia, North
-America, and South Africa.</p>
+three broad geographic areas associated with the north, mid, and south
+of the supercontinent <a
+href="https://en.wikipedia.org/wiki/Pangaea">Pangea</a>, corresponding
+approximately to what would be known today as Eurasia, North America,
+and South Africa.</p>
 </div>
 <div id="installing-the-bdmm-prime-package" class="section level2">
 <h2>Installing the BDMM-Prime package</h2>
@@ -322,16 +324,16 @@ to install it using the package URL.</p>
 will open the ‘Package Repository Manager’.</li>
 <li>At the bottom click ‘Add URL’ and enter the following address: <a
 href="https://tgvaughan.github.io/BDMM-Prime/package.xml"
-class="uri">https://tgvaughan.github.io/BDMM-Prime/package.xml</a> After
-you click ‘OK’ your window should look like this:</li>
+class="uri">https://tgvaughan.github.io/BDMM-Prime/package.xml</a></li>
 </ol>
+<p>After you click ‘OK’ your window should look like this:</p>
 <p><img src="BDMMP/01-BDMMP-URL.png" width="70%" style="padding:5px" /></p>
 <ol start="4" style="list-style-type: decimal">
 <li>Click ‘Close’. The BDMM-Prime package should now appear in your list
-of installed packages.</li>
+of available packages.</li>
 <li>Select the BDMM-Prime package and click ‘Install/Upgrade’ at the
-bottom of the window. This should bring up a message that confirms that
-the package has been successfully installed.</li>
+bottom of the window. This should bring up a message that confirms the
+package has been successfully installed.</li>
 </ol>
 <p><img src="BDMMP/01b-BDMMP-install.png" width="80%" style="padding:5px" /></p>
 <ol start="5" style="list-style-type: decimal">
@@ -353,16 +355,16 @@ select ‘Add Morphological Data’ and then ‘OK’ or go to File &gt; ‘Add
 Morphological Data’.</p>
 <p><img src="BDMMP/02a-BDMMP-Partitions.png" width="40%" style="padding:5px" /></p>
 <p>This will bring up a window that asks, “Would you like to condition
-of recording variable characters only (Mkv)? Click ‘Yes’. Since we
+of recording variable characters only (Mkv)?” Click ‘Yes’. Since we
 typically don’t collect non-variable morphological characters this
 option makes sense for our dataset.</p>
 <p><img src="BDMMP/02b-BDMMP-Partitions.png" width="50%" style="padding:5px" /></p>
 <p>Your BEAUTi window should now look like this:</p>
 <p><img src="BDMMP/02c-BDMMP-Partitions.png" width="80%" style="padding:5px" /></p>
-<p>By default characters are separated into four partitions. This means
-that characters will be assigned to a substitution rate matrix where the
-number of possible states corresponds to the maximum observed state for
-each character.</p>
+<p>By default the characters are separated into four partitions. This
+means that characters will be assigned to a substitution rate matrix
+where the number of possible states corresponds to the maximum observed
+state for each character.</p>
 <p>Note that the Site Model is <em>unlinked</em> across partitions,
 while the Clock and Tree models are <em>linked</em> by default. This
 means that we will allow each partition to evolve under an separate
@@ -384,8 +386,8 @@ labels.</p>
 <p><img src="BDMMP/03_Tip_Dates.png" width="70%" style="padding:5px" /></p>
 <p>Note that although our samples span an interval in the past,
 internally BEAST rescales the tree such that the youngest sample in the
-tree is at t = 0. The rescaled values are shown under the column
-Age/Height.</p>
+tree is at t = 0. The rescaled values are shown under the Age/Height
+column.</p>
 <p>To make sure everything is set up correctly, if you scroll down, the
 youngest fossil, ‘Candelaria_barbouri_NAm_239.5’, should have a “0.0”
 next to it under the Age/Height column.</p>
@@ -439,14 +441,18 @@ sense for our dataset. There are three options for parameterising the
 birth-death model using BDMM-Prime. For macroevolution we can choose
 from two options:</p>
 <ul>
-<li>The “Canonical Parameterization”, which is parameterises the model
-using the birth, death, and sampling rates</li>
+<li>The “Canonical Parameterization”, which is parameterized using the
+birth (<span class="math inline">\(\lambda\)</span>), death (<span
+class="math inline">\(\mu\)</span>), and sampling rates (<span
+class="math inline">\(\psi\)</span>)</li>
 <li>The “Fossilized Birth Death Parameterization”, which is
-parameterized using diversifcation rate, turnover rate, and Sampling
-Proportion</li>
+parameterized using diversification rate (<span
+class="math inline">\(d\)</span>), turnover rate (<span
+class="math inline">\(v\)</span>), and sampling proportion (<span
+class="math inline">\(s\)</span>)</li>
 </ul>
 <table>
-<caption>Table 1 Model parametrizations</caption>
+<caption>Table 1 Alternative model parametrizations</caption>
 <thead>
 <tr class="header">
 <th align="left">Parameter</th>
@@ -469,7 +475,8 @@ class="math inline">\(\mu\)</span>)</td>
 <tr class="odd">
 <td align="left">Sampling (<span
 class="math inline">\(\psi\)</span>)</td>
-<td align="center">$= (s/ (1-s))((vd)/(1-v)) $</td>
+<td align="center"><span class="math inline">\(\psi = (s/
+(1-s))((vd)/(1-v))\)</span></td>
 </tr>
 <tr class="even">
 <td align="left">Net diversification (<span
@@ -498,10 +505,10 @@ always go from one set of parameters to the other via the
 transformations shown in the table.</p>
 <p>In this tutorial we’ll use the “Canonical Parameterization”, which
 you can select from the drop down menu next to ‘Parameterization’. This
-option can be applied to a wide range of scenarios in both epidemiology
-and macroevolution.</p>
+option can be applied to scenarios in both epidemiology and
+macroevolution.</p>
 <p>Later we will assign taxa to types based on their geographic
-provinance but for the first analysis in this tutorial we’ll assume that
+provenance but for the first analysis in this tutorial we’ll assume that
 birth, death, and sampling are all constant through time and across our
 tree. Thus we’ll leave “Number of change times” for each of these
 parameters as 0 (but see below). The only change we’ll make is to the
@@ -516,10 +523,11 @@ is the probability of sampling a lineage at a given time. In
 macroevolution this is usually associated with the extant sampling
 probability at t = 0. In our case study, we have no sampling beyond the
 period of interest, i.e., the youngest sample included in our dataset is
-from the Triassic. There are many amniotes that persisted beyond this
-interval until the present but these are not included in our dataset.
-This means we have no rho-sampled taxa and it makes sense to leave Rho =
-0.0.</p>
+from the Triassic and is therefore <span
+class="math inline">\(\psi\)</span>-sampled. There are many amniotes
+that persisted beyond this interval until the present but these are not
+included in our dataset. This means we have no rho-sampled taxa and it
+makes sense to leave Rho = 0.0.</p>
 <p>The next parameter of note is the ‘Removal Prob’ - this is the
 probability that a lineage is removed from the population upon sampling
 and makes more sense in an epidemiological context. We need to change
@@ -549,14 +557,15 @@ relative to t = 0. Select ‘Exponential’ from the drop down menu next to
 ‘originBDMMPrime’ and expand this selection. Change the offset to 81.1,
 which is 318.1 minus the youngest age of our sampling interval = 237,
 and change the mean to 10.0. Finally, select the ‘initial’ value box and
-change ‘Value’ to 100.0. Click ‘OK’.</p>
+change ‘Value’ to 100.0. The origin time of the process needs to be
+older than all our fossils. Click ‘OK’.</p>
 <p><img src="BDMMP/07f_tree-priors.png" width="80%" style="padding:5px" /></p>
 <p><img src="BDMMP/07g_tree-priors.png" width="80%" style="padding:5px" /></p>
 </div>
 <div id="adding-taxonomic-constraints" class="section level3">
 <h3>Adding taxonomic constraints</h3>
 <p>We’re going to use two taxonomic constraints for this analysis.
-Srcoll down to the bottom of the Priors panel and click ‘+Add Prior’.
+Scroll down to the bottom of the Priors panel and click ‘+Add Prior’.
 From the drop down menu select ‘MRCA prior’. Click ‘OK’. This will open
 a box where you can define groups of taxa.</p>
 <p>For the first constraint, type ‘ingroup1’ into the box next to ‘Taxon
@@ -568,17 +577,19 @@ appear on the right. Alternatively, you can select all of them, move
 them to the right and simply move Gephyrostegus back to the left using
 the ‘&lt;&lt;’ button.</p>
 <p><img src="BDMMP/08a_tcons.png" width="50%" style="padding:5px" /></p>
-<p>Click OK and then select the checkbox that says ‘monophyletic’ that
+<p>Click ‘OK’ and then select the checkbox that says ‘monophyletic’ that
 appears next to this constraint.</p>
 <p>To add the next constraint, click ‘+Add Prior’. From the drop down
 menu select ‘MRCA prior’. Click ‘OK’.</p>
 <p>For the second constraint, type ‘ingroup2’ into the box next to
-‘Taxon set label’. This next constraint will include all taxa excluding
+‘Taxon set label’. This next constraint will include all taxa except
 ‘Gephyrostegus bohemicus’ and ‘Seymouria_spp’.</p>
 <p><img src="BDMMP/08b_tcons.png" width="50%" style="padding:5px" />
 Click ‘OK’ and then select the checkbox that says ‘monophyletic’ that
 appears next to this constraint.</p>
 <p><img src="BDMMP/08c_tcons.png" width="80%" style="padding:5px" /></p>
+<p>Use this screen shot to ensure all your prior distributions and
+initial values have been set up as described.</p>
 </div>
 </div>
 <div id="the-mcmc-panel" class="section level2">
@@ -589,57 +600,50 @@ settings as the defaults.</p>
 <p>Go to ‘File &gt; Save as’ to save your xml input file. Call it
 something like ‘amniotes_constant_rates_FBD.xml’ or anything you
 like.</p>
-<p><strong>Do not close BEAUti!</strong></p>
+<p><strong>You can leave BEAUti open for the next part of the
+exercise!</strong> However, if you do close BEAUTi you can simply go to
+‘File &gt; Load’ and select your xml file - all the BDMM-Prime
+specifications should be reloaded.</p>
 </div>
 <div id="running-beast" class="section level2">
 <h2>Running BEAST</h2>
 <p>To run your analysis open the BEAST application and navigate to the
-right working directory. Select your xml file and click Run.</p>
-<p>This analysis should take ~10-15 minutes to run.</p>
+right working directory. Select your xml file and click ‘Run’.</p>
+<p>This analysis should take ~10-15 minutes to run. While your analysis
+is running you can move on to part 2 (the multi-type birth-death
+process).</p>
 </div>
 <div id="examining-the-output" class="section level2">
 <h2>Examining the output</h2>
 <p>First open the .log file in Tracer and explore the output. It should
 look something like this.</p>
 <p><img src="BDMMP/tracer.png" width="70%" style="padding:5px" /></p>
-<blockquote>
-<p>Has your analysis converged?</p>
-</blockquote>
-<p>Next let’s generate a consensus tree. Open the TreeAnnotator
-application. For the ‘Target tree type’ we’ll stick with the default
-‘Maximum clade credibility tree’. For the ‘Node Heights’ select ‘Median
-heights’ from the drop down menu.</p>
-<p>For the ‘Input Tree File: Choose file…’ navigate to the right working
-directory and select the .trees file. For the ‘Output File: Choose
-file…’ enter the name of your consensus tree file, which will be output
-by TreeAnnotator. Call it something like
-‘amniotes_constant_rates_FBD.con.tre’.</p>
-<p><img src="BDMMP/treeann.png" width="50%" style="padding:5px" /></p>
-<p>Finally, click ‘Run’. Once the process is complete you can open the
-consensus tree in FigTree or IcyTree.</p>
-<blockquote>
-<p>Can you spot any differences with the [published topology]?(<a
-href="https://www.nature.com/articles/s41559-019-1047-3"
-class="uri">https://www.nature.com/articles/s41559-019-1047-3</a>)</p>
-</blockquote>
-<p>In this analysis we treated the fossil ages as fixed - this is not
-good practice and the tree topology we infer without accounting for
-fossil age uncertainty is a bit different. An xml file is provided for
-the same analysis including age uncertainty. This analysis takes longer
-to run, so the pre-cooked output for this analysis has also been <a
-href="BDMM-precooked.zip">provided</a>.</p>
+<p>Of particular interest are the parameters ‘birthRateSPCanonical’,
+‘deathRateSPCanonical’, and ‘samplingRateSPCanonical’. The speciation
+and extinction rates are both ~0.35, while the sampling rate is ~0.01.
+This suggests that sampling is low relative to the overall diversity of
+the group.</p>
+<p>Note that this analysis hasn’t fully converged but you can download
+the pre-cooked output for the same analysis that’s been run a bit
+longer.</p>
+<p>If you want you can also generate a consensus tree using the standard
+.trees file (‘amniotes.trees’) and the approach described in previous
+tutorials for trees with sampled ancestors. For the ‘Target tree type’
+stick with the default ‘Maximum clade credibility tree’ and for the
+‘Node Heights’ select ‘Median heights’ from the drop down menu.</p>
 </div>
-<div id="the-multi-type-birth-death-process-part-2"
-class="section level2">
-<h2>The multi-type birth-death process (part 2)</h2>
+<div id="the-multi-type-birth-death-process" class="section level2">
+<h2>The multi-type birth-death process</h2>
+<p>Create a new folder to run this next analysis.</p>
 <p>Return to the Priors panel in BEAUti. Next we’re going to add
 information to the analysis about geographic area. Expand the tree model
-selection and scroll down to Type Trait Set. Click Auto-configure.
+selection and scroll down to ‘Type Trait Set’. Click Auto-configure.
 Select ‘split on character’ and from the drop down menu next to ‘and
 take group(s):’ select 3.</p>
 <p><img src="BDMMP/10a_types.png" width="50%" style="padding:5px" /></p>
 <p>Click ‘OK’. You should now be able to see the geographic area
-associated with each fossil in the ‘Type’ column.</p>
+associated with each fossil in the ‘Type’ column (Eurasia, North
+America, and South Africa).</p>
 <p><img src="BDMMP/10b_types.png" width="80%" style="padding:5px" /></p>
 <p>Scroll up and you should see some additional options have been added
 for the tree model. In particular, options will have been added for the
@@ -649,13 +653,10 @@ case, geographic areas). We’ll estimate this parameter and leave the
 settings as they are here. The birth rate among demes can be interpreted
 as the rate of “spontaneous” change between types - in epidemiology this
 might be used together with types that are associated with specific
-mutations. This parameter doesn’t really have an analogous meaning in
-our macroevolutionary context, so we’ll simply fix this parameter to
+mutations. This parameter doesn’t have an analogous meaning in our
+macroevolutionary context, so we’ll simply fix this parameter to
 zero.</p>
 <p><img src="BDMMP/10c_types.png" width="80%" style="padding:5px" /></p>
-<p>Next scroll down and assign an exponential prior to the migration
-rate parameter.</p>
-<p><img src="BDMMP/10d_types.png" width="80%" style="padding:5px" /></p>
 <p>In this analysis we want to allow sampling to vary across geographic
 areas. To do this scroll back up to the tree model options. You’ll see
 that next to each parameter is a checked box called ‘Scalar values’ -
@@ -663,16 +664,21 @@ this indicates that a single rate applies to all types. If you uncheck
 this box a separate rate will be applied to each type - in our case,
 each geographic region.</p>
 <p><img src="BDMMP/10e_types.png" width="80%" style="padding:5px" /></p>
+<p>TODO Note that we can define the Start Type Prior Probs. By default…
+This probability can be estimated but we’ll leave this as it is.</p>
+<p>Finally, scroll down and assign an exponential prior to the migration
+rate parameter.</p>
+<p><img src="BDMMP/10d_types.png" width="80%" style="padding:5px" /></p>
 <p>Navigate to the MCMC panel and change the ‘Chain Length’ to 1,000,000
 (just delete one of the zeros).</p>
 <p><img src="BDMMP/11a_MCMC.png" width="80%" style="padding:5px" /></p>
 <p>We’re also going to switch off the ‘typedTree’ and ‘nodeTypedTree’
 loggers - find these options and uncheck ‘Enable Logger’.</p>
 <p><img src="BDMMP/11b_MCMC.png" width="80%" style="padding:5px" /></p>
-<p>I recommend creating a new folder for this analysis. Go to ‘File &gt;
-Save as’ to save your xml input file. Call it something like
-‘amniotes_multi_type_FBD.xml’.</p>
-<p><strong>Do not close BEAUti!</strong></p>
+<p>Go to ‘File &gt; Save as’ to save your xml input file in your new
+folder. Call it something like ‘amniotes_multi_type_FBD.xml’.</p>
+<p><strong>You can leave BEAUti open for the next part of the
+exercise!</strong></p>
 </div>
 <div id="running-beast-1" class="section level2">
 <h2>Running BEAST</h2>
@@ -682,19 +688,47 @@ to the right working directory. Select your xml file and click Run.</p>
 would run for much longer, e.g., 10,000,000+ generations, but this takes
 about 8 hours!!</p>
 </div>
-<div id="the-skyline-birth-death-process-part-3" class="section level2">
-<h2>The skyline birth-death process (part 3)</h2>
-<p>Return to the Priors panel in BEAUti. Next we’re going to allow
-migration rate to vary across times Locate the options associated with
-‘Migration Rate’. Change ‘Number of change times:’ to 2. Select
+<div id="examining-the-output-1" class="section level2">
+<h2>Examining the output</h2>
+<p>Open the .log file in Tracer and explore the output. It should look
+something like this.</p>
+<p>Now we have some additional parameters of interest. In particular, we
+have three estimates for ‘samplingRateSPCanonical’ associated with each
+type or geographic region. Select all three sampling values and compare
+them. You should be able to see that the median estimate is slightly
+higher for North America, followed by Eurasia and South Africa, which
+matches our understanding of how intensively each of these regions have
+been sampled.</p>
+<p>If you scroll down you should also be able to see estimates
+associated with the transitions between each type. The
+‘typeMappedTree.length’ variables tell us how much of the total tree
+length is associated with each region, while the ‘typeMappedTree.count’
+provides a posterior estimate for the number of migration events between
+each region along our sampled tree.</p>
+<p>At the bottom we also find an estimate for the
+‘migrationRateSPCanonical’ parameter.</p>
+<ul>
+<li>TreeAnnotor</li>
+</ul>
+</div>
+<div id="the-skyline-birth-death-process" class="section level2">
+<h2>The skyline birth-death process</h2>
+<p>As above, create a new folder to run this next analysis.</p>
+<p>Return to the Priors panel in BEAUti. Next we’re going to allow birth
+rate and death rate to vary over time. Locate the options associated
+with ‘Birth Rate’. Change ‘Number of change times:’ to 2. Select
 ‘Relative to process length’ and click ‘Distribute evenly’ - this means
 that the time between the origin of the process and the end will always
-be divided into 3 equal parts. You can select ‘Display epoch
-visualisation’ to make sure things are set up correctly.</p>
-<p><img src="BDMMP/12_skyline.png" width="80%" style="padding:5px" /></p>
-<p>I recommend creating a new folder for this analysis. Go to ‘File &gt;
-Save as’ to save your xml input file. Call it something like
-‘amniotes_multi_type_skyline_FBD.xml’.</p>
+be divided into 3 equal intervals and each one will be assigned an
+independent rate parameter. You can select ‘Display epoch visualisation’
+to make sure things are set up correctly.</p>
+<p>Do exactly the same for the ‘Death Rate’.</p>
+<p>Note that BEAUTi will assign the same prior to the rates in each
+interval. In our case, this means that for each interval the birth and
+death rates will be drawn from a separate exponential prior
+distribution.</p>
+<p>Go to ‘File &gt; Save as’ to save your xml input file. Call it
+something like ‘amniotes_multi_type_skyline_FBD.xml’.</p>
 </div>
 <div id="running-beast-2" class="section level2">
 <h2>Running BEAST</h2>
@@ -703,8 +737,14 @@ to the right working directory. Select your xml file and click Run.</p>
 <p>This analysis should take ~15 minutes to run. Ideally this analysis
 would run for much longer, e.g., 10,000,000+ generations, but this takes
 about 8 hours!!</p>
+</div>
+<div id="todo-examining-the-output" class="section level2">
+<h2>TODO Examining the output</h2>
+<ul>
+<li>log file</li>
+</ul>
 <blockquote>
-<p>Compare the Trace files obtained using different parameter
+<p>Compare the log files obtained using different parameter
 combinations. What conclusions can you draw?</p>
 </blockquote>
 </div>

@@ -187,6 +187,7 @@ kbl(dt) %>%
 
 ```
 
+Answers to the above questions are [available here](slides/09_Lewis_Q&A.pdf).
 
 \
 \
