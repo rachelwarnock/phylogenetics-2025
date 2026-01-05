@@ -1,0 +1,168 @@
+## Morphological Substitution models 
+In this practical we will first choose our own data and then apply two versions of the Mk model to our data. 
+
+First, go to [this website](http://www.graemetlloyd.com/matr.html) and choose a data set you want to analyse. Take the Nexus file.
+Once you have chosen you data set add it to your data folder for this exercise. 
+In the scripts folder should create three files. 
+
+1. Containing MCMC moves 
+2. Version 1 of the Mk model
+3. Version 2 of the Mk model
+
+You can choose what extensions to add to your model based on what you think is important for your data set
+
+
+### MCMC File
+
+Read in our data 
+
+```
+morpho <- readDiscreteCharacterData("data/file-name.nex")
+```
+
+Set up helper variables 
+
+```
+taxa <- morpho.names()
+num_taxa <- taxa.size()
+# num of branches for an unrooted tree
+num_branches <- 2 * num_taxa - 3
+# moves
+moves = VectorMoves()
+
+```
+###### Tree model
+
+```
+br_len_lambda <- 10
+# We assume a uniform prior on topology.
+ phylogeny ~ dnUniformTopologyBranchLength(taxa, branchLengthDistribution=dnExponential(br_len_lambda)) 
+
+# compute the tree length from the phylogeny
+tree_length := phylogeny.treeLength()
+
+
+moves.append( mvNNI(phylogeny, weight=num_branches/2.0) )
+moves.append( mvSPR(phylogeny, weight=num_branches/10.0) )
+moves.append( mvBranchLengthScale(phylogeny, weight=num_branches) )
+
+```
+
+
+Source the Mk file
+
+```
+source("scripts/Mk.Rev")
+```
+Replace ```Mk.Rev``` with what ever you have named your script
+
+
+Define the model 
+
+```
+# We define our model.
+# We can use any node of our model as a handle, here we chose to use the tree.
+mymodel = model(phylogeny)
+```
+The object ```mymodel``` is a wrapper around the entire model graph and allows us to pass the model to various functions that are specific to our MCMC analysis.
+
+
+Set up our monitors for the analysis 
+Change ```MK-NAME``` to the version of the model you are running. You can call it anything, just make sure you change it between your two versions. 
+
+```
+monitors.append( mnModel(filename=  "output/" + MK-NAME + "_posterior.log",printgen=10, separator = TAB) )
+monitors.append( mnFile(filename=  "output/" + MK-NAME + "_posterior.trees",printgen=10, separator = TAB, phylogeny) )
+monitors.append( mnScreen(printgen=1000, tree_length) )
+monitors.append( mnStochasticVariable(filename= "output/" + MK-NAME +"_posterior.var",printgen=10) )
+```
+
+Run the anaylsis
+
+```
+mymcmc = mcmc(mymodel, monitors, moves, nruns=2, combine="mixed")
+mymcmc.burnin(generations=200,tuningInterval=200)
+mymcmc.run(generations= 10000 ,tuningInterval=200)
+```
+
+
+### Mk Model Scripts
+
+Here you will create two scripts. You can have an unpartitioned or partitioned version of the model it is up to you. Decide which extensions you think are interesting/important and build your sequence evolution model
+
+```
+#### specify the Jukes-Cantor substitution model applied uniformly to all sites ###
+# change num_state to the maximum number of states in your data set
+Q := fnJC(num_states) 
+```
+
+#### Extentions to the Mk Model 
+###### Gamma-distribtued rate variation 
+
+```
+alpha_inv ~ dnExponential(1)
+alpha_morpho := 1 / alpha_inv
+rates_morpho := fnDiscretizeGamma( alpha_morpho, alpha_morpho, 4 ) 
+
+# Moves on the parameters to the Gamma distribution.
+moves.append( mvScale(alpha_inv,lambda=1, weight=2.0) )
+```
+
+###### Account for Ascertainment Bias
+
+To do this, we don't need to create any new variables. We just add it to out PhyloCTMC object by ```coding="variable"```
+
+###### Build the sequence evolution model
+
+```
+# the sequence evolution model. 
+# This is for just the Mk model, no extensions
+seq ~ dnPhyloCTMC(tree=phylogeny, Q=Q, type="Standard")
+
+# to add gamma add
+siteRates=rates_morpho
+
+# to account for Ascertainment Bias add
+coding="variable
+
+# attach the data
+seq.clamp(morpho)
+```
+
+
+###### Partitioning the data
+
+This code will partition the data by the number of character states. This code builds a model of sequance evolution for each partition. 
+This is for an Mk model. To add G and V add the lines as above.
+
+```
+n_max_states <- num_states
+idx = 1
+morpho_bystate[1] <- morpho
+for (i in 2:n_max_states) {
+    morpho_bystate[i] <- morpho                                # make local tmp copy of data
+    morpho_bystate[i].setNumStatesPartition(i)                 # only keep character blocks with state space equal to size i
+    nc = morpho_bystate[i].nchar()                             # get number of characters per character size with i-sized states
+
+    if (nc > 0) {                                              # for non-empty character blocks
+        q[idx] <- fnJC(i)                                      # make i-by-i rate matrix
+        m_morph[idx] ~ dnPhyloCTMC( tree=phylogeny,
+                                    Q=q[idx],
+                                    nSites=nc,
+                                    type="Standard")           # create model of evolution for the character block
+
+        m_morph[idx].clamp(morpho_bystate[i])                  # attach the data
+
+        idx = idx + 1                                          # increment counter
+        idx
+    }
+}
+```
+
+### Questions
+
+1. Are the results from your two models different?
+2. Are the tree lengths different?
+3. Can you explain why?
+4. Do you understand the different assumptions you made in the different models?
+

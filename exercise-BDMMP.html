@@ -13,7 +13,7 @@
 
 <title>exercise-BDMMP.knit</title>
 
-<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
@@ -283,7 +283,9 @@ href="https://taming-the-beast.org/tutorials/Introduction-to-BEAST2/">Introducti
 to BEAST2</a></li>
 <li><a
 href="https://taming-the-beast.org/tutorials/FBD-tutorial/">Dating
-Species Divergences with the Fossilized Birth-Death Process</a></li>
+species divergences with the fossilized birth-death process</a> or <a
+href="https://taming-the-beast.org/tutorials/Total-Evidence-Tutorial/">Total-evidence
+dating using BEAST2</a></li>
 </ul>
 <div id="background" class="section level2">
 <h2>Background</h2>
@@ -294,24 +296,31 @@ scenarios in epidemiology and macroevolution. Due to the flexibility and
 the large variety of ways in which model parameters can be combined
 using BDMM-Prime there’s more options to consider when setting up your
 analysis.</p>
-<p>This tutorial walks you through some examples of how the package can
-be applied in macroevolution. For an example in epidemiology see the <a
+<p>This tutorial will provide an introduction of how the package can be
+applied in macroevolution. For an example in epidemiology see the<a
 href="https://tgvaughan.github.io/BDMM-Prime/#id-1-Introduction">BDMM-Prime
 package website</a>.</p>
 </div>
 <div id="the-data" class="section level2">
-<h2>The data</h2>
+<h2>The data*</h2>
 <p>We’ll use a published dataset of <a
 href="https://en.wikipedia.org/wiki/Amniote">aminotes</a> that has been
 used previously to explore the early evolution of this group.</p>
-<p>The data comprises 294 characters for 70 fossils, as well as their
-age and locality information, spanning ~70 myr from the late
-Carboniferous to the mid Triassic. The specimens can be categorised into
-three broad geographic areas associated with the north, mid, and south
-of the supercontinent <a
+<p>The data comprises 294 binary and multi-state characters for 70
+fossils, as well as their age and locality information, spanning ~70 myr
+from the late Carboniferous to the mid Triassic. The specimens can be
+categorised into three broad geographic areas associated with the
+northern, mid, and southern areas of the supercontinent <a
 href="https://en.wikipedia.org/wiki/Pangaea">Pangea</a>, corresponding
 approximately to what would be known today as Eurasia, North America,
 and South Africa.</p>
+<blockquote>
+<p>Download the data file <code>amniotes.nex</code> and open it in a
+text editor of your choice.</p>
+</blockquote>
+<p><img src="BDMMP/0_data_file.png" width="70%" style="padding:5px" /></p>
+<p>Note that the taxon labels contain information about the age of our
+samples (after the last underscore) and their geographic provenance.</p>
 </div>
 <div id="installing-the-bdmm-prime-package" class="section level2">
 <h2>Installing the BDMM-Prime package</h2>
@@ -336,16 +345,19 @@ bottom of the window. This should bring up a message that confirms the
 package has been successfully installed.</li>
 </ol>
 <p><img src="BDMMP/01b-BDMMP-install.png" width="80%" style="padding:5px" /></p>
-<ol start="5" style="list-style-type: decimal">
+<ol start="6" style="list-style-type: decimal">
 <li>If you haven’t done so already, <strong>you will also need to
-install the MM package</strong> for models of morphological evolution to
-complete this tutorial. This package should already appear on the same
-list in the Package Manager. You just need to click
-‘Install/Upgrade’.</li>
+install the MM package</strong> for models of morphological evolution.
+This package should already appear on the same list in the Package
+Manager. You just need to click ‘Install/Upgrade’.</li>
 </ol>
 <p><strong>Restart BEAUTi to set up an analysis using
 BDMM-Prime.</strong></p>
 </div>
+</div>
+<div id="part-1-the-constant-rate-birth-death-process"
+class="section level1">
+<h1>Part 1: The constant rate birth-death process</h1>
 <div id="the-partitions-panel" class="section level2">
 <h2>The Partitions panel</h2>
 <p>Download the <a href="data/amniotes.nex">nexus file</a> associated
@@ -359,12 +371,15 @@ of recording variable characters only (Mkv)?” Click ‘Yes’. Since we
 typically don’t collect non-variable morphological characters this
 option makes sense for our dataset.</p>
 <p><img src="BDMMP/02b-BDMMP-Partitions.png" width="50%" style="padding:5px" /></p>
-<p>Your BEAUTi window should now look like this:</p>
+<p>Your Partitions panel should now look like this:</p>
 <p><img src="BDMMP/02c-BDMMP-Partitions.png" width="80%" style="padding:5px" /></p>
 <p>By default the characters are separated into four partitions. This
 means that characters will be assigned to a substitution rate matrix
 where the number of possible states corresponds to the maximum observed
-state for each character.</p>
+state for each character. Our dataset contains characters with a maximum
+observed state of one, two, three and four, hence we have four data
+partitions. The number of characters in each partition is listed under
+<strong>Sites</strong>.</p>
 <p>Note that the Site Model is <em>unlinked</em> across partitions,
 while the Clock and Tree models are <em>linked</em> by default. This
 means that we will allow each partition to evolve under an separate
@@ -515,8 +530,8 @@ parameters as 0 (but see below). The only change we’ll make is to the
 value listed next to ‘Birth Rate’ and ‘Death Rate’ in Epoch 1, from 1.0
 to 0.1 - these are the starting values for these parameters. Click on
 each value to edit it and press enter. Notice that ‘Estimate values’ is
-checked for all three of these parameters, which means these parameters
-will be estimated and not fixed during inference.</p>
+checked for all three of these parameters, which means they will be
+estimated and not fixed during inference.</p>
 <p><img src="BDMMP/07a_tree-priors.png" width="80%" style="padding:5px" /></p>
 <p>Scroll down to the next set of parameters of interest. ‘Rho Sampling’
 is the probability of sampling a lineage at a given time. In
@@ -597,6 +612,11 @@ initial values have been set up as described.</p>
 <p>Navigate to the MCMC panel. For now, we’ll leave all the MCMC
 settings as the defaults.</p>
 <p><img src="BDMMP/09_MCMC.png" width="80%" style="padding:5px" /></p>
+<p>BDMM-Prime allows us to output additional tree files using the
+‘typedTree’ and ‘nodeTypedTree’ loggers - these are not useful for our
+initial analysis so we will disable these options for now (but see
+below).</p>
+<p><img src="BDMMP/09b_MCMC.png" width="80%" style="padding:5px" /></p>
 <p>Go to ‘File &gt; Save as’ to save your xml input file. Call it
 something like ‘amniotes_constant_rates_FBD.xml’ or anything you
 like.</p>
@@ -632,53 +652,87 @@ tutorials for trees with sampled ancestors. For the ‘Target tree type’
 stick with the default ‘Maximum clade credibility tree’ and for the
 ‘Node Heights’ select ‘Median heights’ from the drop down menu.</p>
 </div>
-<div id="the-multi-type-birth-death-process" class="section level2">
-<h2>The multi-type birth-death process</h2>
+</div>
+<div id="part-2-the-multi-type-birth-death-process"
+class="section level1">
+<h1>Part 2: The multi-type birth-death process</h1>
+<p>In the second part of this tutorial we will take geographic
+provenance into account and allow birth, death, and sampling rate to
+vary across geographic areas. To achieve this we will incorporate a
+migration rate parameter into the model and in addition, we will allow
+migration rate to vary through time, to acknowledge the observation that
+the interconnectedness of the geographic areas changes considerably over
+the course of our sampling interval.</p>
 <p>Create a new folder to run this next analysis.</p>
+<div id="the-priors-panel-1" class="section level2">
+<h2>The Priors Panel</h2>
 <p>Return to the Priors panel in BEAUti. Next we’re going to add
 information to the analysis about geographic area. Expand the tree model
-selection and scroll down to ‘Type Trait Set’. Click Auto-configure.
-Select ‘split on character’ and from the drop down menu next to ‘and
-take group(s):’ select 3.</p>
+selection by clicking the triangle next to ‘Tree’ and scroll down to
+‘Type Trait Set’. Click Auto-configure. Select ‘split on character’ and
+from the drop down menu next to ‘and take group(s):’ select 3.</p>
 <p><img src="BDMMP/10a_types.png" width="50%" style="padding:5px" /></p>
 <p>Click ‘OK’. You should now be able to see the geographic area
-associated with each fossil in the ‘Type’ column (Eurasia, North
-America, and South Africa).</p>
+associated with each fossil in the ‘Type’ column, corresponding to
+Eurasia, North America, and South Africa.</p>
 <p><img src="BDMMP/10b_types.png" width="80%" style="padding:5px" /></p>
 <p>Scroll up and you should see some additional options have been added
 for the tree model. In particular, options will have been added for the
 ‘Migration Rate’ and ‘Birth Rate Among Demes’ parameters. The migration
 rate can be interpreted as the rate of change between types (in our
-case, geographic areas). We’ll estimate this parameter and leave the
-settings as they are here. The birth rate among demes can be interpreted
-as the rate of “spontaneous” change between types - in epidemiology this
-might be used together with types that are associated with specific
-mutations. This parameter doesn’t have an analogous meaning in our
-macroevolutionary context, so we’ll simply fix this parameter to
-zero.</p>
+case, the migration between geographic areas). We’ll estimate this
+parameter and allow it to vary over time (see below). The birth rate
+among demes can be interpreted as the rate of “spontaneous” change
+between types - in epidemiology this might be used together with types
+that are associated with specific mutations. This parameter doesn’t have
+an analogous meaning in our macroevolutionary context, so we’ll simply
+fix this parameter to zero.</p>
 <p><img src="BDMMP/10c_types.png" width="80%" style="padding:5px" /></p>
-<p>In this analysis we want to allow sampling to vary across geographic
-areas. To do this scroll back up to the tree model options. You’ll see
-that next to each parameter is a checked box called ‘Scalar values’ -
-this indicates that a single rate applies to all types. If you uncheck
-this box a separate rate will be applied to each type - in our case,
-each geographic region.</p>
-<p><img src="BDMMP/10e_types.png" width="80%" style="padding:5px" /></p>
-<p>TODO Note that we can define the Start Type Prior Probs. By default…
-This probability can be estimated but we’ll leave this as it is.</p>
-<p>Finally, scroll down and assign an exponential prior to the migration
-rate parameter.</p>
+<p>In this analysis we want to allow birth, death, and sampling to vary
+across geographic areas. Scroll back up. You’ll see that next to each of
+these parameters is a checked box called ‘Scalar values’ - this
+indicates that a single rate applies to all types. Starting with ‘Birth
+Rate’, if you uncheck this box a separate rate will be applied to each
+type - in our case, each geographic region. You can select ‘Display
+epoch visualisation’ to make sure things are set up correctly.</p>
 <p><img src="BDMMP/10d_types.png" width="80%" style="padding:5px" /></p>
+<p>Do the same for the ‘Death Rate’ and ‘Sampling Rate’ parameters.</p>
+<p><img src="BDMMP/10e_types.png" width="80%" style="padding:5px" /></p>
+<p>Over the course of our sampling interval, the late Carboniferous to
+the mid Triassic, we see major changes in continental configuration and
+the relative connectedness of geographic areas - to quantify the impact
+this has on migration we’re going to allow the overall migration rate to
+change through time, assuming piece-wise constant variation in rate.</p>
+<p>Return to the options associated with ‘Migration Rate’. First double
+click the the initial value for this parameter and change it to 0.1 and
+make sure the box next to ‘Estimate values’ is checked. Next change
+‘Number of change times:’ to 2. Check the box that says ‘Relative to
+process length’ and click ‘Distribute evenly’ - this means that the time
+between the origin of the process and the end will be divided into 3
+equal intervals and each one will be assigned an independent rate
+parameter. Select ‘Display epoch visualisation’ to make sure things are
+set up correctly.</p>
+<p><img src="BDMMP/10f_types.png" width="80%" style="padding:5px" /></p>
+<p>Note that we can specify the probability of each type at the
+beginning of the process, i.e., at the origin or root. By default these
+are set to equal but you can change these in the box next to ‘Start Type
+Prior Probs’. This probability can be estimated or you might have strong
+evidence for the type at the root but we’ll leave this for now.</p>
+<p>Finally, scroll down and assign an exponential prior to the migration
+rate parameter. BEAUTi will assign the same prior to all rates of the
+same parameter, meaning that in our case, for each interval the
+migration rate will be drawn from a separate exponential prior
+distribution.</p>
+<p><img src="BDMMP/10g_types.png" width="80%" style="padding:5px" /></p>
+</div>
+<div id="the-mcmc-panel-1" class="section level2">
+<h2>The MCMC panel</h2>
 <p>Navigate to the MCMC panel and change the ‘Chain Length’ to 1,000,000
 (just delete one of the zeros).</p>
-<p><img src="BDMMP/11a_MCMC.png" width="80%" style="padding:5px" /></p>
-<p>We’re also going to switch off the ‘typedTree’ and ‘nodeTypedTree’
-loggers - find these options and uncheck ‘Enable Logger’.</p>
+<p>We’re also going to enable the the ‘nodeTypedTree’ logger.</p>
 <p><img src="BDMMP/11b_MCMC.png" width="80%" style="padding:5px" /></p>
 <p>Go to ‘File &gt; Save as’ to save your xml input file in your new
 folder. Call it something like ‘amniotes_multi_type_FBD.xml’.</p>
-<p><strong>You can leave BEAUti open for the next part of the
-exercise!</strong></p>
 </div>
 <div id="running-beast-1" class="section level2">
 <h2>Running BEAST</h2>
@@ -690,63 +744,36 @@ about 8 hours!!</p>
 </div>
 <div id="examining-the-output-1" class="section level2">
 <h2>Examining the output</h2>
-<p>Open the .log file in Tracer and explore the output. It should look
-something like this.</p>
+<p>Open the .log file in Tracer and explore the output. TODO It should
+look something like this.</p>
 <p>Now we have some additional parameters of interest. In particular, we
-have three estimates for ‘samplingRateSPCanonical’ associated with each
-type or geographic region. Select all three sampling values and compare
-them. You should be able to see that the median estimate is slightly
+have three estimates for birth, death, sampling rate associated with
+each type or geographic region - ‘birthRateSPCanonical’,
+‘deathRateSPCanonical’, and ‘samplingRateSPCanonical’. Select all three
+sampling values for each parameter and compare them.</p>
+<p>TODO You should be able to see that the median estimate is slightly
 higher for North America, followed by Eurasia and South Africa, which
 matches our understanding of how intensively each of these regions have
 been sampled.</p>
-<p>If you scroll down you should also be able to see estimates
-associated with the transitions between each type. The
-‘typeMappedTree.length’ variables tell us how much of the total tree
-length is associated with each region, while the ‘typeMappedTree.count’
-provides a posterior estimate for the number of migration events between
-each region along our sampled tree.</p>
-<p>At the bottom we also find an estimate for the
-‘migrationRateSPCanonical’ parameter.</p>
+<p>At the bottom we also find estimates for the migration rate
+associated with each interval - ‘migrationRateSPCanonical’. The
+intervals are labelled from youngest to oldest, ‘i0’, ‘i1’, and ‘i2s’.
+You should be able to see a larger estimate for migration in the final
+time bin, which we might expect based on the increase in connectivity
+across regions in the Triassic.</p>
+<p>TODO We can summarise information about types across our posterior
+distribution of trees using TreeAnnotor</p>
 <ul>
-<li>TreeAnnotor</li>
+<li>what are the different file types?</li>
 </ul>
+<p>If you would like to explore more about the history</p>
 </div>
-<div id="the-skyline-birth-death-process" class="section level2">
-<h2>The skyline birth-death process</h2>
-<p>As above, create a new folder to run this next analysis.</p>
-<p>Return to the Priors panel in BEAUti. Next we’re going to allow birth
-rate and death rate to vary over time. Locate the options associated
-with ‘Birth Rate’. Change ‘Number of change times:’ to 2. Select
-‘Relative to process length’ and click ‘Distribute evenly’ - this means
-that the time between the origin of the process and the end will always
-be divided into 3 equal intervals and each one will be assigned an
-independent rate parameter. You can select ‘Display epoch visualisation’
-to make sure things are set up correctly.</p>
-<p>Do exactly the same for the ‘Death Rate’.</p>
-<p>Note that BEAUTi will assign the same prior to the rates in each
-interval. In our case, this means that for each interval the birth and
-death rates will be drawn from a separate exponential prior
-distribution.</p>
-<p>Go to ‘File &gt; Save as’ to save your xml input file. Call it
-something like ‘amniotes_multi_type_skyline_FBD.xml’.</p>
-</div>
-<div id="running-beast-2" class="section level2">
-<h2>Running BEAST</h2>
-<p>As above, run your analysis open the BEAST application and navigate
-to the right working directory. Select your xml file and click Run.</p>
-<p>This analysis should take ~15 minutes to run. Ideally this analysis
-would run for much longer, e.g., 10,000,000+ generations, but this takes
-about 8 hours!!</p>
-</div>
-<div id="todo-examining-the-output" class="section level2">
-<h2>TODO Examining the output</h2>
-<ul>
-<li>log file</li>
-</ul>
-<blockquote>
-<p>Compare the log files obtained using different parameter
-combinations. What conclusions can you draw?</p>
-</blockquote>
+<div id="further-reading" class="section level2">
+<h2>Further reading</h2>
+<p>Note that you can combine the parameters in BDMM-Prime in many
+different ways…</p>
+<p><a href="https://tgvaughan.github.io/BDMM-Prime/"
+class="uri">https://tgvaughan.github.io/BDMM-Prime/</a></p>
 </div>
 </div>
 

@@ -11,7 +11,7 @@
 
 
 
-<title>glossary.knit</title>
+<title>exercise-06p.knit</title>
 
 <script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -270,35 +270,150 @@ $(document).ready(function () {
 </div>
 
 
-<div id="trees" class="section level2">
-<h2>Trees</h2>
-<ul>
-<li><p>stem / crown group</p></li>
-<li><p>monophyly, paraphyly</p></li>
-<li><p>polytomy</p></li>
-<li><p>homoplasy</p></li>
-<li><p>pleisomorphy etc</p></li>
-<li><p>parsimony</p></li>
-<li><p>statistical consistency</p></li>
-</ul>
+<div id="morphological-substitution-models" class="section level2">
+<h2>Morphological Substitution models</h2>
+<p>In this practical we will first choose our own data and then apply
+two versions of the Mk model to our data.</p>
+<p>First, go to <a href="http://www.graemetlloyd.com/matr.html">this
+website</a> and choose a data set you want to analyse. Take the Nexus
+file. Once you have chosen you data set add it to your data folder for
+this exercise. In the scripts folder should create three files.</p>
+<ol style="list-style-type: decimal">
+<li>Containing MCMC moves</li>
+<li>Version 1 of the Mk model</li>
+<li>Version 2 of the Mk model</li>
+</ol>
+<p>You can choose what extensions to add to your model based on what you
+think is important for your data set</p>
+<div id="mcmc-file" class="section level3">
+<h3>MCMC File</h3>
+<p>Read in our data</p>
+<pre><code>morpho &lt;- readDiscreteCharacterData(&quot;data/file-name.nex&quot;)</code></pre>
+<p>Set up helper variables</p>
+<pre><code>taxa &lt;- morpho.names()
+num_taxa &lt;- taxa.size()
+# num of branches for an unrooted tree
+num_branches &lt;- 2 * num_taxa - 3
+# moves
+moves = VectorMoves()
+</code></pre>
+<div id="tree-model" class="section level6">
+<h6>Tree model</h6>
+<pre><code>br_len_lambda &lt;- 10
+# We assume a uniform prior on topology.
+ phylogeny ~ dnUniformTopologyBranchLength(taxa, branchLengthDistribution=dnExponential(br_len_lambda)) 
+
+# compute the tree length from the phylogeny
+tree_length := phylogeny.treeLength()
+
+
+moves.append( mvNNI(phylogeny, weight=num_branches/2.0) )
+moves.append( mvSPR(phylogeny, weight=num_branches/10.0) )
+moves.append( mvBranchLengthScale(phylogeny, weight=num_branches) )
+</code></pre>
+<p>Source the Mk file</p>
+<pre><code>source(&quot;scripts/Mk.Rev&quot;)</code></pre>
+<p>Replace <code>Mk.Rev</code> with what ever you have named your
+script</p>
+<p>Define the model</p>
+<pre><code># We define our model.
+# We can use any node of our model as a handle, here we chose to use the tree.
+mymodel = model(phylogeny)</code></pre>
+<p>The object <code>mymodel</code> is a wrapper around the entire model
+graph and allows us to pass the model to various functions that are
+specific to our MCMC analysis.</p>
+<p>Set up our monitors for the analysis Change <code>MK-NAME</code> to
+the version of the model you are running. You can call it anything, just
+make sure you change it between your two versions.</p>
+<pre><code>monitors.append( mnModel(filename=  &quot;output/&quot; + MK-NAME + &quot;_posterior.log&quot;,printgen=10, separator = TAB) )
+monitors.append( mnFile(filename=  &quot;output/&quot; + MK-NAME + &quot;_posterior.trees&quot;,printgen=10, separator = TAB, phylogeny) )
+monitors.append( mnScreen(printgen=1000, tree_length) )
+monitors.append( mnStochasticVariable(filename= &quot;output/&quot; + MK-NAME +&quot;_posterior.var&quot;,printgen=10) )</code></pre>
+<p>Run the anaylsis</p>
+<pre><code>mymcmc = mcmc(mymodel, monitors, moves, nruns=2, combine=&quot;mixed&quot;)
+mymcmc.burnin(generations=200,tuningInterval=200)
+mymcmc.run(generations= 10000 ,tuningInterval=200)</code></pre>
 </div>
-<div id="wish-list" class="section level2">
-<h2>Wish list</h2>
-<ul>
-<li>Nexus file guide</li>
-<li>(BLAST (or invertebrates))</li>
-<li>Alignments</li>
-<li>IQTREE</li>
-<li>Ancestral state reconstruction</li>
-</ul>
 </div>
-<div id="resources" class="section level2">
-<h2>Resources</h2>
-<p>Interview with Xiang Ji <a
-href="https://open.spotify.com/episode/4p1V06H27miRN4lCQSCiy1?si=b09968c9c058482b"
-class="uri">https://open.spotify.com/episode/4p1V06H27miRN4lCQSCiy1?si=b09968c9c058482b</a>
-(advanced but first 20 mins, good explanation about the significance of
-the pruning algorithm)</p>
+<div id="mk-model-scripts" class="section level3">
+<h3>Mk Model Scripts</h3>
+<p>Here you will create two scripts. You can have an unpartitioned or
+partitioned version of the model it is up to you. Decide which
+extensions you think are interesting/important and build your sequence
+evolution model</p>
+<pre><code>#### specify the Jukes-Cantor substitution model applied uniformly to all sites ###
+# change num_state to the maximum number of states in your data set
+Q := fnJC(num_states) </code></pre>
+<div id="extentions-to-the-mk-model" class="section level4">
+<h4>Extentions to the Mk Model</h4>
+<div id="gamma-distribtued-rate-variation" class="section level6">
+<h6>Gamma-distribtued rate variation</h6>
+<pre><code>alpha_inv ~ dnExponential(1)
+alpha_morpho := 1 / alpha_inv
+rates_morpho := fnDiscretizeGamma( alpha_morpho, alpha_morpho, 4 ) 
+
+# Moves on the parameters to the Gamma distribution.
+moves.append( mvScale(alpha_inv,lambda=1, weight=2.0) )</code></pre>
+</div>
+<div id="account-for-ascertainment-bias" class="section level6">
+<h6>Account for Ascertainment Bias</h6>
+<p>To do this, we don’t need to create any new variables. We just add it
+to out PhyloCTMC object by <code>coding="variable"</code></p>
+</div>
+<div id="build-the-sequence-evolution-model" class="section level6">
+<h6>Build the sequence evolution model</h6>
+<pre><code># the sequence evolution model. 
+# This is for just the Mk model, no extensions
+seq ~ dnPhyloCTMC(tree=phylogeny, Q=Q, type=&quot;Standard&quot;)
+
+# to add gamma add
+siteRates=rates_morpho
+
+# to account for Ascertainment Bias add
+coding=&quot;variable
+
+# attach the data
+seq.clamp(morpho)</code></pre>
+</div>
+<div id="partitioning-the-data" class="section level6">
+<h6>Partitioning the data</h6>
+<p>This code will partition the data by the number of character states.
+This code builds a model of sequance evolution for each partition. This
+is for an Mk model. To add G and V add the lines as above.</p>
+<pre><code>n_max_states &lt;- num_states
+idx = 1
+morpho_bystate[1] &lt;- morpho
+for (i in 2:n_max_states) {
+    morpho_bystate[i] &lt;- morpho                                # make local tmp copy of data
+    morpho_bystate[i].setNumStatesPartition(i)                 # only keep character blocks with state space equal to size i
+    nc = morpho_bystate[i].nchar()                             # get number of characters per character size with i-sized states
+
+    if (nc &gt; 0) {                                              # for non-empty character blocks
+        q[idx] &lt;- fnJC(i)                                      # make i-by-i rate matrix
+        m_morph[idx] ~ dnPhyloCTMC( tree=phylogeny,
+                                    Q=q[idx],
+                                    nSites=nc,
+                                    type=&quot;Standard&quot;)           # create model of evolution for the character block
+
+        m_morph[idx].clamp(morpho_bystate[i])                  # attach the data
+
+        idx = idx + 1                                          # increment counter
+        idx
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div id="questions" class="section level3">
+<h3>Questions</h3>
+<ol style="list-style-type: decimal">
+<li>Are the results from your two models different?</li>
+<li>Are the tree lengths different?</li>
+<li>Can you explain why?</li>
+<li>Do you understand the different assumptions you made in the
+different models?</li>
+</ol>
+</div>
 </div>
 
 

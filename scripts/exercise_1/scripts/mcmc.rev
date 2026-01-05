@@ -1,0 +1,67 @@
+#######################
+#
+# Tree inference using morphological data 
+#
+####################
+
+
+inFile = "data/Agnolin_2007a_paleobiodb.nex"
+morpho <- readDiscreteCharacterData(inFile)
+model_name = "MkVP+G"
+model_file_name = "scripts/"+model_name+"_Model.Rev"
+
+## helper variables
+
+taxa <- morpho.names()
+num_taxa <- taxa.size()
+num_branches <- 2 * num_taxa - 3
+
+## number of character states in the matrix
+num_states ="4"
+
+moves    = VectorMoves()
+monitors = VectorMonitors()
+
+
+### tree model
+
+br_len_lambda ~ dnExp(0.2)
+moves.append(mvScale(br_len_lambda, weight=2))
+
+phylogeny ~ dnUniformTopologyBranchLength(taxa, branchLengthDistribution=dnExponential(br_len_lambda))
+moves.append(mvNNI(phylogeny, weight=num_branches/2.0))
+moves.append(mvSPR(phylogeny, weight=num_branches/10.0))
+moves.append(mvBranchLengthScale(phylogeny, weight=num_branches))
+tree_length := phylogeny.treeLength()
+
+
+
+
+### substitution model 
+
+source(model_file_name)
+
+
+# clamp our model
+
+mymodel = model(phylogeny)
+
+
+### mcmc settings
+
+monitors.append( mnModel(filename="output_" + model_name + "/morpho_posterior.log",printgen=10, separator = TAB)) 
+monitors.append( mnFile(filename="output_" + model_name + "/morpho_posterior.trees",printgen=10, separator = TAB, phylogeny) )
+monitors.append( mnScreen(printgen=1000, tree_length) )
+
+mymcmc = mcmc(mymodel, monitors, moves, nruns=2, combine="mixed")
+mymcmc.burnin(generations=200,tuningInterval=200)
+
+
+mymcmc.run(generations=10000,tuningInterval=200)
+
+
+# create summary tree
+trace = readTreeTrace("output_" + model_name + "/morpho_posterior.trees")
+mccTree(trace, file="output_" + model_name + "/morpho_MCC.tre")
+
+

@@ -11,7 +11,7 @@
 
 
 
-<title>projects_notes_2024.knit</title>
+<title>exercise-06ap.knit</title>
 
 <script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -32,8 +32,6 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -274,230 +272,145 @@ $(document).ready(function () {
 
 <p><br />
 </p>
-<div id="project-notes-2024" class="section level1">
-<h1>Project notes 2024</h1>
-<table class="table table-striped" style="width: auto !important; ">
-<thead>
-<tr>
-<th style="text-align:left;">
-name
-</th>
-<th style="text-align:left;">
-project
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-Alissa
-</td>
-<td style="text-align:left;">
-Do fossil ages improve trees impacted by taphonomic biases?
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Christian
-</td>
-<td style="text-align:left;">
-Constraining the evolution of photosynthetic pathways (CAM)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Jordan
-</td>
-<td style="text-align:left;">
-Assessing the impact of taxon sampling on PCMs
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Katie
-</td>
-<td style="text-align:left;">
-Redating the origins of horseshoe crabs - implications for habitat
-transitions
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Matias
-</td>
-<td style="text-align:left;">
-The impact of model choice on the phylogenetic history of sabre tooth
-tigers
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Max
-</td>
-<td style="text-align:left;">
-The impact of model choice on the phylogenetic history of spinosaurs
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Meghan
-</td>
-<td style="text-align:left;">
-A simulation pipeline for assessing the impact of clock model violation
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Victoria
-</td>
-<td style="text-align:left;">
-Constraining the evolution of manatees
-</td>
-</tr>
-</tbody>
-</table>
+<div
+id="model-adequacy-using-posterior-predictive-simulations-in-revbayes"
+class="section level1">
+<h1>Model adequacy using posterior predictive simulations in
+RevBayes</h1>
+<p>In this exercise we will use posterior predictive simulations to
+assess the fit of an evolutionary model to our data. We will test two
+substitution models, Mk and Mkv+G. The code highlighted in this tutorial
+is just to show the more important parts of a script. <strong>You do not
+need to copy and paste them into the terminal</strong>. Instead, edit
+the scripts in your editor and use <code>source(" ")</code>to read them
+into RevBayes.</p>
+<p>There are 6 rev scripts for the analysis:</p>
+<ol style="list-style-type: decimal">
+<li><code>MCMC_Simulation.Rev</code> runs an MCMC on your empirical
+dataset and samples parameters from the posterior</li>
+<li><code>PP_Simulation.Rev</code> takes the output from the first MCMC
+to simulated new datasets under the chosen model</li>
+<li><code>PP_MCMC.Rev</code> runs an MCMC for all the new datasets</li>
+<li><code>Tree_Summary.Rev</code> generates test statistics</li>
+<li><code>mk_Model.Rev</code> Mk substitution model script</li>
+<li><code>mk+GV_Model.Rev</code> Mk+GV substitution model script</li>
+</ol>
+<p>and 1 R script <code>PPS_Analsis.r</code> to summarise the
+output.</p>
+<p>The data used here is a morphological matrix Brontornis taxa, an
+extinct genus of giant flightless birds from Argentina. There are 12
+taxa and 51 characters.</p>
+<p>You can download everything <a
+href="scripts/exercise07.zip">here</a>. Note unlike previous exercises
+in this course, you don’t need to write any scripts from scratch. Simply
+modify the existing scripts to run the analysis.</p>
+<div id="read-in-the-data-and-define-the-subsitution-model-to-test"
+class="section level3">
+<h3>Read in the data and define the subsitution model to test</h3>
+<p>Start with <code>MCMC_Simulation.rev</code> script. We first need to
+read in our data and define which substitution model we will use for the
+analysis, either Mk or Mkv+G.</p>
+<pre class="r"><code>morpho &lt;- readDiscreteCharacterData(&quot;data/Agnolin_2007a_paleobiodb.nex&quot;)
+analysis_name = &quot;model_adequacy&quot; 
+model_name = &quot;model&quot; # what model are you testing? e.g. &quot;mk&quot;
+model_file_name = &quot;scripts/&quot;+model_name+&quot;_Model.Rev&quot;</code></pre>
+<p><strong>Note</strong>: These variables are at the start of the rev
+scripts 1-4. Make sure you add the model you want to use to each
+script.</p>
+<p>This monitor samples the posterior and saves it to a file that can be
+used to simulate new datasets under the chosen model.</p>
+<pre class="r"><code>monitors.append( mnStochasticVariable(filename=&quot;output/&quot;  + model_name +  &quot;/output/&quot; + analysis_name + &quot;_posterior.var&quot;, printgen=10) )</code></pre>
 </div>
-<div id="status-update" class="section level1">
-<h1>Status update</h1>
-<div id="alissa" class="section level2">
-<h2>Alissa</h2>
-<ul>
-<li>Does fossil age information “prevent” stemward slippage?</li>
-<li><a href="https://www.nature.com/articles/nature08745"
-class="uri">https://www.nature.com/articles/nature08745</a> (data not
-available)</li>
-<li>Try getting data from here: <a
-href="https://royalsocietypublishing.org/doi/full/10.1098/rspb.2023.0333"
-class="uri">https://royalsocietypublishing.org/doi/full/10.1098/rspb.2023.0333</a>
-<ul>
-<li>Suggest selecting one representative per extant taxa</li>
-</ul></li>
-<li>Status update: investigating the data</li>
-</ul>
+<div id="mk-substitution-model" class="section level3">
+<h3>Mk substitution model</h3>
+<p>Helper variables and branch lengths are set up as in previous
+exercises.</p>
+<p>Specify the Jukes-Cantor substitution model applied uniformly to all
+sites. Remember the Mk model is a generalization of the Jukes-Cantor
+model.</p>
+<pre class="r"><code>Q := fnJC(4) # this matrix has 4 different character states. 
+
+seq ~ dnPhyloCTMC(tree=phylogeny, Q=Q, type=&quot;Standard&quot;)</code></pre>
 </div>
-<div id="christian" class="section level2">
-<h2>Christian</h2>
-<ul>
-<li>Aim: to date the evolution of photosynthetic systems</li>
-<li>Inspiration: <a href="https://www.nature.com/articles/ng.3435"
-class="uri">https://www.nature.com/articles/ng.3435</a> (see Fig.
-3a)</li>
-<li>Unclear whether the data is readily available from this paper</li>
-<li>Note gene trees distinct from the species tree</li>
-<li>Some papers on dating gene / genome duplication:
-<ul>
-<li><a
-href="https://royalsocietypublishing.org/doi/10.1098/rspb.2017.0912"
-class="uri">https://royalsocietypublishing.org/doi/10.1098/rspb.2017.0912</a></li>
-<li><a
-href="https://www.sciencedirect.com/science/article/pii/S1360138518301596"
-class="uri">https://www.sciencedirect.com/science/article/pii/S1360138518301596</a></li>
-</ul></li>
-<li>Try this paper for CAM gene IDs and trees:
-<ul>
-<li><a
-href="https://link.springer.com/article/10.1007/s13258-022-01263-8"
-class="uri">https://link.springer.com/article/10.1007/s13258-022-01263-8</a></li>
-</ul></li>
-<li>Update: not related to photosynthesis! (the genes are called CaM,
-but they’re not part of the CAM pathway) But we’ll move forward with
-this data anyway!
-<ul>
-<li>Note the sequence data isn’t provided in the supplement but we’ll
-just pick 15 accession number!</li>
-</ul></li>
-</ul>
+<div id="mkv-gamma-substitution-model" class="section level3">
+<h3>Mkv + Gamma substitution model</h3>
+<p>Set up gamma-distributed rate variation.</p>
+<pre class="r"><code>alpha_morpho ~ dnUniform( 0.0, 1E6 )
+rates_morpho := fnDiscretizeGamma( alpha_morpho, alpha_morpho, 4 )
+moves.append( mvScale(alpha_morpho, lambda=1, weight=2.0) )</code></pre>
+<p>To account for ascertainment bias. Change the coding to
+<code>variable</code>.</p>
+<pre class="r"><code>seq ~ dnPhyloCTMC(tree=phylogeny, siteRates=rates_morpho, Q=Q, type=&quot;Standard&quot;,  coding=&quot;variable&quot;)</code></pre>
 </div>
-<div id="jordan" class="section level2">
-<h2>Jordan</h2>
-<ul>
-<li><p>Ichthyosaurs</p></li>
-<li><p>Aim: switching from the impact of branch lengths on PCMs to taxon
-sampling (e.g., taxon from different environments)</p></li>
-<li><p>Data: <a
-href="https://www.science.org/doi/10.1126/science.abf5787"
-class="uri">https://www.science.org/doi/10.1126/science.abf5787</a></p></li>
-<li><p>Some other inspiration: <a
-href="https://royalsocietypublishing.org/doi/epdf/10.1098/rspb.2017.0546"
-class="uri">https://royalsocietypublishing.org/doi/epdf/10.1098/rspb.2017.0546</a></p></li>
-<li><p>Status update: trying to reproduce the PCM output / run the
-scripts from the previous study</p></li>
-</ul>
+<div id="running-the-analysis" class="section level3">
+<h3>Running the analysis</h3>
+<p>Once you have chosen your model you can source the first script.</p>
+<pre class="r"><code>source(&quot;scripts/1_MCMC_Simulation.Rev&quot;)</code></pre>
 </div>
-<div id="katie" class="section level2">
-<h2>Katie</h2>
-<ul>
-<li><p>Horseshoe crabs</p></li>
-<li><p>Aim: Rebuild the trees: what are the implications for habitat
-transitions</p></li>
-<li><p>getting age data; later revisit how to incorporate long ranging
-taxa</p></li>
-<li><p>Analysis running!</p></li>
-<li><p>Status update: constant rate analysis looks good but skyline
-didn’t converge</p></li>
-<li><p>Next: simplify the skyline set up - vary psi only, compare
-trees</p></li>
-</ul>
+<div id="simulating-new-datasets" class="section level3">
+<h3>Simulating new datasets</h3>
+<p>We can now simulate new datasets. In this script pay attention to the
+<code>thinning</code> variable. This number controls the number of
+datasets simulated. We set it too 100 here so every 100th tree is used
+in the <code>.var</code> file. In a standard analysis you would set this
+a lot lower (e.g. 2).</p>
+<pre class="r"><code>pps.run(thinning=100)</code></pre>
+<pre class="r"><code>source(&quot;scripts/2_PP_Simulation.Rev&quot;)</code></pre>
 </div>
-<div id="matias" class="section level2">
-<h2>Matias</h2>
-<ul>
-<li><p>Sabre tooth tigers</p></li>
-<li><p>Do models change the previously inferred topology?</p></li>
-<li><p>Matrix available here: <a
-href="https://onlinelibrary.wiley.com/doi/full/10.1111/cla.12008"
-class="uri">https://onlinelibrary.wiley.com/doi/full/10.1111/cla.12008</a>
-(but only in the PDF)</p></li>
-<li><p>Suggest checking papers that have cited this one, to see if
-anyone has used (or extended) the same matrix</p></li>
-<li><p>Status update: going through the set, using Laura’s tutorial as a
-guide</p></li>
-</ul>
+<div id="mcmc-for-simulated-datasets" class="section level3">
+<h3>MCMC for simulated datasets</h3>
+<p>Next we need to run an MCMC for all of our simulated datasets. This
+function runs an MCMC for all datasets in the directory file path.</p>
+<pre class="r"><code>my_pps_mcmc = posteriorPredictiveAnalysis(mymcmc, directory)
+my_pps_mcmc.run(generations=1000)</code></pre>
+<pre class="r"><code>source(&quot;scripts/3_PP_MCMC.Rev&quot;)</code></pre>
 </div>
-<div id="max" class="section level2">
-<h2>Max</h2>
-<ul>
-<li><p>Spinosaurs (or broader)</p></li>
-<li><p>Do models change the previously inferred topology?</p></li>
-<li><p>Run the analysis under different models - done!</p></li>
-<li><p>Issue running model adequacy - resolved</p></li>
-<li><p>Next steps: compare trees, use model adequacy to select the best
-model</p></li>
-</ul>
+<div id="generating-test-statistics" class="section level3">
+<h3>Generating test statistics</h3>
+<p>We can then generate some test statistics to assess how well each
+model fit our data. This script calculates the tree length and the
+Robinson-Foulds (RF) distance for both the empirical dataset and
+simulated datasets. RF distance is one of several ways to measure the
+distance between trees.</p>
+<pre class="r"><code>source(&quot;scripts/4_Tree_Summary.Rev&quot;)</code></pre>
+<p>Now run the whole analysis again (scripts 1-4) using the other
+morphological model. Don’t forget to change the model name in each
+one!</p>
 </div>
-<div id="meghan" class="section level2">
-<h2>Meghan</h2>
-<ul>
-<li><p>Simulations to investigate the impact of clock model
-misspecification (partitions simulated under different rates)</p></li>
-<li><p>Option: simulate morphological partitions under different
-rates</p></li>
-<li><p>Check out papers by Simon Ho</p></li>
-<li><p>Note: to simulated characters under a clock model you need to
-transform branches = time into branches = rate x time</p></li>
-<li><p>Simclock: <a href="https://github.com/dosreislab/simclock"
-class="uri">https://github.com/dosreislab/simclock</a></p></li>
-<li><p>Status update: workflow established</p></li>
-<li><p>Next: inference using multiple replicates</p></li>
-</ul>
+<div id="producing-figures" class="section level3">
+<h3>Producing figures</h3>
+<p>Use the R script <code>PPS_Analysis.r</code>. If everything has been
+run correctly up to now, you only need to set your working directory and
+run this file.</p>
 </div>
-<div id="victoria" class="section level2">
-<h2>Victoria</h2>
-<ul>
-<li>Reconstructing an evolutionary timeline for Sirenians (manatees /
-dugongs)</li>
-<li><a
-href="https://www.sciencedirect.com/science/article/pii/S0895981121001231"
-class="uri">https://www.sciencedirect.com/science/article/pii/S0895981121001231</a></li>
-<li>In the process of getting age data</li>
-<li>Age data data obtained. FBD set up in progress!</li>
-<li>-&gt; FBD analysis is complete!</li>
-<li>Next: compare to existing trees, examine distribution of traits</li>
-<li>ASR?</li>
-</ul>
-<p><br />
-<br />
-</p>
+<div id="analysing-the-output" class="section level3">
+<h3>Analysing the output</h3>
+<p>The R script should produce a <code>Figures</code> directory
+containing 3 files:</p>
+<ol style="list-style-type: decimal">
+<li><code>Boxplots.pdf</code> This figure contains boxplots of the
+effect sizes for the 4 test statistics used here. The closer the plot is
+to zero the more similar the simulated results are to the
+empirical.</li>
+</ol>
+<p><img src="Boxplots.png" width="70%" style="padding:10px" /></p>
+<ol start="2" style="list-style-type: decimal">
+<li><code>Histograms.pdf</code> This figure shows the distribution of
+tree length and Robinson Foulds distance across the simulated datasets.
+The blue line shows the empirical values and the pink broken line shows
+the mean of the simulated data.</li>
+</ol>
+<p><img src="Histrograms.png" width="70%" style="padding:10px" /></p>
+<ol start="3" style="list-style-type: decimal">
+<li><code>results.csv</code> Stores the effect sizes for each
+model.</li>
+</ol>
+<p><img src="results.png" width="50%" style="padding:10px" /></p>
+</div>
+<div id="next-tasks" class="section level3">
+<h3>Next Tasks</h3>
+<p>Try simulating more datasets in the anaylsis (change the
+<code>thinnning</code> variable). Does this change the results?</p>
 </div>
 </div>
 

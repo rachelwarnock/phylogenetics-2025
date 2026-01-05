@@ -11,7 +11,7 @@
 
 
 
-<title>exercise-07.knit</title>
+<title>exercise-07bx.knit</title>
 
 <script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -283,7 +283,7 @@ fossilised birth-death (FBD) process. This time the data we’ll use is a
 living and fossil bears. We’ll also use <a
 href="data/bears_taxa.tsv">age information</a> associated with all taxa.
 Download these files and check out the contents.</p>
-<p>For this exercise create a folder called <code>exercise_7</code>.
+<p>For this exercise create a folder called <code>exercise 7</code>.
 Then create two sub-directories: <code>data</code> and
 <code>scripts</code>. Recall that for divergence time estimation we need
 three model components, so we’ll create the following scripts:</p>
@@ -298,14 +298,8 @@ scripts in a text editor of your choice.</li>
 <div id="read-in-the-data-and-define-helper-variables"
 class="section level2">
 <h2>Read in the data and define helper variables</h2>
-<p>Start with your <code>main.Rev</code> script.</p>
-<p>For this exercise, before you add the regular Rev commands and set up
-your model, add the following command at the top of your script.</p>
-<pre class="r"><code>setOption(&quot;collapseSampledAncestors&quot;, &quot;false&quot;)</code></pre>
-<p>This changes the way the program outputs trees with sampled ancestors
-and makes it easier for us to visualise the output.</p>
-<p>As before, we’ll start by reading in the data and defining some
-helper variables.</p>
+<p>Start with your <code>main.Rev</code> script. As before, we’ll start
+by reading in the data and defining some helper variables.</p>
 <pre class="r"><code>taxa &lt;- readTaxonData(&quot;data/bears_taxa.tsv&quot;)
 morpho &lt;- readDiscreteCharacterData(&quot;data/bears_morphology.nex&quot;)</code></pre>
 <pre class="r"><code>num_taxa &lt;- morpho.ntaxa() # number of taxa
@@ -442,9 +436,9 @@ variable <code>mymodel</code>.</p>
 <pre class="r"><code>mymodel = model(tree)</code></pre>
 <p>Then we define a set of monitors to capture the output.</p>
 <pre class="r"><code># parameters printed to file
-monitors.append( mnModel(filename = &quot;output/bears_FBD.log&quot;, printgen = 100, exclude = [&quot;F&quot;]) )
+monitors.append( mnModel(filename = &quot;output/bears_FBD.log&quot;, printgen = 10, exclude = [&quot;F&quot;]) )
 # trees printed to file
-monitors.append( mnFile(filename = &quot;output/bears_FBD.trees&quot;, printgen = 100, tree) )
+monitors.append( mnFile(filename = &quot;output/bears_FBD.trees&quot;, printgen = 10, tree) )
 # parameter values printed to screen during the MCMC
 monitors.append( mnScreen(printgen = 10, age_extant, num_samp_anc, origin_time) )</code></pre>
 <p><code>exclude = ["F"]</code> here means fossil ages will be excluded

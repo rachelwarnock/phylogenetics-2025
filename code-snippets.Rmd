@@ -1,0 +1,34 @@
+---
+title: ""
+output:
+  html_document:
+    toc: TRUE
+    toc_float: TRUE
+    toc_depth: 2
+---
+
+# Code snippets
+
+Some useful commands for manipulating trees in R.
+
+## Drop tips
+
+To remove tips from a phylogenetic tree you can use the `ape` command `drop.tip`.
+
+```{r drop, eval=FALSE}
+#ape::drop.tip()
+#ape::drop.fossil()
+```
+
+## Time scaling a tree in R
+
+Note: this is not the most robust way to time scale a tree but it provide a quick and dirty alternative. 
+
+```{r timescale, eval=FALSE}
+
+```
+
+# Plotting trees
+
+# Other resources
+

@@ -1,0 +1,9 @@
+## this script sets up our substitution model for an analysis. 
+# In this script we will use an Mk model
+
+Q := fnJC(int(num_states)) 
+
+
+seq ~ dnPhyloCTMC(tree=phylogeny, Q=Q, type="Standard")
+seq.clamp(morpho)
+

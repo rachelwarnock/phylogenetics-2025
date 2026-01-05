@@ -20,9 +20,9 @@ The aim is to introduce you to the major approaches used to reconstruct trees in
 
 # Rough Schedule
 
-* Mon 14 - 12:15-17:00 (parsimony, likelihood, and substitution models)
-* Tue 15 - 11:00-17:00 (Bayesian inference, MCMC, clock models, node dating)
-* Wed 16 - 11:00-17:00 (the fossilised birth-death process)
+* Day 1 - 10:00-16:00 (parsimony, likelihood, and substitution models)
+* Day 2 - 10:00-16:00 (Bayesian inference, MCMC, clock models, node dating)
+* Day 3 - 10:00-16:00 (the fossilised birth-death process)
 
 The course will take place in the Henke Str. Pal seminar room. **You will need to bring your own laptop.**
 Before course begins, make sure you have have [R](https://www.r-project.org) and [RStudio](https://posit.co/download/rstudio-desktop/) installed.
