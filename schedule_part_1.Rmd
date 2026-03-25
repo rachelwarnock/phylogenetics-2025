@@ -20,7 +20,7 @@ The aim is to introduce you to the major approaches used to reconstruct trees in
 
 # Rough Schedule
 
-* Day 1 - 10:00-16:00 (parsimony, likelihood, and substitution models)
+* Day 1 - 12:00-16:00 (parsimony, likelihood, substitution models)
 * Day 2 - 10:00-16:00 (Bayesian inference, MCMC, clock models, node dating)
 * Day 3 - 10:00-16:00 (the fossilised birth-death process)
 
@@ -65,14 +65,13 @@ kbl(dt) %>%
 
 **Reading**
 
-* Re-familiarise yourself with [how to read a phylogenetic tree](https://artic.network/how-to-read-a-tree.html) and [rooting](https://slides.filogeneti.ca/include/rooting.html)
+* Re-familiarise yourself with how to read a phylogenetic tree ([Part 1](https://artic.network/guides/how-to-read-a-tree), [Part 2](https://artic.network/guides/estimating-time-scales.html)) and [rooting](https://slides.filogeneti.ca/include/rooting.html)
 * Watch [A Brief History of Computational Phylogenetics](https://www.youtube.com/watch?v=PcD15i7yzJ8)
 
 **Homework**
 
-* Install the software [RevBayes](https://revbayes.github.io/download)
+* Install the software [BEAST2](http://beast2.org/)
 * Install the software [FigTree](http://tree.bio.ed.ac.uk/software/figtree/) and [Tracer](https://github.com/beast-dev/tracer/releases/tag/v1.7.2)
-* Windows users should also install [Git Bash](https://gitforwindows.org)
 
 \
 
@@ -134,6 +133,10 @@ kbl(dt) %>%
 * [Bayesian molecular dating: opening up the black box](https://onlinelibrary.wiley.com/doi/abs/10.1111/brv.12390)
 * [Understanding the tripartite approach to Bayesian divergence time estimation](https://ecoevorxiv.org/repository/view/4372/)
 
-\
-\
+**Homework**
 
+* Install the software [RevBayes](https://revbayes.github.io/download)
+* Windows users should also install [Git Bash](https://gitforwindows.org)
+
+\
+\

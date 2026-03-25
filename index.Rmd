@@ -13,11 +13,11 @@ knitr::include_graphics("tree.jpg")
 This hands on course focuses on the use of **Bayesian phylogenetics** in paleobiology. 
 You will learn about approaches used to infer trees, divergence times, and evolutionary rates.
 
-The course is taught in two parts. [Part 1](schedule_part_1.html) will take place as a 3 day block course, Wed 08.04.26 - Fri 10.04.26 in the Henke Str seminar room.
+The course is taught in two parts. [Part 1](schedule_part_1.html) will take place as a 3 day block course, Wed 08.04.26 - Fri 10.04.26 in the [Henke Str Pal seminar room](https://maps.app.goo.gl/WG8mdcwsp3qa5D1u8).
 Part 2 will take place in the summer semester **Tuesdays 14:00-16:00 CET** in the same room.
 
 The course will feature a mix of lectures and tutorials, so you will need to bring your laptop.
-The course will focus on getting to grips with the software [RevBayes](https://revbayes.github.io). By the end of the course you should understand the principles of Bayesian phylogenetic inference and be able to apply this knowledge to a research question of your choosing.
+The course will focus on getting to grips with the software [BEAST2](https://www.beast2.org) and [RevBayes](https://revbayes.github.io). By the end of the course you should understand the principles of Bayesian phylogenetic inference and be able to apply this knowledge to a research question of your choosing.
 You will also learn how to apply phylogenetic comparative methods using R.
 
 During the final part of the course each participant will work on a project of their choice.
@@ -44,7 +44,7 @@ Email rachel.warnock@fau.de
 
 ### Acknowledgements
 
-This course draws on material and exercises produced by [Paul Lewis](https://www.youtube.com/watch?v=1r4z0YJq580), Tracy Heath, Joëlle Bardio-Sottani, April Wright, June Pett, Joshua Justison, Sebastian Höhna, and many other [RevBayesian](https://revbayes.github.io) community contributors. Thanks to Joël Koelewijn and previous course instructors (Laura Mulvey, Emma Dunne, Tim Brandler, Katie Cryer, Meghan Gallaspy) for input on the course content.
+This course draws on material and exercises produced by [Paul Lewis](https://www.youtube.com/watch?v=1r4z0YJq580), Tracy Heath, Joëlle Bardio-Sottani, April Wright, June Pett, Joshua Justison, Sebastian Höhna, and many other [RevBayesian](https://revbayes.github.io) and [Taming the BEAST](http://taming-the-beast.org/) community contributors. Thanks to Joël Koelewijn and previous course instructors (Laura Mulvey, Emma Dunne, Tim Brandler, Katie Cryer, Meghan Gallaspy) for input on the course content.
 
 
 \
