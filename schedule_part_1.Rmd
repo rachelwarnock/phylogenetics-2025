@@ -22,7 +22,7 @@ The aim is to introduce you to the major approaches used to reconstruct trees in
 
 * Day 1 - 12:00-16:00 (parsimony, likelihood, substitution models)
 * Day 2 - 10:00-16:00 (Bayesian inference, MCMC, clock models, node dating)
-* Day 3 - 10:00-16:00 (the fossilised birth-death process)
+* Day 3 - 10:00-16:00 (the fossilised birth-death process, total-evidence dating)
 
 The course will take place in the Henke Str. Pal seminar room. **You will need to bring your own laptop.**
 Before course begins, make sure you have have [R](https://www.r-project.org) and [RStudio](https://posit.co/download/rstudio-desktop/) installed.
@@ -70,6 +70,7 @@ kbl(dt) %>%
 
 **Homework**
 
+* Install the software [MrBayes](https://nbisweden.github.io/MrBayes/)
 * Install the software [BEAST2](http://beast2.org/)
 * Install the software [FigTree](http://tree.bio.ed.ac.uk/software/figtree/) and [Tracer](https://github.com/beast-dev/tracer/releases/tag/v1.7.2)
 

@@ -74,7 +74,9 @@ mp <- ape::root(mp, outgroup = outgroup, resolve.root = TRUE)
 plot(mp)
 ```
 
-> Based on this tree how would you interpret the phylogenetic position of *Charnia*? Could you say whether it was a stem or crown group animal? Use this [guide](latin_names.html) to decode the Latin names.
+> Based on this tree how would you interpret the phylogenetic position of *Charnia*? Could you say whether it was a [crown group](https://en.wikipedia.org/wiki/Crown_group) or [stem group](https://en.wikipedia.org/wiki/Crown_group#Stem_groups) animal? 
+
+Learn more about the taxa in this data set [here](latin_names.html).
 
 *Charnia* was also the subject of this absolute [Palaeovision banger](https://www.youtube.com/watch?v=yeOC5CfSUxE).
 
@@ -85,7 +87,7 @@ Many people use the open source software [TNT](http://www.lillo.org.ar/phylogeny
 You can also tweak your parsimony analysis based on assumptions you want to make about your character data. 
 For example, characters can be ordered (e.g., you can allow character state changes from 0 to 1 or from 1 to 2 but prevent changes from 0 to 2). You can also assign different weights to different characters. 
 
-We won't explore parsimony any further in this course but it remains widely used for the analysis of morphological character data and is sometimes much faster than alternative tree-building approaches. 
+We won't explore parsimony any further in this course, but it remains widely used for the analysis of morphological character data and is sometimes faster than alternative tree-building approaches. 
 It can be a useful way to have an initial glimpse at your data/tree before or while running more computationally intensive analyses.
 
 A complete script for this exercise can be downloaded [here](scripts/parsimony_example.R).
