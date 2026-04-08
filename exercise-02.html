@@ -273,9 +273,9 @@ $(document).ready(function () {
 <h1>Tree building using maximum likelihood</h1>
 <p>In this exercise we’ll estimate trees using maximum likelihood and
 look at the impact of different substitution models.</p>
-<p>For this we’ll use the <code>phangorn</code> package again and a data
-set of primates sequences. The sequences are a short fragment of the
-mitochondrial genome. You can download the data from <a
+<p>For this we’ll use the <code>phangorn</code> R package again and a
+data set of primates sequences. The sequences are a short fragment of
+the mitochondrial genome. You can download the data from <a
 href="data/primates-data.nex">here</a>.</p>
 <p>As before start by opening the file and converting the data into the
 right format for <code>phangorn</code>.</p>
@@ -284,8 +284,7 @@ dat = ape::read.nexus.data(file = &quot;data/primates-data.nex&quot;)
 
 # &amp; convert to a phanghorn object
 dat = phangorn::phyDat(dat, type = &quot;DNA&quot;)</code></pre>
-<p>As before we need to generate a starting tree using neighbour
-joining.</p>
+<p>Next we need to generate a starting tree using neighbour joining.</p>
 <pre class="r"><code># create a neighbour joining starting tree
 dm = phangorn::dist.hamming(dat)
 starting_tree = phangorn::NJ(dm)</code></pre>
@@ -293,11 +292,11 @@ starting_tree = phangorn::NJ(dm)</code></pre>
 the <a href="https://en.wikipedia.org/wiki/Hamming_distance">Hamming
 distance</a> is simply the proportion of sites at which they differ.
 It’s therefore one of the simplest ways to approximate evolutionary
-distances and generate a starting tree. But remember this approach won’t
+distances and generate a starting tree. But note this approach won’t
 account for convergent evolution or homoplasy.</em></p>
 <p>The <code>phangorn</code> function <code>pml</code> (pml =
-phylogenetic maximum likelihood) calculates the likelihood of a tree
-given the data under a model specified by the user. We’ll start with the
+phylogenetic maximum likelihood) calculates the likelihood of the data
+given the tree under a model specified by the user. We’ll start with the
 simplest model of sequence evolution, the Jukes-Cantor (JC) model.</p>
 <pre class="r"><code># calculate the likelihood of the tree given the data
 fitJC = phangorn::pml(starting_tree, data=dat, model = &quot;JC&quot;)
@@ -306,14 +305,14 @@ fitJC</code></pre>
 <p>What do you notice about the base frequencies?</p>
 </blockquote>
 <p>Then we’ll use the function <code>optim.pml</code> to find the tree
-with the best likelihood score under the Jukes-Cantor model. This
-function takes the tree and the starting values obtaining using the
+with the best (maximum) likelihood score under the Jukes-Cantor model.
+This function takes the tree and the starting values obtaining using the
 <code>pml</code> function and explores the tree space by switching
 around the branches. The argument <code>optNni = TRUE</code> tells the
 function to optimize the tree topology (i.e., find the tree with the
 highest likelihood), as well as the branch lengths and the model
-parameters. The parameters of the JC model are fixed, so the model
-parameters won’t actually change in this case.</p>
+parameters. The JC model parameters are fixed, so the model parameters
+won’t actually change in this case.</p>
 <pre class="r"><code># estimate the tree using ML
 fitJC_opt = phangorn::optim.pml(fitJC, model = &quot;JC&quot;, optNni = TRUE)
 fitJC_opt</code></pre>
@@ -324,7 +323,10 @@ that the likelihood is improving, i.e., getting larger.</p>
 <p>The function outputs a list with a bunch of values that might be of
 interest, including the tree.</p>
 <pre class="r"><code>fitJC_opt$tree</code></pre>
-<p>Next we’ll do the same with the GTR substitution model.</p>
+<p>Next we’ll do the same with the GTR substitution model. This is a
+more complex model that allows each combination of nucleotide changes to
+have a separate relative rate, as well as the proportion of each
+nucleotide.</p>
 <pre class="r"><code>fitGTR = phangorn::pml(starting_tree, data=dat, model = &quot;GTR&quot;)
 fitGTR_opt = phangorn::optim.pml(fitGTR, model = &quot;GTR&quot;, optNni = TRUE)
 fitGTR_opt</code></pre>
@@ -349,8 +351,8 @@ plot(GTR_tree_rooted)</code></pre>
 Which one do you think is correct?</p>
 </blockquote>
 <p>Since we have the maximum likelihood estimate under both models, we
-can use a straightforward model testing to identify the best fitting
-model.</p>
+can use a straightforward model testing approach to identify the best
+fitting model.</p>
 <pre class="r"><code>AIC(fitJC_opt, fitGTR_opt)</code></pre>
 <blockquote>
 <p>How would you interpret these results? <a
@@ -383,10 +385,9 @@ likelihood. Some of these feature additional substitution models or have
 been optimized for the analysis of large data sets. The analysis in this
 exercise is very fast because our data set has a small number of species
 and characters (only 150) – most DNA data sets are <em>much</em> larger
-than this. Two currently alternative likelihood based programs for tree
-building are <a
-href="https://cme.h-its.org/exelixis/web/software/raxml/">RAxML</a> and
-<a href="http://www.iqtree.org/">IQTREE</a>.</p>
+than this. Two popular likelihood based programs for tree building are
+<a href="https://cme.h-its.org/exelixis/web/software/raxml/">RAxML</a>
+and <a href="http://www.iqtree.org/">IQTREE</a>.</p>
 <p>A complete script for this exercise can be downloaded <a
 href="scripts/ML_example.R">here</a>.</p>
 </div>
