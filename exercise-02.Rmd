@@ -104,15 +104,11 @@ Follow the link to learn more about [interpreting AIC scores](aic.html).
 
 ## Output a tree from R
 
-To output a tree from R and save it we can use the `ape` function `write.tree`. This outputs the tree in Newick format.
+As before, to output a tree from R and save it we can use the `ape` function `write.tree`. This outputs the tree in [Newick format](https://en.wikipedia.org/wiki/Newick_format).
 
 ```{r write_tr, eval=FALSE}
 # write to screen
 ape::write.tree(tree)
-```
-
-```{r write_tr2, eval=FALSE}
-# write to file
 ape::write.tree(tree, file = "my-tree.nex")
 ```
 

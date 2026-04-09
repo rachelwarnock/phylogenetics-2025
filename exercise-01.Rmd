@@ -80,6 +80,20 @@ Learn more about the taxa in this data set [here](latin_names.html).
 
 *Charnia* was also the subject of this absolute [Palaeovision banger](https://www.youtube.com/watch?v=yeOC5CfSUxE).
 
+## Output a tree from R
+
+To output a tree from R and save it we can use the `ape` function `write.tree`. This outputs the tree in [Newick format](https://en.wikipedia.org/wiki/Newick_format).
+
+```{r write_tr, eval=FALSE}
+# write to screen
+ape::write.tree(tree)
+```
+
+```{r write_tr2, eval=FALSE}
+# write to file
+ape::write.tree(tree, file = "my-tree.nex")
+```
+
 ## Other resources for building trees using parsimony
 
 Because there are a large number of possible trees even for a small number of taxa, finding the most parsimonious tree is actually algorithmically really challenging. 

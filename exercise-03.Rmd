@@ -9,141 +9,231 @@ knitr::opts_chunk$set(echo = TRUE)
 
 \
 
-# Introduction to RevBayes and the Rev language
+# Bayesian tree inference using MrBayes
 
-[RevBayes](https://revbayes.github.io) is a flexible program that has been developed for Bayesian phylogenetics.
-It has it's own command line language, similar to the R programming language, that can be used to set up a model in a Bayesian framework. We won't run any analyses in this exercise, we'll just explore the Rev language and look at the syntax used to set up different types of variables. 
+This exercise provides a quick overview of tree building using the software MrBayes. We'll use a straightforward Bayesian approach with a standard set of substitutions models. 
 
-## Running RevBayes
+We'll estimate of a tree of primates using a slightly longer alignment than the one we used before $-$ you can download this from [here](data/primates_and_galeopterus_cytb.nex). 
 
-First make sure you can [download](https://revbayes.github.io/download) and install the software. We recommend running RevBayes in the terminal (or GitBash if using windows). There are a few ways to do this but perhaps the easiest way is to change working directory or `cd` to where the RevBayes executable is on your computer. From there you can open RevBayes using `./rb`. You might have to navigate to your security settings to enable RevBayes to run on your device. It should look something like this:
+## Software
 
-```{r, echo=FALSE, out.width="70%",  out.extra='style="padding:1px"'}
-knitr::include_graphics("RB_terminal.png")
+For this tutorial you'll need to download the software [MrBayes](https://nbisweden.github.io/MrBayes/download.html).
+
+### Windows users 
+
+You can simply download the pre-compiled version (MrBayes-3.2.7-WIN.zip). Click on the executable to open MrBayes. It should look like the figure below.
+
+### Mac users
+
+You will need to compile the software using the source code. First, download the source code and unzip the file. Open a terminal and `cd` to where ever you downloaded the file (probably your `Downloads` folder). Enter the commands below into your terminal. If this process is successful, an executable `mb` should appear in the `src` sub-directory. You can open MrBayes either by running the command `./mb` in a regular terminal window or you can click on the executable.
+  
+```{bash, eval=FALSE}
+# compiling the software
+cd MrBayes-3.2.7a
+./configure
+make
+# running the software
+cd src
+./mb
+```  
+
+If everything is working it should look something like this.
+
+```{r, echo=FALSE, out.width="65%",  out.extra='style="padding:10px"'}
+knitr::include_graphics("MrBayes-01.png")
 ```
 
-Ready to go! Reach out to an instructor if you encounter any issues.
+To close the program you can simply enter the command `Quit`. 
+Enter the command `help` to bring up the help pages.
 
-Once you have it up and running, see if you can produce any sensible output using the RevBayes terminal. For example, it can be used like a calculator in the same way as R.
+### Other software
 
-```{r calculator, eval=FALSE}
-4 + 10
+You'll also need to download the software [Tracer](http://beast.community/tracer) and [FigTree](https://github.com/rambaut/figtree/releases).
+
+To edit your input file use a source code editor of your choice, e.g., [Visual Studio Code](https://code.visualstudio.com).
+
+## How to organise your files
+
+I recommend creating a folder for this exercise and placing your data file (`primates_and_galeopterus_cytb.nex`) and the MrBayes executable in here. All your output should also appear here.
+
+## Setting up commands in MrBayes
+
+You can enter commands directly into MrBayes, but an alternative approach is to specify all your commands in a block at the end of your nexus file. Open the nexus file in an editor of your choice.
+
+The first thing we want to do is initiate the nexus block. Simply enter the following commands at the end of the file - these commands will initiate and terminate the MrBayes block and all other commands will go in between.
+
+```{bash, eval=FALSE}
+begin mrbayes;
+
+[All your MrBayes commands will go here!]
+
+end;
 ```
 
-```{r hidden_notes, eval=FALSE, echo=FALSE}
-#This website was generated using RMarkdown, so the output will look a little different in RevBayes.
-#Graphical models
+For setting up regular Bayesian tree inference we need to specify two model components: 
+
+  1. we need a prior on the topology and branch lengths 
+  2. and we need to specify a substitution model
+
+## The tree prior
+
+The following commands specify a uniform prior on the **tree topology**, meaning that all possible tree configurations have the *same probability* under the prior. Next we need to specify a prior on the **branch lengths**. We'll do this using an exponential distribution, with a mean of 0.1.
+
+You'll notice that all commands require a semi-colon `;` at the end of the line.
+
+```{bash tree, eval=FALSE}
+prset topologypr = uniform;
+prset brlenspr = unconstrained:exp(10.0);
 ```
 
-## Constant variables {#constant}
+The uniform tree prior is actually the default used in MrBayes, so you could technically omit the first line here and MrBayes would still use this prior.
 
-Constant variables have a fixed value and are specified using the left arrow `<-` assignment.
+## The Jukes-Cantor substitution model
 
-```{r fixed, eval=FALSE}
-a <- 4
-b <- 10
-a + b
+In this first analysis we will use the Jukes-Cantor (JC) substitution model. Under this model there is a single substitution rate and base (state) frequencies are assumed to be equal. 
+
+In MrBayes, the commands `lset` and `pset` are used to set up the substitution model.
+
+```{bash JC, eval=FALSE}
+lset nst = 1; [number of rate categories]
+prset statefreqpr = fixed(equal);
 ```
 
-Note that in R the `=` and `<-` assignment can almost always be used interchangeably. This is not the case in RevBayes, where `=` can be used to define variables in your environment, but these can't then be used as part of a model. We'll see some examples of when we might use `=` in RevBayes in future weeks.
+By default MrBayes allows the evolutionary rate to vary across sites in our alignment (called among site rate variation). Often we do want to use this option but for now, just to keep things simple, we'll switch this off.
 
-To clear the value of a variable you can use `clear(a)`.
-
-## Deterministic variables {#deterministic}
-
-Deterministic variables are linked to the value of other variables and specified using the colon-equal `:=` assignment.
-
-```{r determ1, eval=FALSE}
-# specify constant variable "a"
-a <- 4
-# specify deterministic variable "b"
-b := a
-b
+```{bash ASRV, eval=FALSE}
+lset rates = equal; [assume rates are also constant across sites]
 ```
 
-```{r determ2, eval=FALSE}
-# now see what happens if you change the value of "a"
-a <- 5
-b
+## Running MrBayes
+
+Next let's open MrBayes and execute the above commands. Click on the `mb` executable. **Mac users** the easiest way to direct MrBayes to your file is to drag and drop your file into the MrBayes window. It should look something like this.
+
+```{r, echo=FALSE, out.width="65%",  out.extra='style="padding:10px"'}
+knitr::include_graphics("MrBayes-02.png")
 ```
 
-Deterministic variables can also be transformed using any given formula you provide.
+Next press enter!
 
-```{r determ3, eval=FALSE}
-b := 3 * a
+**Windows users** - I'm not sure, let's work this out together.
+
+To ensure your model is set up correctly you can use the `showmodel` - this prints out all the prior and parameter settings, including the default settings and the ones you modified. 
+
+## MCMC settings
+
+Before we run the analysis we just need to finish setting up the MCMC. Go back to the MrBayes block in your nexus file.
+
+Next add the following commands. This command specifies the MCMC setting and initiates the run. Here we're using one chain, with 2000 generations, sampling every 100 iterations. By default the program runs two independent chain simultaneously. The `nchains` argument here specifies whether we want to use Metropolis coupled chains. Usually we do what to do this, as its more efficient, but we won't do this now (`nchains=1`)  
+
+We also need to specify the full file path and output file name to ensure the output ends up in the right place.
+
+```{r mcmc, eval=FALSE}
+mcmc ngen = 2000 samplefreq = 100 printfreq = 100 nchains = 1 filename = /Users/iq75aqot/Documents/MrBayes_exercise/primates_JC;
 ```
 
-> Explore what happens when you change the value of `a` and experiment with different formulas / operators.
+Go back to the MrBayes window and execute the file as above. If everything is working, the MCMC should initiate. 
+After 20000 iterations it will ask if you want to continue.
 
-## Stochastic variables {#stochastic}
-
-Stochastic variables are described with respect to some underlying probability distribution and are specified using the tilde `~` assignment. For example, we might want to say that variable `c` is a normally distributed random variable.
-
-```{r stoch, eval=FALSE}
-# specify the mean and standard deviation parameters as constant variables
-a <- 1
-b <- 0.1
-
-# specify a stochastic variable using the normal distribution 
-c ~ dnNormal(a, b)
-c
+```{r, echo=FALSE, out.width="65%",  out.extra='style="padding:10px"'}
+knitr::include_graphics("MrBayes-03.png")
 ```
 
-Any distribution function in Rev always begins with `dn`. You can also bring up help pages using a question mark like we do in R, e.g., `?dnNormal` will bring up help pages for the normal distribution.
+Type `no` and press enter. Leave the MrBayes window open for now.
 
-You can define stochastic variables in RevBayes using any common statistical distributions (as well as more complex phylogenetic distributions that we'll meet in future weeks). A list of available Rev functions can be found [here](https://revbayes.github.io/documentation/).
+## Evaluating the output
 
->Can you think of any other common distributions and try to set them up in RevBayes?
+During the MCMC run, the program should have output the log `.p` and the trees `.t` files. Open these in a text editor. 
 
-If you run the above code again, `c` will take on a different random value from the normal distribution. Without more context, it might not seem obvious why we'd want to define a variable in this way. You can think of `c` as a potential parameter with an unknown value that we're interested in estimating. When we go on to set up the full analysis in a later class, you'll see that we can update the value of `c` during our analysis. And because stochastic variables like `c` are linked to an underlying distribution, `c` inherits some of the properties of that distribution. We can call functions related to that distribution by using `.` followed by a function name. For example, `c.probability()` will tell us the probability of observing the current value of `c` given the underlying distribution.
+>What do you make of the contents of the log and tree files?
 
-> Redefine your stochastic variable and compare the probability for different values under the same distribution -- do these probabilities make sense to you?
+The first thing we want to check is **convergence**. We can do this using the program Tracer.
+Open Tracer and drag and drop your `.p` file into the panel on the left or you can go to File > Import Trace File. What you see should look something like this.
 
-## Functions
-
-A substitution model is defined by an instantaneous rate matrix, where each character transition is associated with a rate of change (e.g., the rate of changing from A to G). We could set this up manually, by specifying an entry for each row/column in a matrix but this is a kerfuffle. Luckily, RevBayes has many inbuilt functions, which begin `fn`, including one for all the most commonly used substitution models.
-
-The simplest substitution model for nucleotide data is the Jukes-Cantor model, which can be specified using the `fnJC` function.
-
-```{r matrix, eval=FALSE}
-# specify a constant matrix variable 
-Q <- fnJC(4) # 4 here refers to the number of states (i.e. ATGC)
-Q
+```{r, echo=FALSE, out.width="65%",  out.extra='style="padding:10px"'}
+knitr::include_graphics("MrBayes-04.png")
 ```
 
-In this model all the substitution rates are equal. If substitution rates vary, we need to estimate this variability from the data and `Q` would become a deterministic variable. We'll see some examples of this later.
+Explore the output, including the Trace panel at the top.
 
-Last thing for today - let's compare the Q matrix and the transition probabilities over different intervals of time. We can start by creating a simpler 2-state Q matrix.
+>What do the histograms represent? Do you think our analysis has reached convergence?
 
-```{r matrix2, eval=FALSE}
-# specify a constant matrix variable 
-Q <- fnJC(2)
-Q
-# calculate the transition probabilities after 0.1 units of time
-Q.getTransitionProbabilities(0.1)
-# calculate the transition probabilities after 100 units of time
-Q.getTransitionProbabilities(100) # 100 units
+There are some indicators that our analysis *hasn't* converged, including the ESS values which are highlighted in red, and the trace plots.
+This means we haven't adequately approximated the posterior parameter space. 
+
+Let's increase the chain length to 200000 and rerun the MCMC. This might take a bit longer $-$ while you're waiting for this to run, you could move on and set up the GTR substitution model. 
+
+You're already getting a flavor for how long MCMC analyses can take. It's very common to have to run empirical analyses for millions+ generations and it can often take several days for a single analysis.
+
+Once your longer run is complete, open the file again in Tracer. Your new output should look something like this.
+
+```{r, echo=FALSE, out.width="85%",  out.extra='style="padding:10px"'}
+knitr::include_graphics("MrBayes-05.png")
 ```
 
-### Other useful commands {#useful}
+> What differences do you notice in the output? 
 
-```{r useful2, eval=FALSE}
-# Change working directory
-setwd("/Users/warnock/Documents/phylogenetics/exercise_03")
-# To find the current working directory
-getwd()
-# to exit RevBayes
-q()
+Actually, if wanted to use this output for publication, we would still want to run the chain for longer and examine more convergence diagnostics.
+
+## Summarising the output
+
+Back in MrBayes we can also generate summary trees. We'll use the maximum a posteriori (MAP) tree $-$ this is the tree with the highest posterior probability. This is just one way of summarising the posterior distribution of trees. Simple type the command below into MrBayes.
+
+It is important to keep in mind that the summary tree is not the "true" result $-$ the entire posterior distribution (which might contain multiple trees) is the full result. 
+
+```{r MAP, eval=FALSE}
+# generate a MAP tree
+sumt;
 ```
 
-It's sometimes useful to know how to clear the working memory in RevBayes, e.g., to avoid redefining variables.  
+You can also include this command in your nexus file. This will output a tree file that ends with `.con.tre`.
 
-```{r useful, eval=FALSE}
-# clear working memory 
-clear()
+You can open this tree in the program FigTree. To root the tree, select the branch leading to `"Galeopterus_variegatus` $-$ this is our outgroup, the flying lemur $-$ and click "Reroot". 
+Next let's look at the node support. Go to Node Labels > Display > prop.
+Your output should look something like this.
+
+```{r, echo=FALSE, out.width="85%",  out.extra='style="padding:10px"'}
+knitr::include_graphics("MrBayes-06.png")
 ```
 
-### Further reading
+## The GTR substitution model {#GTR}
 
-Here's a more [comprehensive intro](https://revbayes.github.io/tutorials/intro/rev) to the Rev language.
+Next let's set up an analysis using the General Time Reversible (GTR) model. Under this model both rates of change between states and state frequencies are allowed to vary.  
 
+Copy and paste your nexus file, and call it something like `primates-GTR.nex`. Alternatively, you can comment out the commands for the JC model and use the same file - it's up to you, just be careful not to overwrite your existing output files.
+
+Enter the following commands to set up the GTR model. For the state frequencies we're using a Dirichlet prior, which is a useful distribution for proportions. 
+
+```{r Q2, eval=FALSE}
+lset nst = 6; [number of rate categories]
+prset statefreqpr = Dirichlet(1.0,1.0,1.0,1.0);
+```
+
+The rest of the set up is the same as before.
+
+Change the name of your output files (so they don't overwrite the existing files) and rerun your analysis using the GTR model. 
+
+```{r mcmc2, eval=FALSE}
+mcmc ngen = 2000 samplefreq = 100 printfreq = 100 nchains = 1 filename = /Users/iq75aqot/Documents/MrBayes_exercise/primates_GTR;
+```
+
+Run the analysis using MrBayes as above. 
+
+Once your analysis is done, you can examine the log files in Tracer. The output should look something like this.
+
+```{r, echo=FALSE, out.width="85%",  out.extra='style="padding:10px"'}
+knitr::include_graphics("MrBayes-07.png")
+```
+
+>What differences do you notice between the runs? Are there any additional parameters? Are there any differences between equivalent parameters? 
+
+Generate a new MAP tree and then compare them.
+
+> Are there any differences between the summary trees?  
+
+> How does your tree compare to a [published phylogeny](https://www.science.org/doi/epdf/10.1126/science.abn6919) of primates?
+
+## Other resources for buidling trees using Bayesian inference
+
+MrBayes can be used to set up much more complex models than the ones in this tutorial, for both unconstrained (undated) and dated tree inference. Although its less flexible than some alternative options, including [RevBayes](https://revbayes.github.io/) and [BEAST2](https://www.beast2.org/), it was well designed, is relatively straightforward to use, and remains very popular for Bayesian tree inference. You can learn more about the options in the program [manual](https://gensoft.pasteur.fr/docs/mrbayes/3.2.7/Manual_MrBayes_v3.2.pdf) or in various comprehsive tutorials like [this one](https://www.math.auckland.ac.nz/~nicholls/BIOSCI743/mrbayes%20overview.pdf). 
+
+A complete script for this exercise can be downloaded  [here](scripts/primates_MrBayes.nex).

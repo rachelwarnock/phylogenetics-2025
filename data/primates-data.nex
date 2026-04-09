@@ -1,5 +1,6 @@
 #NEXUS
 [Data source: https://wiki.duke.edu/display/AnthroTree/2.2+Simple+Parsimony+Analysis+in+R]
+[Above link no longer works - see https://cw.fel.cvut.cz/wiki/courses/bin/tutorials/tutorial6]
 BEGIN DATA;
 DIMENSIONS  NTAX=17 NCHAR=150;
 	FORMAT DATATYPE = DNA SYMBOLS= " A T G C" MISSING=? GAP=- ;

@@ -82,15 +82,16 @@ kbl(dt) %>%
 
 library(kableExtra)
 
-#urls <- c("slides/03-Bayesian.pdf","exercise-03.html", "exercise-04.html")
+urls <- c("slides/03-Bayesian.pdf","exercise-03.html", "slides/04-clocks.pdf","https://taming-the-beast.org/tutorials/Introduction-to-BEAST2/")
 
 dt <- data.frame(schedule = c("Slides", "Exercise 3", "Slides", "Exercise 4"),
                  topics = c("Bayesian tree inference", 
                             "tree building using MrBayes", 
-                            "Intro to BEAST, molecular dating", "tree building using BEAST"))
-#dt$schedule[1] <- paste0("[", dt$schedule[1], "](", urls[1], ")")
-#dt$schedule[2] <- paste0("[", dt$schedule[2], "](", urls[2], ")")
+                            "molecular dating, intro to BEAST", "tree building using BEAST"))
+dt$schedule[1] <- paste0("[", dt$schedule[1], "](", urls[1], ")")
+dt$schedule[2] <- paste0("[", dt$schedule[2], "](", urls[2], ")")
 #dt$schedule[3] <- paste0("[", dt$schedule[3], "](", urls[3], ")")
+#dt$schedule[4] <- paste0("[", dt$schedule[4], "](", urls[4], ")")
 
 kbl(dt) %>%
   kable_styling(bootstrap_options = "striped", full_width = F, position = "left")

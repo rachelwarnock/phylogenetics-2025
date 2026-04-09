@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>exercise-0X-RB-intro.knit</title>
+
+<script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Phylogenetics</a>
+</li>
+<li>
+  <a href="schedule_part_1.html">Part 1</a>
+</li>
+<li>
+  <a href="projects.html">Projects</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+
+</div>
+
+
+<p><br />
+</p>
+<div id="introduction-to-revbayes-and-the-rev-language"
+class="section level1">
+<h1>Introduction to RevBayes and the Rev language</h1>
+<p><a href="https://revbayes.github.io">RevBayes</a> is a flexible
+program that has been developed for Bayesian phylogenetics. It has it’s
+own command line language, similar to the R programming language, that
+can be used to set up a model in a Bayesian framework. We won’t run any
+analyses in this exercise, we’ll just explore the Rev language and look
+at the syntax used to set up different types of variables.</p>
+<div id="running-revbayes" class="section level2">
+<h2>Running RevBayes</h2>
+<p>First make sure you can <a
+href="https://revbayes.github.io/download">download</a> and install the
+software. We recommend running RevBayes in the terminal (or GitBash if
+using windows). There are a few ways to do this but perhaps the easiest
+way is to change working directory or <code>cd</code> to where the
+RevBayes executable is on your computer. From there you can open
+RevBayes using <code>./rb</code>. You might have to navigate to your
+security settings to enable RevBayes to run on your device. It should
+look something like this:</p>
+<p><img src="RB_terminal.png" alt="" width="70%" style="padding:1px" /></p>
+<p>Ready to go! Reach out to an instructor if you encounter any
+issues.</p>
+<p>Once you have it up and running, see if you can produce any sensible
+output using the RevBayes terminal. For example, it can be used like a
+calculator in the same way as R.</p>
+<pre class="r"><code>4 + 10</code></pre>
+</div>
+<div id="constant" class="section level2">
+<h2>Constant variables</h2>
+<p>Constant variables have a fixed value and are specified using the
+left arrow <code>&lt;-</code> assignment.</p>
+<pre class="r"><code>a &lt;- 4
+b &lt;- 10
+a + b</code></pre>
+<p>Note that in R the <code>=</code> and <code>&lt;-</code> assignment
+can almost always be used interchangeably. This is not the case in
+RevBayes, where <code>=</code> can be used to define variables in your
+environment, but these can’t then be used as part of a model. We’ll see
+some examples of when we might use <code>=</code> in RevBayes in future
+weeks.</p>
+<p>To clear the value of a variable you can use
+<code>clear(a)</code>.</p>
+</div>
+<div id="deterministic" class="section level2">
+<h2>Deterministic variables</h2>
+<p>Deterministic variables are linked to the value of other variables
+and specified using the colon-equal <code>:=</code> assignment.</p>
+<pre class="r"><code># specify constant variable &quot;a&quot;
+a &lt;- 4
+# specify deterministic variable &quot;b&quot;
+b := a
+b</code></pre>
+<pre class="r"><code># now see what happens if you change the value of &quot;a&quot;
+a &lt;- 5
+b</code></pre>
+<p>Deterministic variables can also be transformed using any given
+formula you provide.</p>
+<pre class="r"><code>b := 3 * a</code></pre>
+<blockquote>
+<p>Explore what happens when you change the value of <code>a</code> and
+experiment with different formulas / operators.</p>
+</blockquote>
+</div>
+<div id="stochastic" class="section level2">
+<h2>Stochastic variables</h2>
+<p>Stochastic variables are described with respect to some underlying
+probability distribution and are specified using the tilde
+<code>~</code> assignment. For example, we might want to say that
+variable <code>c</code> is a normally distributed random variable.</p>
+<pre class="r"><code># specify the mean and standard deviation parameters as constant variables
+a &lt;- 1
+b &lt;- 0.1
+
+# specify a stochastic variable using the normal distribution 
+c ~ dnNormal(a, b)
+c</code></pre>
+<p>Any distribution function in Rev always begins with <code>dn</code>.
+You can also bring up help pages using a question mark like we do in R,
+e.g., <code>?dnNormal</code> will bring up help pages for the normal
+distribution.</p>
+<p>You can define stochastic variables in RevBayes using any common
+statistical distributions (as well as more complex phylogenetic
+distributions that we’ll meet in future weeks). A list of available Rev
+functions can be found <a
+href="https://revbayes.github.io/documentation/">here</a>.</p>
+<blockquote>
+<p>Can you think of any other common distributions and try to set them
+up in RevBayes?</p>
+</blockquote>
+<p>If you run the above code again, <code>c</code> will take on a
+different random value from the normal distribution. Without more
+context, it might not seem obvious why we’d want to define a variable in
+this way. You can think of <code>c</code> as a potential parameter with
+an unknown value that we’re interested in estimating. When we go on to
+set up the full analysis in a later class, you’ll see that we can update
+the value of <code>c</code> during our analysis. And because stochastic
+variables like <code>c</code> are linked to an underlying distribution,
+<code>c</code> inherits some of the properties of that distribution. We
+can call functions related to that distribution by using <code>.</code>
+followed by a function name. For example, <code>c.probability()</code>
+will tell us the probability of observing the current value of
+<code>c</code> given the underlying distribution.</p>
+<blockquote>
+<p>Redefine your stochastic variable and compare the probability for
+different values under the same distribution – do these probabilities
+make sense to you?</p>
+</blockquote>
+</div>
+<div id="functions" class="section level2">
+<h2>Functions</h2>
+<p>A substitution model is defined by an instantaneous rate matrix,
+where each character transition is associated with a rate of change
+(e.g., the rate of changing from A to G). We could set this up manually,
+by specifying an entry for each row/column in a matrix but this is a
+kerfuffle. Luckily, RevBayes has many inbuilt functions, which begin
+<code>fn</code>, including one for all the most commonly used
+substitution models.</p>
+<p>The simplest substitution model for nucleotide data is the
+Jukes-Cantor model, which can be specified using the <code>fnJC</code>
+function.</p>
+<pre class="r"><code># specify a constant matrix variable 
+Q &lt;- fnJC(4) # 4 here refers to the number of states (i.e. ATGC)
+Q</code></pre>
+<p>In this model all the substitution rates are equal. If substitution
+rates vary, we need to estimate this variability from the data and
+<code>Q</code> would become a deterministic variable. We’ll see some
+examples of this later.</p>
+<p>Last thing for today - let’s compare the Q matrix and the transition
+probabilities over different intervals of time. We can start by creating
+a simpler 2-state Q matrix.</p>
+<pre class="r"><code># specify a constant matrix variable 
+Q &lt;- fnJC(2)
+Q
+# calculate the transition probabilities after 0.1 units of time
+Q.getTransitionProbabilities(0.1)
+# calculate the transition probabilities after 100 units of time
+Q.getTransitionProbabilities(100) # 100 units</code></pre>
+<div id="useful" class="section level3">
+<h3>Other useful commands</h3>
+<pre class="r"><code># Change working directory
+setwd(&quot;/Users/warnock/Documents/phylogenetics/exercise_03&quot;)
+# To find the current working directory
+getwd()
+# to exit RevBayes
+q()</code></pre>
+<p>It’s sometimes useful to know how to clear the working memory in
+RevBayes, e.g., to avoid redefining variables.</p>
+<pre class="r"><code># clear working memory 
+clear()</code></pre>
+</div>
+<div id="further-reading" class="section level3">
+<h3>Further reading</h3>
+<p>Here’s a more <a
+href="https://revbayes.github.io/tutorials/intro/rev">comprehensive
+intro</a> to the Rev language.</p>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -367,12 +367,12 @@ phylogeny</a> of primates?</p>
 </blockquote>
 <div id="output-a-tree-from-r" class="section level2">
 <h2>Output a tree from R</h2>
-<p>To output a tree from R and save it we can use the <code>ape</code>
-function <code>write.tree</code>. This outputs the tree in Newick
-format.</p>
+<p>As before, to output a tree from R and save it we can use the
+<code>ape</code> function <code>write.tree</code>. This outputs the tree
+in <a href="https://en.wikipedia.org/wiki/Newick_format">Newick
+format</a>.</p>
 <pre class="r"><code># write to screen
-ape::write.tree(tree)</code></pre>
-<pre class="r"><code># write to file
+ape::write.tree(tree)
 ape::write.tree(tree, file = &quot;my-tree.nex&quot;)</code></pre>
 </div>
 <div id="other-resources-for-buidling-trees-using-maximum-likelihood"
