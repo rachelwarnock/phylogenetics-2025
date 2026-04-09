@@ -21,9 +21,10 @@ For this tutorial you'll need to download the software [MrBayes](https://nbiswed
 
 ### Windows users 
 
-You can simply download the pre-compiled version (MrBayes-3.2.7-WIN.zip). Click on the executable to open MrBayes. It should look like the figure below.
+You can simply download the pre-compiled version (MrBayes-3.2.7-WIN.zip). You'll find the executables in the `bin` sub-directory.
+Click on the executable to open MrBayes. It should look like the figure below. Close the program for now.
 
-### Mac users
+### Mac or Linux users
 
 You will need to compile the software using the source code. First, download the source code and unzip the file. Open a terminal and `cd` to where ever you downloaded the file (probably your `Downloads` folder). Enter the commands below into your terminal. If this process is successful, an executable `mb` should appear in the `src` sub-directory. You can open MrBayes either by running the command `./mb` in a regular terminal window or you can click on the executable.
   
@@ -37,6 +38,8 @@ cd src
 ./mb
 ```  
 
+Alternatively, Linux users can use [Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html). 
+
 If everything is working it should look something like this.
 
 ```{r, echo=FALSE, out.width="65%",  out.extra='style="padding:10px"'}
@@ -48,7 +51,7 @@ Enter the command `help` to bring up the help pages.
 
 ### Other software
 
-You'll also need to download the software [Tracer](http://beast.community/tracer) and [FigTree](https://github.com/rambaut/figtree/releases).
+You'll also need to download the software [Tracer](http://beast.community/tracer) and [FigTree](https://github.com/rambaut/figtree/releases). Both require installing [Java](https://adoptium.net/en-GB/temurin/releases).
 
 To edit your input file use a source code editor of your choice, e.g., [Visual Studio Code](https://code.visualstudio.com).
 
@@ -107,7 +110,9 @@ lset rates = equal; [assume rates are also constant across sites]
 
 ## Running MrBayes
 
-Next let's open MrBayes and execute the above commands. Click on the `mb` executable. **Mac users** the easiest way to direct MrBayes to your file is to drag and drop your file into the MrBayes window. It should look something like this.
+Next let's open MrBayes and execute the above commands. Click on the `mb` executable. 
+
+The easiest way to direct MrBayes to your file is to drag and drop your file into the MrBayes window. It should look something like this.
 
 ```{r, echo=FALSE, out.width="65%",  out.extra='style="padding:10px"'}
 knitr::include_graphics("MrBayes-02.png")
@@ -115,7 +120,11 @@ knitr::include_graphics("MrBayes-02.png")
 
 Next press enter!
 
-**Windows users** - I'm not sure, let's work this out together.
+**Windows users** $-$ you might run into issues if you have special characters, e.g., "ö", in your file path or if your file path is too long. If your executable and the nexus file are in the same directory, you should just be able to simply enter the file name, as shown below. 
+
+```{bash windows, eval=FALSE}
+Execute primates_MrBayes.nex
+```
 
 To ensure your model is set up correctly you can use the `showmodel` - this prints out all the prior and parameter settings, including the default settings and the ones you modified. 
 
@@ -123,12 +132,12 @@ To ensure your model is set up correctly you can use the `showmodel` - this prin
 
 Before we run the analysis we just need to finish setting up the MCMC. Go back to the MrBayes block in your nexus file.
 
-Next add the following commands. This command specifies the MCMC setting and initiates the run. Here we're using one chain, with 2000 generations, sampling every 100 iterations. By default the program runs two independent chain simultaneously. The `nchains` argument here specifies whether we want to use Metropolis coupled chains. Usually we do what to do this, as its more efficient, but we won't do this now (`nchains=1`)  
+Next add the following commands. This command specifies the MCMC setting and initiates the run. Here we're using one chain, with 20000 generations, sampling every 100 iterations. By default the program runs two independent chain simultaneously. The `nchains` argument here specifies whether we want to use Metropolis coupled chains. Usually we do what to do this, as its more efficient, but we won't do this now (`nchains=1`)  
 
-We also need to specify the full file path and output file name to ensure the output ends up in the right place.
+We also need to specify the full file path and output file name to ensure the output ends up in the right place. **You can not have spaces in file path!**
 
 ```{r mcmc, eval=FALSE}
-mcmc ngen = 2000 samplefreq = 100 printfreq = 100 nchains = 1 filename = /Users/iq75aqot/Documents/MrBayes_exercise/primates_JC;
+mcmc ngen = 20000 samplefreq = 100 printfreq = 100 nchains = 1 filename = /Users/iq75aqot/Documents/MrBayes_exercise/primates_JC;
 ```
 
 Go back to the MrBayes window and execute the file as above. If everything is working, the MCMC should initiate. 

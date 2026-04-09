@@ -285,11 +285,12 @@ href="https://nbisweden.github.io/MrBayes/download.html">MrBayes</a>.</p>
 <div id="windows-users" class="section level3">
 <h3>Windows users</h3>
 <p>You can simply download the pre-compiled version
-(MrBayes-3.2.7-WIN.zip). Click on the executable to open MrBayes. It
-should look like the figure below.</p>
+(MrBayes-3.2.7-WIN.zip). You’ll find the executables in the
+<code>bin</code> sub-directory. Click on the executable to open MrBayes.
+It should look like the figure below. Close the program for now.</p>
 </div>
-<div id="mac-users" class="section level3">
-<h3>Mac users</h3>
+<div id="mac-or-linux-users" class="section level3">
+<h3>Mac or Linux users</h3>
 <p>You will need to compile the software using the source code. First,
 download the source code and unzip the file. Open a terminal and
 <code>cd</code> to where ever you downloaded the file (probably your
@@ -305,6 +306,8 @@ make
 # running the software
 cd src
 ./mb</code></pre>
+<p>Alternatively, Linux users can use <a
+href="https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html">Conda</a>.</p>
 <p>If everything is working it should look something like this.</p>
 <p><img src="MrBayes-01.png" alt="" width="65%" style="padding:10px" /></p>
 <p>To close the program you can simply enter the command
@@ -315,7 +318,9 @@ help pages.</p>
 <h3>Other software</h3>
 <p>You’ll also need to download the software <a
 href="http://beast.community/tracer">Tracer</a> and <a
-href="https://github.com/rambaut/figtree/releases">FigTree</a>.</p>
+href="https://github.com/rambaut/figtree/releases">FigTree</a>. Both
+require installing <a
+href="https://adoptium.net/en-GB/temurin/releases">Java</a>.</p>
 <p>To edit your input file use a source code editor of your choice,
 e.g., <a href="https://code.visualstudio.com">Visual Studio
 Code</a>.</p>
@@ -381,13 +386,18 @@ this off.</p>
 <div id="running-mrbayes" class="section level2">
 <h2>Running MrBayes</h2>
 <p>Next let’s open MrBayes and execute the above commands. Click on the
-<code>mb</code> executable. <strong>Mac users</strong> the easiest way
-to direct MrBayes to your file is to drag and drop your file into the
-MrBayes window. It should look something like this.</p>
+<code>mb</code> executable.</p>
+<p>The easiest way to direct MrBayes to your file is to drag and drop
+your file into the MrBayes window. It should look something like
+this.</p>
 <p><img src="MrBayes-02.png" alt="" width="65%" style="padding:10px" /></p>
 <p>Next press enter!</p>
-<p><strong>Windows users</strong> - I’m not sure, let’s work this out
-together.</p>
+<p><strong>Windows users</strong> <span class="math inline">\(-\)</span>
+you might run into issues if you have special characters, e.g., “ö”, in
+your file path or if your file path is too long. If your executable and
+the nexus file are in the same directory, you should just be able to
+simply enter the file name, as shown below.</p>
+<pre class="bash"><code>Execute primates_MrBayes.nex</code></pre>
 <p>To ensure your model is set up correctly you can use the
 <code>showmodel</code> - this prints out all the prior and parameter
 settings, including the default settings and the ones you modified.</p>
@@ -397,15 +407,16 @@ settings, including the default settings and the ones you modified.</p>
 <p>Before we run the analysis we just need to finish setting up the
 MCMC. Go back to the MrBayes block in your nexus file.</p>
 <p>Next add the following commands. This command specifies the MCMC
-setting and initiates the run. Here we’re using one chain, with 2000
+setting and initiates the run. Here we’re using one chain, with 20000
 generations, sampling every 100 iterations. By default the program runs
 two independent chain simultaneously. The <code>nchains</code> argument
 here specifies whether we want to use Metropolis coupled chains. Usually
 we do what to do this, as its more efficient, but we won’t do this now
 (<code>nchains=1</code>)</p>
 <p>We also need to specify the full file path and output file name to
-ensure the output ends up in the right place.</p>
-<pre class="r"><code>mcmc ngen = 2000 samplefreq = 100 printfreq = 100 nchains = 1 filename = /Users/iq75aqot/Documents/MrBayes_exercise/primates_JC;</code></pre>
+ensure the output ends up in the right place. <strong>You can not have
+spaces in file path!</strong></p>
+<pre class="r"><code>mcmc ngen = 20000 samplefreq = 100 printfreq = 100 nchains = 1 filename = /Users/iq75aqot/Documents/MrBayes_exercise/primates_JC;</code></pre>
 <p>Go back to the MrBayes window and execute the file as above. If
 everything is working, the MCMC should initiate. After 20000 iterations
 it will ask if you want to continue.</p>
