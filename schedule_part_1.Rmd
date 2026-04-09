@@ -90,8 +90,8 @@ dt <- data.frame(schedule = c("Slides", "Exercise 3", "Slides", "Exercise 4"),
                             "molecular dating, intro to BEAST", "tree building using BEAST"))
 dt$schedule[1] <- paste0("[", dt$schedule[1], "](", urls[1], ")")
 dt$schedule[2] <- paste0("[", dt$schedule[2], "](", urls[2], ")")
-#dt$schedule[3] <- paste0("[", dt$schedule[3], "](", urls[3], ")")
-#dt$schedule[4] <- paste0("[", dt$schedule[4], "](", urls[4], ")")
+dt$schedule[3] <- paste0("[", dt$schedule[3], "](", urls[3], ")")
+dt$schedule[4] <- paste0("[", dt$schedule[4], "](", urls[4], ")")
 
 kbl(dt) %>%
   kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
