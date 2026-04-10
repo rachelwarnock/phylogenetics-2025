@@ -101,6 +101,7 @@ kbl(dt) %>%
 **Reading**
 
 * [Bayesian Inference of Phylogeny and Its Impact on Evolutionary Biology](https://www.science.org/doi/epdf/10.1126/science.1065889)
+* [Understanding the tripartite approach to Bayesian divergence time estimation](https://ecoevorxiv.org/repository/view/4372/)
 
 \ 
 
@@ -110,33 +111,29 @@ kbl(dt) %>%
 
 library(kableExtra)
 
-#urls <- c("slides/04-clocks.pdf","exercise-05.html","slides/05-FBD.pdf","exercise-06.html","exercise-06.html")
+urls <- c("slides/05-FBD.pdf","exercise-04.html","https://taming-the-beast.org/tutorials/FBD-tutorial/")
 
-dt <- data.frame(schedule = c("Slides", "Exercise 5", "Exercise 6", "Slides", "Exercise 7"),
+dt <- data.frame(schedule = c("Slides", "Exercise 5", "Exercise 6"),
                  topics = c("The fossilized birth-death process",
-                            "Simulations", "The FBD process using BEAST2",
-                            "Intro to morphological models",
-                            "Total-evidence dating using BEAST2"))
-#dt$schedule[1] <- paste0("[", dt$schedule[1], "](", urls[1], ")")
-#dt$schedule[2] <- paste0("[", dt$schedule[2], "](", urls[2], ")")
-#dt$schedule[3] <- paste0("[", dt$schedule[3], "](", urls[3], ")")
-#dt$schedule[4] <- paste0("[", dt$schedule[4], "](", urls[4], ")")
-#dt$schedule[5] <- paste0("[", dt$schedule[5], "](", urls[5], ")")
+                            "Simulations", "The FBD process using BEAST2"))
+dt$schedule[1] <- paste0("[", dt$schedule[1], "](", urls[1], ")")
+dt$schedule[2] <- paste0("[", dt$schedule[2], "](", urls[2], ")")
+dt$schedule[3] <- paste0("[", dt$schedule[3], "](", urls[3], ")")
 
 kbl(dt) %>%
   kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+#Homework
+
+#* Install the software [RevBayes](https://revbayes.github.io/download)
+# * Windows users should also install [Git Bash](https://gitforwindows.org)
 
 ```
 
 **Reading**
 
 * [Bayesian molecular dating: opening up the black box](https://onlinelibrary.wiley.com/doi/abs/10.1111/brv.12390)
-* [Understanding the tripartite approach to Bayesian divergence time estimation](https://ecoevorxiv.org/repository/view/4372/)
-
-**Homework**
-
-* Install the software [RevBayes](https://revbayes.github.io/download)
-* Windows users should also install [Git Bash](https://gitforwindows.org)
+* [From fossils to phylogenies: exploring the integration of paleontological data into Bayesian phylogenetic inference](https://www.cambridge.org/core/journals/paleobiology/article/from-fossils-to-phylogenies-exploring-the-integration-of-paleontological-data-into-bayesian-phylogenetic-inference/BF7DB160A01BDD5183252BFB89A9699F)
 
 \
 \

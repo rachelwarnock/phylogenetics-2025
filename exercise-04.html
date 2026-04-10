@@ -11,7 +11,7 @@
 
 
 
-<title>exercise-06.knit</title>
+<title>exercise-04.knit</title>
 
 <script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -342,7 +342,7 @@ t</code></pre>
 ## Rooted; includes branch length(s).</code></pre>
 <pre class="r"><code># plot the tree
 plot(t)</code></pre>
-<p><img src="exercise-06_files/figure-html/tree-1.png" alt="" width="672" /></p>
+<p><img src="exercise-04_files/figure-html/tree-1.png" alt="" width="672" /></p>
 <p>Note the function simulates the <em>complete tree</em>, that is, the
 tree containing all lineages that were ever part of the tree (observed
 and unobserved).</p>
@@ -390,13 +390,13 @@ hmin and hmax are equal.</p>
 the output.</p>
 <pre class="r"><code># plot fossil occurrences
 plot(f, tree = t)</code></pre>
-<p><img src="exercise-06_files/figure-html/plot-1.png" alt="" width="672" /></p>
+<p><img src="exercise-04_files/figure-html/plot-1.png" alt="" width="672" /></p>
 <pre class="r"><code># plot stratigraphic ranges
 plot(f, tree = t, show.ranges = TRUE)</code></pre>
-<p><img src="exercise-06_files/figure-html/plot-2.png" alt="" width="672" /></p>
+<p><img src="exercise-04_files/figure-html/plot-2.png" alt="" width="672" /></p>
 <pre class="r"><code># plot the output
 plot(f, tree = t, show.strata = TRUE, strata = 4)</code></pre>
-<p><img src="exercise-06_files/figure-html/plot-3.png" alt="" width="672" /></p>
+<p><img src="exercise-04_files/figure-html/plot-3.png" alt="" width="672" /></p>
 <blockquote>
 <p>What happens if you decrease or increase the fossil sampling
 rate?</p>
@@ -404,7 +404,7 @@ rate?</p>
 <p>You can also compare the complete and reconstructed trees.</p>
 <pre class="r"><code># plot the reconstructed tree
 plot(f, tree = t, reconstructed = TRUE)</code></pre>
-<p><img src="exercise-06_files/figure-html/recon-1.png" alt="" width="672" /></p>
+<p><img src="exercise-04_files/figure-html/recon-1.png" alt="" width="672" /></p>
 </div>
 <div id="extant-species-sampling" class="section level2">
 <h2>Extant species sampling</h2>
@@ -417,7 +417,7 @@ f2 = FossilSim::sim.extant.samples(fossils = f, tree = t, rho = rho)
 
 # plot the output
 plot(f2, tree = t, extant.col = &quot;red&quot;)</code></pre>
-<p><img src="exercise-06_files/figure-html/extant-1.png" alt="" width="672" /></p>
+<p><img src="exercise-04_files/figure-html/extant-1.png" alt="" width="672" /></p>
 <blockquote>
 <p>What happens if you increase or decrease rho?</p>
 </blockquote>
