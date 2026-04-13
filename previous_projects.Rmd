@@ -5,6 +5,48 @@ output: html_document
 
 \
 
+
+# Projects 2025
+
+```{r, echo = FALSE}
+library(kableExtra)
+
+# Double check these
+
+dt <- data.frame(name = c("Aarya", #1
+                          "Alref", #2
+                          "Angelo", #3
+                          "Arion", #4
+                          "Eren", #5
+                          "Filip", #6
+                          "Jonas", #7
+                          "Maibritt", #8
+                          "Maria", #9
+                          "Max", #10
+                          "Sarah", #11
+                          "Vicente" #12
+                          ),
+                 project = c("Phylogenetic signal in environmental temperature and precipitation among European tetrapods", #1
+                    "Phylogenetic placement of the Oligocene ‘Bouldnor Softshell Turtle’ (Trionychidae)",#2
+                    "Eusuchia diversity and the impact of Cretaceous thermal and bathymetric changes",#3
+                    "How fast can we make a sea monster: evolutionary dynamics of mosasaur body size",
+                    "Influence of age data variation on topology: a case study using Thyreophorans and Pachycephalosaurs", #4
+                    "How fast to make a sea monster: The evolutionary dynamics of mosasaur body size", #6
+                    "Morphological evolution of NudibranchiaMorphological evolution of Nudibranchia", #7
+                    "Influence of parameters on Bayesian phylogenetic analyses of red algae", #8
+                    "Ancestral state reconstruction of sexual behavior traits in primates", #9
+                    "Impact of the climatic fluctuations on marine gastropods duing the Cenozoic", #10
+                    "Evolution of buoyancy in coleoid cephalopods", #11
+                    "The beginning of a complete (completos) history of hot dogs"
+                    ))
+
+kbl(dt) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
+
+\
+
 # Projects 2024
 
 ```{r, echo = FALSE}
@@ -33,14 +75,52 @@ dt <- data.frame(name = c("Alissa", #1
 kbl(dt) %>%
   kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
 
-# Project archive
-# Lars - 
-# Bastie - 
-# Taeya -
-# Tim - A simulation pipeline for the multi-species coalescent FBD
-# Caro - The impact of model choice on...
 ```
 
+\
+
+# Projects 2023
+
+```{r, echo = FALSE}
+library(kableExtra)
+
+dt <- data.frame(name = c("Bastian", #1
+                          "Lars", #2
+                          "Nida",
+                          "Taeya",
+                          "Toshiro"
+                          ), 
+                 project = c("Impact of fossil age information on topology: a case study of turtles", #1
+                             "Effects of environmental parameters on scleractinian corals through time", #2
+                             "Phylogenetic analysis of walruses", #3
+                             "Impact of clock model choice on phylogenetic trees of penguins", #4
+                             "Reevaluation of the phylogenetic position of the Late Cretaceous hadrosauroid" #5
+                    ))
+
+kbl(dt) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
+
+
+\
+
+# Projects 2022
+
+```{r, echo = FALSE}
+library(kableExtra)
+
+dt <- data.frame(name = c("Carolin", #1
+                          "Tim" #2
+                          ), 
+                 project = c("Time-calibrated tree of Devonian fishes revisited", #1
+                    "Discrepancies between simulated gene-based and morphology-based trees"#2
+                    ))
+
+kbl(dt) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
 
 \
 \

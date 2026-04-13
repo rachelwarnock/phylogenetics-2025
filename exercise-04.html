@@ -327,8 +327,8 @@ are <span class="math inline">\(n\)</span> co-existing lineages.</p>
 set.seed(1234)
 
 # simulate a tree using TreeSim conditioned on tip number
-lambda = 0.1
-mu = 0.05
+lambda = 0.1 # birth
+mu = 0.05 # death
 tips = 10
 t = TreeSim::sim.bd.taxa(n = tips, numbsim = 1, lambda = lambda, mu = mu)[[1]]
 # t is an object of class phylo
@@ -385,7 +385,7 @@ time. <code>sp</code> and <code>edge</code> are the species and edge
 labels, respectively. <code>hmin</code> and <code>hmax</code> are the
 youngest and oldest sampling ages associated with each fossil,
 respectively. Since this function returns exact fossil sampling times
-hmin and hmax are equal.</p>
+<code>hmin</code> and <code>hmax</code> are equal.</p>
 <p><code>FossilSim</code> has a lot of different functions for plotting
 the output.</p>
 <pre class="r"><code># plot fossil occurrences

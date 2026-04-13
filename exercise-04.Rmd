@@ -71,8 +71,8 @@ Let's give it a go.
 set.seed(1234)
 
 # simulate a tree using TreeSim conditioned on tip number
-lambda = 0.1
-mu = 0.05
+lambda = 0.1 # birth
+mu = 0.05 # death
 tips = 10
 t = TreeSim::sim.bd.taxa(n = tips, numbsim = 1, lambda = lambda, mu = mu)[[1]]
 # t is an object of class phylo
@@ -99,7 +99,7 @@ f
 ```
 
 Each entry in the fossils data frame corresponds to a fossil sampling time. `sp` and `edge` are the species and edge labels, respectively.
-`hmin` and `hmax` are the youngest and oldest sampling ages associated with each fossil, respectively. Since this function returns exact fossil sampling times hmin and hmax are equal.
+`hmin` and `hmax` are the youngest and oldest sampling ages associated with each fossil, respectively. Since this function returns exact fossil sampling times `hmin` and `hmax` are equal.
 
 `FossilSim` has a lot of different functions for plotting the output. 
 
