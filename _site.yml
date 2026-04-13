@@ -13,5 +13,7 @@ navbar:
       href: index.html
     - text: "Part 1"
       href: schedule_part_1.html
+    - text: "Part 2"
+      href: schedule_part_2.html
     - text: "Projects"
       href: projects.html
