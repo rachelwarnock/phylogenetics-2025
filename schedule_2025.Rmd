@@ -1,0 +1,193 @@
+---
+title: "Schedule"
+output:
+  html_document:
+    toc: TRUE
+    toc_float: TRUE
+    toc_depth: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+The second part of the course takes place in the summer semester **Tuesdays 14:00-16:00 CET**.
+
+\
+
+# Rough Schedule
+
+```{r, echo = FALSE}
+
+library(kableExtra)
+
+dt <- data.frame(schedule = c("1", "2", 
+                              "3", "4", 
+                              "5", "6",
+                              "7", "8",
+                              "9", "10"),
+                 date = c( "29.04", "06.05",
+                           "13.05", "20.05",
+                           "27.05", "03.06",
+                           "10.06", "17.06", 
+                           "24.06", "01.07"),
+                 topics = c("Phylodynamics I", "**No class**",
+                            "Morphological models and model adequacy (LM)", "Phylogenetic comparative methods (ED)", "**No class**", "Exercise review",
+                            "**No class** (office hours 06.06 & 13.06)", "Intro to BEAST2",
+                            "Phylodynamics II", "Project work/tbd"
+                            ))
+
+names(dt)[1] <- ""
+
+kbl(dt) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
+
+\
+
+# Materials
+
+Course material will be updated here throughout the semester!
+
+## Week 1 materials
+
+```{r, echo = FALSE}
+library(kableExtra)
+
+urls <- c("slides/06-phylodynamics.pdf","https://revbayes.github.io/tutorials/divrate/simple")
+
+dt <- data.frame(schedule = c("Slides", "Exercise"),
+                 topics = c("Intro to phylodynamics", "Diversification rate estimation using RevBayes"))
+
+dt$schedule[1] <- paste0("[", dt$schedule[1], "](", urls[1], ")")
+dt$schedule[2] <- paste0("[", dt$schedule[2], "](", urls[2], ")")
+
+kbl(dt) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
+
+\
+
+## Week 3 materials
+
+```{r, echo = FALSE}
+library(kableExtra)
+
+urls <- c("slides/07-morphological-models.pdf","https://revbayes.github.io/tutorials/pps_morpho/")
+
+dt <- data.frame(schedule = c("Slides", "Exercise"),
+                 topics = c("Morphological models", "Model adequacy using RevBayes"))
+
+dt$schedule[1] <- paste0("[", dt$schedule[1], "](", urls[1], ")")
+dt$schedule[2] <- paste0("[", dt$schedule[2], "](", urls[2], ")")
+
+kbl(dt) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
+
+\
+
+## Week 5 materials
+
+```{r, echo = FALSE}
+library(kableExtra)
+
+urls <- c("https://revbayes.github.io/tutorials/divrate/simple","https://revbayes.github.io/tutorials/pps_morpho/")
+
+dt <- data.frame(schedule = c("Exercise", "Exercise"),
+                 topics = c("Diversification rate estimation using RevBayes", "Model adequacy using RevBayes"))
+
+dt$schedule[1] <- paste0("[", dt$schedule[1], "](", urls[1], ")")
+dt$schedule[2] <- paste0("[", dt$schedule[2], "](", urls[2], ")")
+
+kbl(dt) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
+
+\
+
+## Week 8 materials
+
+```{r, echo = FALSE}
+library(kableExtra)
+
+urls <- c("slides/08-BEAST2.pdf","https://taming-the-beast.org/tutorials/Introduction-to-BEAST2/")
+
+dt <- data.frame(schedule = c("Slides", "Exercise"),
+                 topics = c("Intro to BEAST2", "Node dating using BEAST2"))
+dt$schedule[1] <- paste0("[", dt$schedule[1], "](", urls[1], ")")
+dt$schedule[2] <- paste0("[", dt$schedule[2], "](", urls[2], ")")
+
+kbl(dt) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
+
+\
+
+## Week 9 materials
+
+```{r, echo = FALSE}
+library(kableExtra)
+
+urls <- c("slides/08-BEAST2.pdf","exercise-BDMMP.html")
+
+dt <- data.frame(schedule = c("Slides", "Exercise"),
+                 topics = c("Phylodynamics II", "BDMM-Prime"))
+dt$schedule[1] <- paste0("[", dt$schedule[1], "](", urls[1], ")")
+dt$schedule[2] <- paste0("[", dt$schedule[2], "](", urls[2], ")")
+
+kbl(dt) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
+
+# Homework
+
+During breaks in the schedule we'd like you to watch the following 4 video lectures by [**Paul Lewis**](https://plewis.github.io/) and answer a set of questions we have prepared. Paul Lewis has made numerous important contributions to the field of statistical phylogenetics, as well as producing excellent tools and materials for learning about phylogenetic theory.
+The videos we'll use were developed as part of the [phyloseminar](http://phyloseminar.org) series. 
+
+The videos will take about 3.5 hours to watch. Read the questions before you watch each video and write down your answers -- we'll go over these in week 6. **The goal is not to understand everything** but to strengthen your understanding of statistical phylogenetics.
+
+Also make note of any questions you have after watching these and we'll try to answer them.
+
+```{r, echo = FALSE}
+library(kableExtra)
+
+urls <- c("https://www.youtube.com/watch?v=1r4z0YJq580", "https://www.youtube.com/watch?v=UsLeY0wZr4Y", "https://www.youtube.com/watch?v=4PWlnNsfz90&t=45s", "https://www.youtube.com/watch?v=TLtOS--YwkU",
+          "questions-01.html", "questions-02.html", "questions-03.html","questions-04.html", 
+          "https://forms.gle/Y5wuBJwoiDQHp6jt5",
+          "https://forms.gle/ixo73Gy4TTzcVoM96",
+          "https://forms.gle/vrX6E65XhLukxo8W6",
+          "https://forms.gle/SiA9JESnwcjw2eDm9")
+
+dt <- data.frame(videos = c("Part 1", "Part 2", "Part 3a", "Part 3b"),
+                 topics = c("trees and likelihood", "trees, likelihood and rate heterogeneity", "Intro to Bayesian phylogenetics", "Intro to Bayesian phylogenetics"),
+                 questions = c("Questions 1", "Questions 2", "Questions 3", "Questions 4")) #forms = c("Form 1", "Form 2", "Form 3", "Form 4")
+
+dt$videos[1] <- paste0("[", dt$videos[1], "](", urls[1], ")")
+dt$questions[1] <- paste0("[", dt$questions[1], "](", urls[5], ")")
+#dt$forms[1] <- paste0("[", dt$forms[1], "](", urls[9], ")")
+dt$videos[2] <- paste0("[", dt$videos[2], "](", urls[2], ")")
+dt$questions[2] <- paste0("[", dt$questions[2], "](", urls[6], ")")
+#dt$forms[2] <- paste0("[", dt$forms[2], "](", urls[10], ")")
+dt$videos[3] <- paste0("[", dt$videos[3], "](", urls[3], ")")
+dt$questions[3] <- paste0("[", dt$questions[3], "](", urls[7], ")")
+#dt$forms[3] <- paste0("[", dt$forms[3], "](", urls[11], ")")
+dt$videos[4] <- paste0("[", dt$videos[4], "](", urls[4], ")")
+dt$questions[4] <- paste0("[", dt$questions[4], "](", urls[8], ")")
+#dt$forms[4] <- paste0("[", dt$forms[4], "](", urls[12], ")")
+
+kbl(dt) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
+
+Answers to the above questions are [available here](slides/09_Lewis_Q&A.pdf).
+
+\
+\
