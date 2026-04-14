@@ -67,3 +67,21 @@ kbl(dt) %>%
 
 Course material will be updated here throughout the semester!
 
+## Week 1
+
+```{r, echo = FALSE}
+
+library(kableExtra)
+
+urls <- c("slides/06-FBD-recap.pdf", "https://taming-the-beast.org/tutorials/FBD-tutorial/", "https://taming-the-beast.org/tutorials/Total-Evidence-Tutorial/")
+
+dt <- data.frame(schedule = c("Slides", "Exercise 6", "Exercise 7"),
+                 topics = c("Recap", "The FBD process using BEAST2", "Total-evidence dating using BEAST2"))
+dt$schedule[1] <- paste0("[", dt$schedule[1], "](", urls[1], ")")
+dt$schedule[2] <- paste0("[", dt$schedule[2], "](", urls[2], ")")
+dt$schedule[3] <- paste0("[", dt$schedule[3], "](", urls[3], ")")
+
+kbl(dt) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
