@@ -76,7 +76,7 @@ library(kableExtra)
 urls <- c("slides/06-FBD-recap.pdf", "https://taming-the-beast.org/tutorials/FBD-tutorial/", "https://taming-the-beast.org/tutorials/Total-Evidence-Tutorial/")
 
 dt <- data.frame(schedule = c("Slides", "Exercise 6", "Exercise 7"),
-                 topics = c("Recap", "The FBD process using BEAST2", "Total-evidence dating using BEAST2"))
+                 topics = c("Recap", "The FBD process (BEAST2)", "Total-evidence dating (BEAST2)"))
 dt$schedule[1] <- paste0("[", dt$schedule[1], "](", urls[1], ")")
 dt$schedule[2] <- paste0("[", dt$schedule[2], "](", urls[2], ")")
 dt$schedule[3] <- paste0("[", dt$schedule[3], "](", urls[3], ")")
@@ -98,10 +98,28 @@ urls <- c("slides/07-phylodynamics.pdf",  "https://taming-the-beast.org/tutorial
           "https://taming-the-beast.org/tutorials/MSBD-tutorial/")
 
 dt <- data.frame(schedule = c("Slides", "Exercise 7", "Exercise 8"),
-                 topics = c("Intro to phylodynamics", "Total-evidence dating using BEAST2", "The MSBD package in BEAST2"))
+                 topics = c("Intro to phylodynamics", "Total-evidence dating (BEAST2)", "The MSBD package (BEAST2)"))
 dt$schedule[1] <- paste0("[", dt$schedule[1], "](", urls[1], ")")
 dt$schedule[2] <- paste0("[", dt$schedule[2], "](", urls[2], ")")
 dt$schedule[3] <- paste0("[", dt$schedule[3], "](", urls[3], ")")
+
+kbl(dt) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
+
+## Week 3
+
+```{r, echo = FALSE}
+
+library(kableExtra)
+
+urls <- c("slides/08-BDMMP-macro.pdf",  "https://taming-the-beast.org/tutorials/BDMM-Prime-for-macroevolution/")
+
+dt <- data.frame(schedule = c("Slides", "Exercise 9"),
+                 topics = c("Phylodynamics continued", "The BDMMPrime package (BEAST2)"))
+dt$schedule[1] <- paste0("[", dt$schedule[1], "](", urls[1], ")")
+dt$schedule[2] <- paste0("[", dt$schedule[2], "](", urls[2], ")")
 
 kbl(dt) %>%
   kable_styling(bootstrap_options = "striped", full_width = F, position = "left")

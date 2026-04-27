@@ -298,7 +298,7 @@ following in R.</p>
 <pre class="r"><code>FossilSimShiny::launchFossilSimShiny()</code></pre>
 <p>This should open the app in your default browser and look like the
 image below.</p>
-<p><img src="shiny_01.png" alt="" width="100%" /></p>
+<p><img src="shiny_01.png" width="100%" /></p>
 <p>On the upper left there are three menus used for different aspects of
 the simulation: <strong>Tree</strong>, <strong>Taxonomy</strong> and
 <strong>Fossils</strong>. On the lower left is the
@@ -315,7 +315,7 @@ The underlying function simulates birth and death events forward in time
 until there are <span class="math inline">\(n\)</span> co-existing
 lineages.</p>
 <p>Let’s give it a go.</p>
-<p><img src="shiny_02.png" alt="" width="100%" /></p>
+<p><img src="shiny_02.png" width="100%" /></p>
 <p>The function simulates the <em>complete tree</em>, that is, the tree
 containing all lineages that were ever part of the tree. This includes
 all extinct lineages and the <span class="math inline">\(n\)</span>
@@ -353,7 +353,7 @@ menu.</p>
 made by the original FBD model described by Stadler (2010).</p>
 <p>Start with the default parameters and select <strong>Simulate
 fossils</strong>.</p>
-<p><img src="shiny_03.png" alt="" width="100%" /></p>
+<p><img src="shiny_03.png" width="100%" /></p>
 <p>Each diamond plotted along the tree branches represents a fossil
 occurrence. Here, an “occurrence” represents a singular observation of a
 lineage at a single point in time. In reality, a lineage can be sampled
@@ -399,7 +399,7 @@ the</em> <code>FossilSim</code> <em>package function</em>
 <p>Stay in the <strong>Appearance menu</strong> for now and select
 <strong>Show reconstructed tree</strong>. This will show you the
 contrast between the complete and reconstructed trees.</p>
-<p><img src="shiny_04.png" alt="" width="100%" /></p>
+<p><img src="shiny_04.png" width="100%" /></p>
 <p>After adding fossil sampling, the complete tree will be the outcome
 of the diversification and sampling processes and will include all
 observed and unobserved lineages, plus all fossil and extant samples. In
@@ -419,7 +419,7 @@ ranges. If you select <strong>Show ranges</strong> and deselect
 reconstructed tree with stratigraphic ranges - that is, the interval
 between the first and last appearance of a lineage in the fossil
 record.</p>
-<p><img src="shiny_05.png" alt="" width="100%" /></p>
+<p><img src="shiny_05.png" width="100%" /></p>
 <p>The purple lines between the first and last appearance represent the
 stratigraphic ranges. The first and last appearances are represented by
 the black diamonds as before. If a lineage is sampled only once (i.e.,
@@ -452,7 +452,7 @@ from a lognormal distribution with user specified parameters
 <strong>Mean sampling</strong> rate and <strong>Variance</strong>.</p>
 <p>Scroll down to the <strong>Appearance</strong> menu and select
 <strong>Show strata used in simulating fossils</strong></p>
-<p><img src="shiny_06.png" alt="" width="100%" /></p>
+<p><img src="shiny_06.png" width="100%" /></p>
 <p>You should be able to see variation in the density of fossils through
 time, although this will depend on the magnitude of the difference in
 rates between intervals, as well as the total number of lineages that
@@ -508,7 +508,7 @@ budding with probability <span class="math inline">\(\beta-1\)</span>).
 The <strong>Rate of anagenesis</strong> is simply the rate of anagensis
 along branches (<span class="math inline">\(\lambda_a\)</span>).
 Simulate taxonomy starting with the default values.</p>
-<p><img src="shiny_07.png" alt="" width="100%" /></p>
+<p><img src="shiny_07.png" width="100%" /></p>
 <p>The <strong>taxonomy</strong> plot shows how speciation events are
 distributed across the tree. You can use the legend to identify the
 symbol associated with each speciation mode.</p>
@@ -520,7 +520,7 @@ parameters you use?</p>
 </blockquote>
 <p>If you select <strong>tree+fossils</strong> from the top right, you
 can also see the fossils coloured according to their taxonomy.</p>
-<p><img src="shiny_08.png" alt="" width="100%" /></p>
+<p><img src="shiny_08.png" width="100%" /></p>
 <blockquote>
 <p>What challenges do you percieve working with range data and
 conventional phylogenetic approaches that do not take speciation mode
