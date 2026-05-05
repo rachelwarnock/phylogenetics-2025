@@ -125,3 +125,62 @@ kbl(dt) %>%
   kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
 
 ```
+
+## Week 4
+
+```{r, echo = FALSE}
+
+library(kableExtra)
+
+urls <- c("slides/09-Intro-to-PCMs.pdf",  "https://nhcooper123.github.io/pcm-primer-online/cont.html#ref-deepak2023")
+
+dt <- data.frame(schedule = c("Slides", "Exercise 10"),
+                 topics = c("Intro to PCMs", "PCM Exercise in R"))
+dt$schedule[1] <- paste0("[", dt$schedule[1], "](", urls[1], ")")
+dt$schedule[2] <- paste0("[", dt$schedule[2], "](", urls[2], ")")
+
+kbl(dt) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
+
+## Weeks 5 and 6
+
+During this scheduled break we'd like you to watch the following 4 video lectures by [**Paul Lewis**](https://plewis.github.io/) and answer a set of questions we have prepared. Paul Lewis has made numerous important contributions to the field of statistical phylogenetics, as well as producing excellent tools and materials for learning about phylogenetic theory.
+The videos we'll use were developed as part of the [phyloseminar](http://phyloseminar.org) series. 
+
+The videos will take about 3.5 hours to watch. Read the questions before you watch each video and write down your answers -- we'll go over these in week 6. **The goal is not to understand everything** but to strengthen your understanding of statistical phylogenetics.
+
+Also make note of any questions you have after watching these and we'll try to answer them.
+
+```{r, echo = FALSE}
+library(kableExtra)
+
+urls <- c("https://www.youtube.com/watch?v=1r4z0YJq580", "https://www.youtube.com/watch?v=UsLeY0wZr4Y", "https://www.youtube.com/watch?v=4PWlnNsfz90&t=45s", "https://www.youtube.com/watch?v=TLtOS--YwkU",
+          "questions-01.html", "questions-02.html", "questions-03.html","questions-04.html", 
+          "https://forms.gle/Y5wuBJwoiDQHp6jt5",
+          "https://forms.gle/ixo73Gy4TTzcVoM96",
+          "https://forms.gle/vrX6E65XhLukxo8W6",
+          "https://forms.gle/SiA9JESnwcjw2eDm9")
+
+dt <- data.frame(videos = c("Part 1", "Part 2", "Part 3a", "Part 3b"),
+                 topics = c("trees and likelihood", "trees, likelihood and rate heterogeneity", "Intro to Bayesian phylogenetics", "Intro to Bayesian phylogenetics"),
+                 questions = c("Questions 1", "Questions 2", "Questions 3", "Questions 4")) #forms = c("Form 1", "Form 2", "Form 3", "Form 4")
+
+dt$videos[1] <- paste0("[", dt$videos[1], "](", urls[1], ")")
+dt$questions[1] <- paste0("[", dt$questions[1], "](", urls[5], ")")
+#dt$forms[1] <- paste0("[", dt$forms[1], "](", urls[9], ")")
+dt$videos[2] <- paste0("[", dt$videos[2], "](", urls[2], ")")
+dt$questions[2] <- paste0("[", dt$questions[2], "](", urls[6], ")")
+#dt$forms[2] <- paste0("[", dt$forms[2], "](", urls[10], ")")
+dt$videos[3] <- paste0("[", dt$videos[3], "](", urls[3], ")")
+dt$questions[3] <- paste0("[", dt$questions[3], "](", urls[7], ")")
+#dt$forms[3] <- paste0("[", dt$forms[3], "](", urls[11], ")")
+dt$videos[4] <- paste0("[", dt$videos[4], "](", urls[4], ")")
+dt$questions[4] <- paste0("[", dt$questions[4], "](", urls[8], ")")
+#dt$forms[4] <- paste0("[", dt$forms[4], "](", urls[12], ")")
+
+kbl(dt) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
