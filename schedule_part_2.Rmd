@@ -132,7 +132,7 @@ kbl(dt) %>%
 
 library(kableExtra)
 
-urls <- c("slides/09-Intro-to-PCMs.pdf",  "https://nhcooper123.github.io/pcm-primer-online/cont.html#ref-deepak2023")
+urls <- c("slides/09-Intro-to-PCMs.pdf",  "https://nhcooper123.github.io/pcm-primer-online/cont.html")
 
 dt <- data.frame(schedule = c("Slides", "Exercise 10"),
                  topics = c("Intro to PCMs", "PCM Exercise in R"))
