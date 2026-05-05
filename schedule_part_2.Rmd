@@ -45,12 +45,12 @@ dt <- data.frame(schedule = c("1", "2",
                             "Introduction to PCMs", 
                             "**No class** (Paul Lewis lectures)", 
                             "**No class** (Paul Lewis lectures)", 
-                            "Ancestral state reconstruction",
-                            "Biogeography", 
+                            "Ancestral state reconstruction (homework)",
+                            "Intro to RevBayes",
                             "**No class** (Project work)", 
                             "**No class** (Project work)",
-                            "Intro to RevBayes",
                             "Model selection and model adequacy",
+                            "Biogeography", 
                             "Project work"
                             ))
 
@@ -135,7 +135,7 @@ library(kableExtra)
 urls <- c("slides/09-Intro-to-PCMs.pdf",  "https://nhcooper123.github.io/pcm-primer-online/cont.html")
 
 dt <- data.frame(schedule = c("Slides", "Exercise 10"),
-                 topics = c("Intro to PCMs", "PCM Exercise in R"))
+                 topics = c("Intro to PCMs", "Continuous trait models in R"))
 dt$schedule[1] <- paste0("[", dt$schedule[1], "](", urls[1], ")")
 dt$schedule[2] <- paste0("[", dt$schedule[2], "](", urls[2], ")")
 
@@ -184,3 +184,29 @@ kbl(dt) %>%
   kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
 
 ```
+
+## Week 7
+
+There is no class this week because we have the Berg! 🍺🥳 In this time you should complete the following tasks on ancestral state reconstruction using R. 
+
+Start by reading [Section 3.2](https://nhcooper123.github.io/pcm-primer/foundations2.html#modelling-discrete-traits---simple-models) of *Phylogenetic Comparative Methods: A Pracitcal Introduction* by **[Natalie Cooper](https://www.nhm.ac.uk/our-science/people/natalie-cooper.html)**, including the sections on the Mk/ER, SYM, and ARD models. Next complete the [accompanying exercise](https://nhcooper123.github.io/pcm-primer-online/discrete.html#models-of-evolution-for-discrete-traits) in R.
+
+
+
+```{r, echo = FALSE}
+
+library(kableExtra)
+
+urls <- c("https://nhcooper123.github.io/pcm-primer/foundations2.html#modelling-discrete-traits---simple-models",  "https://nhcooper123.github.io/pcm-primer-online/discrete.html#models-of-evolution-for-discrete-traits")
+
+dt <- data.frame(schedule = c("Reading", "Exercise 11"),
+                 topics = c("PCM Primer Section 3.2", "Ancestral state reconstruction in R"))
+dt$schedule[1] <- paste0("[", dt$schedule[1], "](", urls[1], ")")
+dt$schedule[2] <- paste0("[", dt$schedule[2], "](", urls[2], ")")
+
+kbl(dt) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
+
+
