@@ -24,6 +24,10 @@ output: html_document
 * Did you encounter any issues?
 * How do your results differ to previously published results?
 
+## Use of AI tools
+
+The use of AI tools, including ChatGTP and Claude, is permitted (but not limited to) the following tasks: generating code, editing text, background research, clarifying concepts. The only thing I ask is that you provide a statement clarifying how you used it at the end of your report - **this will not influence your grade**. Writing your entire report or generating data using AI is not permitted.
+
 # Data sources
 
 * [Graeme Lloyd’s database](http://www.graemetlloyd.com/matr.html) of character matrices
