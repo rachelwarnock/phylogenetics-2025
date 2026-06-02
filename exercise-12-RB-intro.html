@@ -285,13 +285,14 @@ at the syntax used to set up different types of variables.</p>
 <h2>Running RevBayes</h2>
 <p>First make sure you can <a
 href="https://revbayes.github.io/download">download</a> and install the
-software. We recommend running RevBayes in the terminal (or GitBash if
-using windows). There are a few ways to do this but perhaps the easiest
-way is to change working directory or <code>cd</code> to where the
-RevBayes executable is on your computer. From there you can open
-RevBayes using <code>./rb</code>. You might have to navigate to your
-security settings to enable RevBayes to run on your device. It should
-look something like this:</p>
+software. We recommend running RevBayes in the terminal (or <a
+href="https://git-scm.com/install/windows">GitBash</a> if using
+windows). There are a few ways to do this but perhaps the easiest way is
+to change working directory or <code>cd</code> to where the RevBayes
+executable is on your computer. From there you can open RevBayes using
+<code>./rb</code>. You might have to navigate to your security settings
+to enable RevBayes to run on your device. It should look something like
+this:</p>
 <p><img src="RB_terminal.png" alt="" width="70%" style="padding:1px" /></p>
 <p>Ready to go! Reach out to an instructor if you encounter any
 issues.</p>
@@ -418,6 +419,18 @@ setwd(&quot;/Users/warnock/Documents/phylogenetics/exercise_03&quot;)
 getwd()
 # to exit RevBayes
 q()</code></pre>
+<blockquote>
+<p>Try to switch to a different working directory or file path on your
+computer. Use the <code>getwd()</code> command to make sure you’re in
+the correct place.</p>
+</blockquote>
+<p><strong>Tips for windows users:</strong> To identify the file path of
+a given file or directory you can simply copy and paste the file icon
+(this will copy the file path to working memory). If that doesn’t work,
+you should be able to select “Copy as path”. However, you’ll need to
+switch the forward slashes (<code>/</code>) to back slashes when using
+RevBayes (<code>\</code>) (I don’t know why). It shouldn’t matter if you
+have spaces in the file path.</p>
 <p>It’s sometimes useful to know how to clear the working memory in
 RevBayes, e.g., to avoid redefining variables.</p>
 <pre class="r"><code># clear working memory 

@@ -16,7 +16,7 @@ It has it's own command line language, similar to the R programming language, th
 
 ## Running RevBayes
 
-First make sure you can [download](https://revbayes.github.io/download) and install the software. We recommend running RevBayes in the terminal (or GitBash if using windows). There are a few ways to do this but perhaps the easiest way is to change working directory or `cd` to where the RevBayes executable is on your computer. From there you can open RevBayes using `./rb`. You might have to navigate to your security settings to enable RevBayes to run on your device. It should look something like this:
+First make sure you can [download](https://revbayes.github.io/download) and install the software. We recommend running RevBayes in the terminal (or [GitBash](https://git-scm.com/install/windows) if using windows). There are a few ways to do this but perhaps the easiest way is to change working directory or `cd` to where the RevBayes executable is on your computer. From there you can open RevBayes using `./rb`. You might have to navigate to your security settings to enable RevBayes to run on your device. It should look something like this:
 
 ```{r, echo=FALSE, out.width="70%",  out.extra='style="padding:1px"'}
 knitr::include_graphics("RB_terminal.png")
@@ -135,6 +135,11 @@ getwd()
 # to exit RevBayes
 q()
 ```
+
+> Try to switch to a different working directory or file path on your computer.
+Use the `getwd()` command to make sure you're in the correct place.  
+
+**Tips for windows users:** To identify the file path of a given file or directory you can simply copy and paste the file icon (this will copy the file path to working memory). If that doesn't work, you should be able to select "Copy as path". However, you'll need to switch the forward slashes (`/`) to back slashes when using RevBayes (`\`) (I don't know why). It shouldn't matter if you have spaces in the file path. 
 
 It's sometimes useful to know how to clear the working memory in RevBayes, e.g., to avoid redefining variables.  
 
