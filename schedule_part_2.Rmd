@@ -209,4 +209,21 @@ kbl(dt) %>%
 
 ```
 
+## Week 8
 
+```{r, echo = FALSE}
+
+library(kableExtra)
+
+urls <- c("slides/11-RB_intro.pdf",  "exercise-12-RB-intro.html","exercise-13-RB-trees.html")
+
+dt <- data.frame(schedule = c("Slides", "Exercise 12", "Homework"),
+                 topics = c("Intro to RevBayes and graphical models", "Getting started with RevBayes", "Bayesian tree inference using RevBayes"))
+dt$schedule[1] <- paste0("[", dt$schedule[1], "](", urls[1], ")")
+dt$schedule[2] <- paste0("[", dt$schedule[2], "](", urls[2], ")")
+dt$schedule[3] <- paste0("[", dt$schedule[3], "](", urls[3], ")")
+
+kbl(dt) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
