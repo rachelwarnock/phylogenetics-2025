@@ -227,3 +227,30 @@ kbl(dt) %>%
   kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
 
 ```
+
+## Weeks 9 and 10
+
+Go through any material or exercises you haven't completed yet and start working on your [project](projects.html). 
+
+## Week 11
+
+```{r, echo = FALSE}
+
+library(kableExtra)
+
+urls <- c("slides/12_Morphological_models.pdf",  "https://revbayes.github.io/tutorials/pps_morpho/",
+          "slides/Lewis_Q&A.pdf")
+
+dt <- data.frame(schedule = c("Slides", "Exercise 13", "Slides"),
+                 topics = c("Morphological models", "Model adequacy using RevBayes", "Paul Lewis Q&A"))
+dt$schedule[1] <- paste0("[", dt$schedule[1], "](", urls[1], ")")
+dt$schedule[2] <- paste0("[", dt$schedule[2], "](", urls[2], ")")
+dt$schedule[3] <- paste0("[", dt$schedule[3], "](", urls[3], ")")
+
+kbl(dt) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
+
+
+
