@@ -253,4 +253,23 @@ kbl(dt) %>%
 ```
 
 
+## Week 12
+
+```{r, echo = FALSE}
+
+library(kableExtra)
+
+urls <- c("slides/13_ASR.pdf")
+
+dt <- data.frame(schedule = c("Slides", ""),
+                 topics = c("Ancestral state reconstruction", "Project work"))
+dt$schedule[1] <- paste0("[", dt$schedule[1], "](", urls[1], ")")
+
+kbl(dt) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
+
+
+
 
